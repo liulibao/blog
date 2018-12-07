@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -16,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password'
     ];
 
     /**
@@ -30,7 +31,7 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
-     *
+     * 获取存储在JWT主题声明中的标识符。返回的是数据表中的主键
      * @return mixed
      */
     public function getJWTIdentifier()
@@ -40,7 +41,7 @@ class User extends Authenticatable implements JWTSubject
 
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
-     *
+     * 返回一个键值数组，其中包含要添加到JWT中的任何自定义声明
      * @return array
      */
     public function getJWTCustomClaims()

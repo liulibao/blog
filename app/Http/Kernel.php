@@ -4,11 +4,12 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+
 class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
-     *
+     * 全局中间件
      * These middleware are run during every request to your application.
      *
      * @var array
@@ -23,7 +24,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware groups.
-     *
+     *  注册中间件组
      * @var array
      */
     protected $middlewareGroups = [
@@ -40,15 +41,16 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+//            ApiAuthenticate::class,
         ],
     ];
 
     /**
      * The application's route middleware.
-     *
+     * 路由中间件
      * These middleware may be assigned to groups or used individually.
-     *
      * @var array
+     *
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
@@ -60,6 +62,10 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'api.auth' => \App\Http\Middleware\ApiAuthenticate::class, //验证api
+//        'api.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
+        'api.refresh' => \App\Http\Middleware\RefreshToken::class,
+        'test' => \App\Http\Middleware\CheckTest::class,
     ];
 
     /**
