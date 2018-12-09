@@ -10,8 +10,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>lovya@管理后台</title>
+    <title>@yield('title', 'lovya@管理后台')</title>
+    <meta name="description" content="@yield('description','个人博客')">
+    <meta name="keywords" content="@yield('keywords','学习框架,laravel,php,java')">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta http-equiv="content-type" content="text/html; charset=gb2312">
+        <meta http-equiv="content-language" content="zh-cn">
     <!-- Bootstrap 3.3.4 -->
     <link href="{{asset('adminLET/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
@@ -87,7 +91,7 @@
                 </div>
             </div>
 
-            @include('admin.layouts.sidebar')
+            @include('admin.layouts._sidebar')
         </section>
     </aside>
 
@@ -112,7 +116,7 @@
         </section>
     </div>
 
-    @include('admin.layouts.footer')
+    @include('admin.layouts._footer')
 </div>
 
 

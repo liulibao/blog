@@ -7,3 +7,7 @@
  */
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::namespace('Article')->group( function (){
+    Route::get('article', 'ArticleController@index')->name('article/index');
+});
