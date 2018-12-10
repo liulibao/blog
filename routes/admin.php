@@ -5,9 +5,22 @@
  * Date: 2018/12/6
  * Time: 22:00
  */
+if(config('domain.admin.domain')){
+    Route::domain(config('domain.admin.domain'))->group(function () {
 
-Route::get('/', 'HomeController@index')->name('home');
+        //首页
+        Route::get('/', 'HomeController@index')->name('home');
 
-Route::namespace('Article')->group( function (){
-    Route::get('article', 'ArticleController@index')->name('article/index');
-});
+        Route::namespace('Article')->group(function () {
+            Route::get('article', 'ArticleController@index')->name('article');
+            Route::get('article/category', 'ArticleCategoryController@index')->name('article/category');
+            Route::get('article/category/edit', 'ArticleCategoryController@edit')->name('article/category/edit');
+        });
+
+        Route::get('/icons', function () {
+            return view('admin.dashboard.icons');
+        });
+
+
+    });
+}

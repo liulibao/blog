@@ -6,7 +6,7 @@
  * Time: 9:58
  */
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories;
 
 
 use App\Exceptions\RepositoryException;

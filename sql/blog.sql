@@ -51,13 +51,15 @@ CREATE TABLE `bg_articles`(
   KEY `id_category_id` (`id`,`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 
-
 -- 文章分类
-CREATE TABLE `bg_categories`(
+CREATE TABLE `bg_article_categories`(
   `id` int(10) unsigened NOT NULL auto_increment,
   `name` VARCHAR(255) NOT NULL DEFAULT '' comment'分类标题',
   `use_num` int(11) NOT NULL default '0' comment '该标签被存储的次数',
   `article_ids` VARCHAR(255) NOT NULL DEFAULT '0' comment '以json格式存放文章的ID',
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `deleted_at` timestamp NOT NULL DEFAULT '0' COMMENT '删除时间',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
 

@@ -26,6 +26,16 @@
     <link href="{{asset('adminLET/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('adminLET/dist/css/skins/_all-skins.min.css')}}" rel="stylesheet" type="text/css" />
 
+    <style>
+        .box-footer {
+            text-align: right;
+        }
+        .box-footer ul{
+            margin: 0;
+            border-radius: 4px;
+        }
+    </style>
+
     @yield('style')
 
 </head>

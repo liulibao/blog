@@ -6,16 +6,17 @@
  * Time: 22:40
  */
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories\Article;
 
 
-use App\Models\ArticleAssort;
+use App\Models\ArticleCategory;
+use App\Repositories\BaseRepository;
 
-class ArticleAssortRepository extends BaseRepositoryEloquent
+class ArticleCategoryRepository extends BaseRepository
 {
     public function model()
     {
-        return ArticleAssort::class;
+        return ArticleCategory::class;
     }
 
     /**
