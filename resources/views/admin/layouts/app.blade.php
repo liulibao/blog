@@ -131,9 +131,9 @@
 
 
 
+<!-- AdminLTE App -->
 <script src="{{asset('adminLET/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
 <script src="{{asset('adminLET/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
-<!-- AdminLTE App -->
 <script src="{{asset('adminLET/dist/js/app.min.js')}}" type="text/javascript"></script>
 
 @yield('script')

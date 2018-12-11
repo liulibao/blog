@@ -15,14 +15,15 @@ class ApiResponse
      * 成功响应
      * @param array $data
      * @param string $message
-     * @param int $code
+     * @param int $status
      * @return \Illuminate\Http\JsonResponse
-     * @internal param array $dat
+     * @internal param int $code
+     * @internal param array $data
      */
-    public static function success($data = array(), $message = '操作成功', $code = 1)
+    public static function success($data = array(), $message = '操作成功', $status = 1)
     {
         $info = array(
-            'code' => $code,
+            'status' => $status,
             'message' => $message,
             'data' => $data
         );
@@ -33,13 +34,14 @@ class ApiResponse
     /**
      * 失败响应
      * @param string $message
-     * @param int $code
+     * @param int $status
      * @return \Illuminate\Http\JsonResponse
+     * @internal param
      */
-    public static function error($message = '操作失败', $code = 0)
+    public static function error($message = '操作失败', $status = 0)
     {
         $info = array(
-            'code' => $code,
+            'status' => $status,
             'message' => $message
         );
         return response()->json($info);

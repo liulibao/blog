@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Repositories\Article\ArticleCategoryRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ArticleCategoryController extends BaseController
 {
@@ -55,8 +56,15 @@ class ArticleCategoryController extends BaseController
 
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        try{
+            Log::info($request->all());
+
+            return ApiResponse::success([], '操作成功');
+        } catch (\Exception $exception) {
+            return ApiResponse::error($exception->getMessage());
+        }
 
     }
 }

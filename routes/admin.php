@@ -13,8 +13,9 @@ if(config('domain.admin.domain')){
 
         Route::namespace('Article')->group(function () {
             Route::get('article', 'ArticleController@index')->name('article');
-            Route::get('article/category', 'ArticleCategoryController@index')->name('article/category');
-            Route::get('article/category/edit', 'ArticleCategoryController@edit')->name('article/category/edit');
+            Route::get('article/category', 'ArticleCategoryController@index')->name('article.category');
+            Route::get('article/category/edit', 'ArticleCategoryController@edit')->name('article.category.edit');
+            Route::post('article/category/store', 'ArticleCategoryController@store')->name('article.category.store');
         });
 
         Route::get('/icons', function () {

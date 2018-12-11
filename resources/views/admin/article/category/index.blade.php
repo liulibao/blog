@@ -7,7 +7,7 @@
                 <div class="box-header" style="padding-left: 0;">
                     <h3 class="box-title">{{isset($page_title) ? $page_title : ''}}</h3>
                     <div  style="text-align: right">
-                        <a href="{{url('article/category/edit')}}" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> 添加</a>
+                        <a href="{{url('article/category/edit')}}" class="btn btn-info"><i class="fa fa-plus"></i> 添加分类</a>
                     </div>
                 </div>
 
