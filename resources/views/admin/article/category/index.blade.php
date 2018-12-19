@@ -29,7 +29,7 @@
                                 <td>{{$item->created_at}}</td>
                                 {{--<td><span class="label label-success  label-warning  label-primary label-danger">Approved</span></td>--}}
                                 <td>
-                                    <a href="{{url('article/category/edit')}}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> 编辑</a>
+                                    <a href="{{url('article/category/edit?id='.$item->id)}}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> 编辑</a>
                                     <a class="btn btn-danger btn-sm"><i class="fa  fa-trash"></i> 删除</a>
                                 </td>
                             </tr>

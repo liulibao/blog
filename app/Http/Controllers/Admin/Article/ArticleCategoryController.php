@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin\Article;
 
 
 use App\Http\Controllers\Admin\BaseController;
+use App\Http\Request\ArticleCategoryRequest;
 use App\Repositories\Article\ArticleCategoryRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -56,12 +57,11 @@ class ArticleCategoryController extends BaseController
 
     }
 
-    public function store(Request $request)
+    public function store(ArticleCategoryRequest $request)
     {
         try{
-            Log::info($request->all());
-
-            return ApiResponse::success([], '操作成功');
+            $this->repository->create($request->all());
+            return ApiResponse::success();
         } catch (\Exception $exception) {
             return ApiResponse::error($exception->getMessage());
         }

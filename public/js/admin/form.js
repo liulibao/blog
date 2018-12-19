@@ -11,10 +11,10 @@ jQuery(document).ready(function() {
     $('.submitFormBtu').click(function (e) {
         e.defaultPrevented = false;
         var _this = $(this);
-        var back_url = $(this).attr('back_url');
+        var back_url = $(this).attr('data-back-url');
         var elements = getElements('postForm');
         layer.confirm(
-            '您是如何看待前端开发？',
+            '确定提交嘛？',
             {icon: 3, title:'提示'},
             function(){
                 ajaxElement(elements, _this, back_url);
@@ -29,45 +29,50 @@ jQuery(document).ready(function() {
             type : 'POST',
             dataType : 'json',
             data : $(elements).serialize(),
-            success : function (result) {
-                if (result.status == 1) {
-                    if (result.message) {
-                        layer.msg(result.message, {icon: 1});
+            success : function (res) {
+                console.log(res);
+                if (res.status == 1) {
+                    if (res.message) {
+                        layer.msg(res.message, {icon: 1});
                     }
-                    if (result.url) {
-                        window.location.href=result.url;
+                    if (res.url) {
+                        window.location.href=res.url;
                     }
                     if (back_url != null && back_url !== 'undefined') {
                         window.location.href = back_url;
+                    } else {
+                        window.location.reload();
                     }
-                    window.location.reload();
+
                 } else {
 
-                    errorMessage = '';
-                    if (JSON.stringify(result.errors) === '') {
+                    // errorMessage = '';
+                    // if (JSON.stringify(res.message) === '') {
+                    //
+                    //     if (res.message instanceof Object) {
+                    //         $.each(res.message , function (index, value) {
+                    //             layer.msg(value, {icon: 2});
+                    //         });
+                    //     } else {
+                    //         layer.msg(res.message, {icon: 2});
+                    //     }
+                    //
+                    // } else {
+                    //
+                    //     $.each(res.error, function(i,n) {
+                    //         errorMessage += n+'<br>';
+                    //     });
+                    //
+                    //     layer.msg(errorMessage, {icon: 2});
+                    // }
 
-                        if (result.message instanceof Object) {
-                            $.each(result.message , function (index, value) {
-                                layer.msg(value, {icon: 2});
-                            });
-                        } else {
-                            layer.msg(result.message, {icon: 2});
-                        }
-
-                    } else {
-
-                        $.each(result.errors, function(i,n) {
-                            errorMessage += n+'<br>';
-                        });
-
-                        layer.msg(errorMessage, {icon: 2});
-                    }
+                    layer.msg( res.message, {icon: 2});
                     return false;
                 }
             },
-
             error : function () {
-                layer.msg('服务器繁忙', {icon: 2});return false;
+                layer.msg('服务器繁忙', {icon: 2});
+                return false;
             }
         });
     };
@@ -227,11 +232,11 @@ jQuery(document).ready(function() {
                     text: '确认',
                     btnClass: 'btn-primary',
                     action: function() {
-                        $.get(url,{'id':id},function (result){
-                            if (result.status == '1') {
+                        $.get(url,{'id':id},function (res){
+                            if (res.status == '1') {
                                 window.location.reload();
                             } else {
-                                layer.msg(result.message,'错误提示');
+                                layer.msg(res.message,'错误提示');
                             }
                         },'json');
                     }
@@ -263,11 +268,11 @@ jQuery(document).ready(function() {
                             type : 'POST',
                             dataType : 'json',
                             data : {id:id},
-                            success : function (result) {
-                                if (result.status == 1) {
+                            success : function (res) {
+                                if (res.status == 1) {
                                     window.location.reload();
                                 } else {
-                                    layer.msg(result.message,'错误提示');
+                                    layer.msg(res.message,'错误提示');
                                 }
                             },
                             error : function () {

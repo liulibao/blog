@@ -13,5 +13,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ArticleCategory extends Model
 {
-    protected $fillable = ['id','name','use_num','article_ids'];
+    protected $fillable = ['name'];
 }

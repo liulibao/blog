@@ -106,6 +106,7 @@ abstract class BaseRepository
     }
 
     /**
+     * 保存没有大量分配的模型
      * save a model without massive assignment
      *
      * @param array $data

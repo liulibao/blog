@@ -14,17 +14,20 @@
             </div>
 
             <form action="{{url('article/category/store')}}" class="form-horizontal" id="postForm">
+
+                {{ csrf_field() }}
+
                 <div class="box-body">
                     <div class="form-group">
                         <label for="input_name" class="col-sm-3 control-label">分类标题 :</label>
                         <div class="col-sm-6" style="padding-left: 0;">
-                            <input type="text" name="name" class="form-control" id="input_name" placeholder="请填写分类标题">
+                            <input type="text" name="name" value="{{isset($data) ? $data->name : ''}}" class="form-control" id="input_name" placeholder="请填写分类标题">
                         </div>
                     </div>
                 </div>
 
                 <div class="box-footer" style="text-align: center">
-                    <a href="javascript:void (0);" class="btn btn-info submitFormBtu" >立即提交</a>
+                    <a href="javascript:void (0);" data-back-url="{{route('admin.article.category')}}" class="btn btn-info submitFormBtu" >立即提交</a>
                     <a href="javascript:history.go(-1);" class="btn btn-default"> 返回</a>
                 </div>
 
