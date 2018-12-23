@@ -35,7 +35,20 @@ class ArticleCategoryRepository extends BaseRepository
      */
     public function getLists()
     {
-        return $this->model->orderBy('id','desc')->paginate();
+        return $this->model->where('deleted_at', 0)
+            ->orderBy('id','desc')
+            ->paginate();
+    }
+
+    /**
+     * 获取分类的ID和标题
+     * @return mixed
+     */
+    public function getAll()
+    {
+        return $this->model->where('deleted_at', 0)
+            ->select('id', 'name')
+            ->get();
     }
 
 }

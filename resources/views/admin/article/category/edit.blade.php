@@ -1,8 +1,5 @@
 @extends('admin.layouts.app')
 
-@section('style')
-    {{--<link href="https://cdn.bootcss.com/jquery-confirm/3.2.3/jquery-confirm.min.css" rel="stylesheet">--}}
-@stop
 
 @section('contents')
 
@@ -17,6 +14,8 @@
 
                 {{ csrf_field() }}
 
+                <input type="hidden" name="id" value="{{isset($data) ? $data->id : ''}}">
+
                 <div class="box-body">
                     <div class="form-group">
                         <label for="input_name" class="col-sm-3 control-label">分类标题 :</label>
@@ -27,7 +26,9 @@
                 </div>
 
                 <div class="box-footer" style="text-align: center">
-                    <a href="javascript:void (0);" data-back-url="{{route('admin.article.category')}}" class="btn btn-info submitFormBtu" >立即提交</a>
+                    <a href="javascript:void (0);" data-back_url="{{route('admin.article.category')}}" data-is_confirm="false"
+                       class="btn btn-info submitFormBtu" >立即提交
+                    </a>
                     <a href="javascript:history.go(-1);" class="btn btn-default"> 返回</a>
                 </div>
 
@@ -39,18 +40,17 @@
 @stop
 
 @section('script')
-    <script src="{{asset('layui/layui.all.js')}}"></script>
     <script src="{{asset('js/admin/form.js')}}"></script>
-    <script>
-        //Demo
-        layui.use('form', function(){
-            var form = layui.form;
-            //监听提交
-            form.on('submit(formDemo)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
-        });
-    </script>
+    {{--<script>--}}
+        {{--//Demo--}}
+        {{--layui.use('form', function(){--}}
+            {{--var form = layui.form;--}}
+            {{--//监听提交--}}
+            {{--form.on('submit(formDemo)', function(data){--}}
+                {{--layer.msg(JSON.stringify(data.field));--}}
+                {{--return false;--}}
+            {{--});--}}
+        {{--});--}}
+    {{--</script>--}}
 
 @stop

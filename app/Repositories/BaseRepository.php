@@ -122,25 +122,48 @@ abstract class BaseRepository
 
     /**
      * 更新
-     * @param array $data
-     * @param $id
-     * @param string $attribute
+     * @param $data
+     * @param $condition
      * @return mixed
+     * @throws RepositoryException
      */
-    public function update(array $data, $id, $attribute = "id")
+    public function update(array $data, $condition)
     {
-        return $this->model->where($attribute, '=', $id)->update($data);
+        if(empty($data)){
+            throw new RepositoryException('修改内容不可为空');
+        }
+
+        if(isset($data['_token'])){
+            unset($data['_token']);
+        }
+
+        if(is_array($condition)){
+            list($key, $val) = $condition;
+        } else {
+            list($key, $val) = array('id', $condition);
+        }
+
+        return $this->model->where($key, $val)->update($data);
     }
 
 
     /**
      * 根据id删除
      * @param $id
+     * @param bool $isSoftDelete
      * @return mixed
      */
-    public function delete($id)
+    public function delete($id, $isSoftDelete = false)
     {
-        return $this->model->destroy($id);
+        if($isSoftDelete){
+            $data = array(
+                'deleted_at' => time()
+            );
+
+            return $this->model->where('id', $id)->update($data);
+        } else {
+            return $this->model->destroy($id);
+        }
     }
 
 

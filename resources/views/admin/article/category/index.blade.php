@@ -27,10 +27,15 @@
                                 <td class="sorting_1">{{$item->id}}</td>
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->created_at}}</td>
-                                {{--<td><span class="label label-success  label-warning  label-primary label-danger">Approved</span></td>--}}
                                 <td>
-                                    <a href="{{url('article/category/edit?id='.$item->id)}}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> 编辑</a>
-                                    <a class="btn btn-danger btn-sm"><i class="fa  fa-trash"></i> 删除</a>
+                                    <a href="{{url('article/category/edit?id='.$item->id)}}" class="btn btn-default btn-sm">
+                                        <i class="fa fa-edit"></i> 编辑
+                                    </a>
+
+                                    <a href="javascript:void (0);"  class="btn btn-danger btn-sm submitDelete"
+                                       data-url="{{url('article/category/delete')}}" data-id="{{$item->id}}">
+                                        <i class="fa  fa-trash"></i> 删除
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
@@ -44,3 +49,7 @@
         </div>
     </div>
 @stop
+
+@section('script')
+    <script src="{{asset('js/admin/form.js')}}"></script>
+@endsection

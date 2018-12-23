@@ -6,21 +6,37 @@
  * Time: 13:51
  */
 
-namespace App\Repositories\Eloquent;
+namespace App\Repositories\Article;
 
 
-use App\Models\Articles;
+use App\Models\Article;
+use App\Repositories\BaseRepository;
 
 class ArticleRepository extends BaseRepository
 {
 
     public function model()
     {
-        return Articles::class;
+        return Article::class;
     }
 
-    public function findAll()
+    /**
+     * 获取文章tag
+     * @return mixed
+     */
+    public function getTags()
     {
-        return $this->model->paginate(1);
+        return $this->model->tags();
+    }
+
+    /**
+     * 文章列表
+     * @return mixed
+     */
+    public function getLists()
+    {
+        return $this->model->where('deleted_at', 0)
+            ->orderBy('id', 'desc')
+            ->paginate();
     }
 }

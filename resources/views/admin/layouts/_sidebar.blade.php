@@ -17,7 +17,7 @@
         <ul class="treeview-menu">
             <li class="active">
                 <a href="{{url('/article')}}">
-                    <i class="fa fa-circle-o text-red text-yellow text-aqua"></i> 文章列表
+                    <i class="fa fa-circle-o {{--text-red text-yellow text-aqua--}}"></i> 文章列表
                 </a>
             </li>
             <li>

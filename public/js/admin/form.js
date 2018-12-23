@@ -7,19 +7,37 @@ jQuery(document).ready(function() {
         });
    }
 */
+
+    //获取表单所有信息
+    getElements = function (formId) {
+        var form = document.getElementById(formId);
+        if (!$(form).is('form')) {
+            layer.msg('非表单数据',{icon: 3});
+            return false;
+        }
+        return form;
+    };
+
     //ajax 提议提交表单信息
     $('.submitFormBtu').click(function (e) {
         e.defaultPrevented = false;
         var _this = $(this);
-        var back_url = $(this).attr('data-back-url');
+        var back_url = $(this).data('back_url');
+        var is_confirm = $(this).data('is_confirm');
+        console.log(is_confirm);
         var elements = getElements('postForm');
-        layer.confirm(
-            '确定提交嘛？',
-            {icon: 3, title:'提示'},
-            function(){
-                ajaxElement(elements, _this, back_url);
-            }
-        );
+        if(is_confirm) {
+            layer.confirm(
+                '确定提交嘛？',
+                {icon: 3, title:'提示'},
+                function(){
+                    ajaxElement(elements, _this, back_url);
+                }
+            );
+        } else {
+            ajaxElement(elements, _this, back_url);
+        }
+
     });
 
     //ajax 提交
@@ -77,15 +95,24 @@ jQuery(document).ready(function() {
         });
     };
 
-    //获取表单所有信息
-    getElements = function (formId) {
-        var form = document.getElementById(formId);
-        if (!$(form).is('form')) {
-            layer.msg('非表单数据',{icon: 3});
-            return false;
-        }
-        return form;
-    };
+    //AJAX  GET提交删除操作
+    $('.submitDelete').click(function (){
+        var url = $(this).data('url');
+        var id = $(this).data('id');
+        layer.confirm(
+            '你确定要删除该条(ID:'+id+')记录吗?',
+            {icon: 3, title:'提示'},
+            function(){
+                $.get(url,{'id':id},function (res){
+                    if (res.status == '1') {
+                        window.location.reload();
+                    } else {
+                        layer.msg(res.message,'错误提示');
+                    }
+                },'json');
+            }
+        );
+    });
 
     getUserInfo = function (ele, _this, url) {
         var value = $(_this).val();
@@ -216,38 +243,6 @@ jQuery(document).ready(function() {
         $('#'+ saveIdName).val(removeObj);
         $(ele).parent().remove();
     };
-
-
-    //AJAX  GET提交删除操作
-    $('.submitDelGet').click(function (){
-        var url = $(this).attr('data-url');
-        var id = $(this).attr('data-id');
-        $.confirm({
-            title: '确认',
-            content: '你确定要删除该条(ID:'+id+')记录吗?',
-            type: 'grey',
-            icon: 'glyphicon glyphicon-question-sign',
-            buttons: {
-                ok: {
-                    text: '确认',
-                    btnClass: 'btn-primary',
-                    action: function() {
-                        $.get(url,{'id':id},function (res){
-                            if (res.status == '1') {
-                                window.location.reload();
-                            } else {
-                                layer.msg(res.message,'错误提示');
-                            }
-                        },'json');
-                    }
-                },
-                cancel: {
-                    text: '取消',
-                    btnClass: 'btn-primary'
-                }
-            }
-        });
-    });
 
     //根据class来提交数据
     classBtu = function(ele, message){

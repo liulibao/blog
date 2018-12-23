@@ -14,6 +14,7 @@
             <div class="card card-primary card-outline">
                 <div class="card-header">
                     <h3>欢迎使用Lovya博客管理后台</h3>
+                    {{--<span class="label label-success  label-warning  label-primary label-danger">Approved</span>--}}
                 </div>
             </div>
         </div>

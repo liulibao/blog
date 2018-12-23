@@ -20,8 +20,6 @@ class Article extends Model
             'is_top','is_comment','is_recommend'
         ];
 
-
-
     /**
      * 文章分类
      * @return array

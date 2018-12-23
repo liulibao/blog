@@ -34,6 +34,10 @@
             margin: 0;
             border-radius: 4px;
         }
+        .form-group label span{
+            color: red;
+            font-size: 15px;
+        }
     </style>
 
     @yield('style')
@@ -135,7 +139,7 @@
 <script src="{{asset('adminLET/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
 <script src="{{asset('adminLET/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('adminLET/dist/js/app.min.js')}}" type="text/javascript"></script>
-
+<script src="{{asset('layui/layui.all.js')}}"></script>
 @yield('script')
 </body>
 </html>

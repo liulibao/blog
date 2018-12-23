@@ -25,6 +25,7 @@ class ArticleCategoryController extends BaseController
         $this->repository = $repository;
     }
 
+    //文章分类列表
     public function index()
     {
         $page_title = '文章分类';
@@ -32,7 +33,7 @@ class ArticleCategoryController extends BaseController
         return view('admin.article.category.index',compact('page_title', 'lists'));
     }
 
-
+    //文章分类编辑
     public function edit(Request $request)
     {
         try{
@@ -57,14 +58,34 @@ class ArticleCategoryController extends BaseController
 
     }
 
+    //文章分类保存
     public function store(ArticleCategoryRequest $request)
     {
         try{
-            $this->repository->create($request->all());
+            if(empty($request->id)){
+                $this->repository->create($request->all());
+            } else {
+                $this->repository->update($request->all(), $request->id);
+            }
+
             return ApiResponse::success();
         } catch (\Exception $exception) {
             return ApiResponse::error($exception->getMessage());
         }
 
+    }
+
+    //文章分类删除
+    public function delete(Request $request)
+    {
+        try{
+            if(intval($request->id) <= 0){
+                throw new \Exception('请求参数错误');
+            }
+            $this->repository->delete($request->id, true);
+            return ApiResponse::success();
+        }catch (\Exception $exception){
+            return ApiResponse::error($exception->getMessage());
+        }
     }
 }
