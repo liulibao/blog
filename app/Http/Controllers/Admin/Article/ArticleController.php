@@ -31,25 +31,56 @@ class ArticleController extends BaseController
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function index()
+    /**
+     * 文章列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(Request $request)
     {
         $page_title = '文章列表';
-        $lists = $this->repository->getLists();
+        $lists = $this->repository->getLists($request);
         $tags = $this->repository->getTags();
         $category = $this->categoryRepository->getAll()->toArray();
         $category = format_array($category, 'id', 'name');
         return view('admin.article.index', compact('page_title', 'lists', 'tags', 'category'));
     }
 
-
-    public function edit()
+    /**
+     * 添加/修改文章
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit(Request $request)
     {
-        $page_title = '添加文章';
-        $tags = $this->repository->getTags();
-        $category = $this->categoryRepository->getAll();
-        return view('admin.article.edit', compact('page_title', 'tags', 'category'));
+        try{
+            $tags = $this->repository->getTags();
+            $category = $this->categoryRepository->getAll();
+
+            if(empty($request->id)){
+
+                $page_title = '添加文章';
+                return view('admin.article.edit', compact('page_title', 'tags', 'category'));
+            } else {
+
+                $page_title = '修改文章';
+                if(intval($request->id) <= 0){
+                    throw new \Exception('请求参数错误');
+                }
+                $lists = $this->repository->find($request->id);
+                return view('admin.article.edit', compact('page_title', 'tags', 'category', 'lists'));
+            }
+
+        } catch (\Exception $exception){
+            $message = $exception->getMessage();
+            return view('admin.errors.404', compact('message'));
+        }
     }
 
+    /**
+     * 保存数据
+     * @param ArticleRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(ArticleRequest $request)
     {
         try{
@@ -61,15 +92,33 @@ class ArticleController extends BaseController
                 unset($request['path']);
             }
 
-            $this->repository->create($request->all());
+            if(isset($request->id)){
+                $this->repository->update($request->all(), $request->id);
+            } else {
+                $this->repository->create($request->all());
+            }
+
             return ApiResponse::success();
         } catch (\Exception $exception){
             return ApiResponse::error($exception->getMessage());
         }
     }
 
+    /**
+     * 删除数据
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(Request $request)
     {
-
+        try{
+            if(intval($request->id) <= 0){
+                throw new \Exception('请求参数错误');
+            }
+            $this->repository->delete($request->id, true);
+            return ApiResponse::success();
+        } catch (\Exception $exception){
+            return ApiResponse::error($exception->getMessage());
+        }
     }
 }

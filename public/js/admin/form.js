@@ -24,7 +24,6 @@ jQuery(document).ready(function() {
         var _this = $(this);
         var back_url = $(this).data('back_url');
         var is_confirm = $(this).data('is_confirm');
-        console.log(is_confirm);
         var elements = getElements('postForm');
         if(is_confirm) {
             layer.confirm(
@@ -63,27 +62,6 @@ jQuery(document).ready(function() {
                     }
 
                 } else {
-
-                    // errorMessage = '';
-                    // if (JSON.stringify(res.message) === '') {
-                    //
-                    //     if (res.message instanceof Object) {
-                    //         $.each(res.message , function (index, value) {
-                    //             layer.msg(value, {icon: 2});
-                    //         });
-                    //     } else {
-                    //         layer.msg(res.message, {icon: 2});
-                    //     }
-                    //
-                    // } else {
-                    //
-                    //     $.each(res.error, function(i,n) {
-                    //         errorMessage += n+'<br>';
-                    //     });
-                    //
-                    //     layer.msg(errorMessage, {icon: 2});
-                    // }
-
                     layer.msg( res.message, {icon: 2});
                     return false;
                 }
@@ -112,6 +90,29 @@ jQuery(document).ready(function() {
                 },'json');
             }
         );
+    });
+
+    //ajax 搜索
+    $('.searchBtn').on('click', function () {
+        var elements = getElements('searchForm');
+        var params = $(elements).serialize();
+        var paramsObj = $(elements).serializeArray();
+        var isEmpty = true;
+        var url = '';
+
+        for(var key in paramsObj){
+            if(paramsObj[key]['value']){
+                isEmpty = false;
+            }
+        }
+
+        if(isEmpty){
+            url = $(elements).attr('action')
+        } else {
+            url =$(elements).attr('action')+'?'+params;
+        }
+
+        window.location.href= url;
     });
 
     getUserInfo = function (ele, _this, url) {

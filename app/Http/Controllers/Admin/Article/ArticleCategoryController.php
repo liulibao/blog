@@ -53,7 +53,8 @@ class ArticleCategoryController extends BaseController
             }
 
         } catch (\Exception $exception) {
-            return ApiResponse::error($exception->getMessage());
+            $message = $exception->getMessage();
+            return view('admin.errors.404', compact('message'));
         }
 
     }

@@ -138,12 +138,12 @@ abstract class BaseRepository
         }
 
         if(is_array($condition)){
-            list($key, $val) = $condition;
+            $map = $condition;
         } else {
-            list($key, $val) = array('id', $condition);
+            $map = array('id' => $condition);
         }
 
-        return $this->model->where($key, $val)->update($data);
+        return $this->model->where($map)->update($data);
     }
 
 
