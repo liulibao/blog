@@ -36,13 +36,13 @@ class ArticleRepository extends BaseRepository
      */
     public function getLists(Request $request)
     {
-        $result = $this->model->where('deleted_at', 0);
+        $result = $this->model;
         if(!empty($request->title)){
-            $result->where('title','like','%'.$request->title.'%');
+            $result = $result->where('title','like','%'.$request->title.'%');
         }
 
         if(!empty($request->category_id)){
-           $result->where('category_id', $request->category_id);
+            $result = $result->where('category_id', $request->category_id);
         }
 
         return $result->orderBy('id', 'desc')

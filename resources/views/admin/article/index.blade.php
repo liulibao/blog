@@ -11,30 +11,29 @@
             <div class="box col-xs-11">
                 <div class="box-header" style="padding-left: 0;">
                     <h3 class="box-title">{{isset($page_title) ? $page_title : ''}}</h3>
-                    <form action="{{url('article')}}" id="searchForm" method="get">
-                        <div class="form-group">
-                            <div class="col-sm-4" style="padding-left: 0;">
-                                <select  class="form-control" style="width: 40%" name="category_id" title="input_category">
-                                    <option value="0">请选择文章分类</option>
-                                    @foreach($category as $key => $item)
-                                        <option value="{{$key}}"
-                                            @if(null !== request('category_id') && request('category_id') == $key ) {{"selected='selected'"}}  @endif>
-                                            {{$item}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+
+                    <form action="{{url('article')}}" id="searchForm" method="get" class="search-form">
+                        <div class="col-sm-3 search-box">
+                            <label for="input_category">请选择分类</label>
+                            <select  class="form-control" style="width: 60%" name="category_id" title="请选择分类">
+                                <option value="0">请选择文章分类</option>
+                                @foreach($category as $key => $item)
+                                    <option value="{{$key}}"
+                                        @if(null !== request('category_id') && request('category_id') == $key ) {{"selected='selected'"}}  @endif>
+                                        {{$item}}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-sm-4" style="padding-left: 0;">
-                                <input type="text"  style="width: 40%" class="form-control" name="title"
-                                       value="{{(null !== request('title')) ? request('title') : ''}}"  title="">
-                            </div>
+                        <div class="col-sm-3 search-box">
+                            <label for="input_name" >请填写标题</label>
+                            <input type="text"  style="width: 60%" class="form-control" name="title"
+                                   value="{{(null !== request('title')) ? request('title') : ''}}"  title="请填写标题">
                         </div>
 
-                        <div  style="text-align: right">
-                            <a href="javascript:void (0);" class="btn btn-info searchBtn"><i class="fa fa-search"></i>搜 索 </a>
+                        <div class="search-btu-box" >
+                            <a href="javascript:void (0);" class="btn btn-info searchBtn"><i class="fa fa-search"></i> 搜 索 </a>
                             <a href="{{url('article/edit')}}" class="btn btn-info"><i class="fa fa-plus"></i> 添加文章</a>
                         </div>
                     </form>

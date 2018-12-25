@@ -13,6 +13,13 @@ if(config('domain.admin.domain')){
         //首页
         Route::get('/', 'HomeController@index')->name('home');
 
+        //用户管理
+        Route::namespace('User')->group(function () {
+            Route::get('user', 'UserController@index')->name('admin.user');
+            Route::get('user/subscriber', 'UserController@subscriber')->name('admin.subscriber');
+        });
+
+        //文章管理
         Route::namespace('Article')->group(function () {
             Route::get('article', 'ArticleController@index')->name('admin.article');
             Route::get('article/edit', 'ArticleController@edit')->name('admin.article.edit');

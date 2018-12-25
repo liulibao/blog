@@ -20,16 +20,6 @@ class ArticleCategoryRepository extends BaseRepository
     }
 
     /**
-     * 多条插入
-     * @param $data
-     * @return mixed
-     */
-    public function insert(array $data)
-    {
-        return $this->model->insert($data);
-    }
-
-    /**
      * 获取列表
      * @return mixed
      */
@@ -39,6 +29,17 @@ class ArticleCategoryRepository extends BaseRepository
             ->orderBy('id','desc')
             ->paginate();
     }
+
+    /**
+     * 多条插入
+     * @param $data
+     * @return mixed
+     */
+    public function insert(array $data)
+    {
+        return $this->model->insert($data);
+    }
+
 
     /**
      * 获取分类的ID和标题
