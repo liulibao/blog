@@ -82,7 +82,7 @@
         </a>
         <ul class="treeview-menu">
             <li>
-                <a href="http://master.lovya.cn/abouts/index">
+                <a href="{{url('diary')}}">
                     <i class="fa fa-circle-o"></i> 随心记录
                 </a>
             </li>

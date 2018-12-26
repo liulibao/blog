@@ -39,10 +39,10 @@ class ArticleController extends BaseController
     {
         $page_title = '文章列表';
         $lists = $this->repository->getLists($request);
-        $tags = $this->repository->getTags();
+        $types = $this->repository->getTypes();
         $category = $this->categoryRepository->getAll()->toArray();
         $category = format_array($category, 'id', 'name');
-        return view('admin.article.index', compact('page_title', 'lists', 'tags', 'category'));
+        return view('admin.article.index', compact('page_title', 'lists', 'types', 'category'));
     }
 
     /**
@@ -53,13 +53,13 @@ class ArticleController extends BaseController
     public function edit(Request $request)
     {
         try{
-            $tags = $this->repository->getTags();
+            $types = $this->repository->getTypes();
             $category = $this->categoryRepository->getAll();
 
             if(empty($request->id)){
 
                 $page_title = '添加文章';
-                return view('admin.article.edit', compact('page_title', 'tags', 'category'));
+                return view('admin.article.edit', compact('page_title', 'types', 'category'));
             } else {
 
                 $page_title = '修改文章';
@@ -67,7 +67,7 @@ class ArticleController extends BaseController
                     throw new \Exception('请求参数错误');
                 }
                 $lists = $this->repository->find($request->id);
-                return view('admin.article.edit', compact('page_title', 'tags', 'category', 'lists'));
+                return view('admin.article.edit', compact('page_title', 'types', 'category', 'lists'));
             }
 
         } catch (\Exception $exception){

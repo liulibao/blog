@@ -26,11 +26,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="input_name" class="col-sm-3 control-label"><span>*</span>文章归属 :</label>
+                        <label for="input_name" class="col-sm-3 control-label"><span>*</span>文章类型 :</label>
                         <div class="col-sm-4" style="padding-left: 0;">
-                            <select  class="form-control" style="width: 40%" name="tag_id" id="" title="tags">
-                                <option value="-1">请选择文章归属</option>
-                                @foreach($tags as $key => $item)
+                            <select  class="form-control" style="width: 40%" name="type_id" id="" title="tags">
+                                <option value="-1">请选择文章类型</option>
+                                @foreach($types as $key => $item)
                                     <option @if(isset($lists) && $lists->tag_id == $key) {{"selected='selected'"}} @endif value="{{$key}}">{{$item}}</option>
                                 @endforeach
                             </select>
@@ -118,7 +118,6 @@
 @stop
 
 @section('script')
-    <script src="{{asset('js/admin/form.js')}}"></script>
     <script type="text/javascript" charset="utf-8" src="{{asset('ueditor/ueditor.config.js')}}"></script>
     <script type="text/javascript" charset="utf-8" src="{{asset('ueditor/ueditor.all.min.js')}}"> </script>
     <script type="text/javascript" charset="utf-8" src="{{asset('ueditor/lang/zh-cn/zh-cn.js')}}"></script>

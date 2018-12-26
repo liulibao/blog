@@ -21,10 +21,10 @@ class Article extends Model
         ];
 
     /**
-     * 文章分类
+     * 文章类型
      * @return array
      */
-    public function tags()
+    public function types()
     {
         return
             array('原创', '转载', '翻译');

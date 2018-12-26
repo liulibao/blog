@@ -1222,7 +1222,7 @@ a:focus {
  * ---------------
  */
 .form-control {
-  border-radius: 0px !important;
+  border-radius: 5px !important;
   box-shadow: none;
   border-color: #d2d6de;
 }
@@ -3058,7 +3058,6 @@ table.text-center th {
 .register-box-body {
   background: #fff;
   padding: 20px;
-  color: #444;
   border-top: 0;
   color: #666;
 }

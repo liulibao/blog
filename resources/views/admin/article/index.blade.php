@@ -1,10 +1,5 @@
 @extends('admin.layouts.app')
 
-@section('title')
-@parent
-    文章详情
-@stop
-
 @section('contents')
     <div class="row">
         <div class="col-xs-12">
@@ -14,7 +9,7 @@
 
                     <form action="{{url('article')}}" id="searchForm" method="get" class="search-form">
                         <div class="col-sm-3 search-box">
-                            <label for="input_category">请选择分类</label>
+                            <label for="input_category">文章分类</label>
                             <select  class="form-control" style="width: 60%" name="category_id" title="请选择分类">
                                 <option value="0">请选择文章分类</option>
                                 @foreach($category as $key => $item)
@@ -27,7 +22,7 @@
                         </div>
 
                         <div class="col-sm-3 search-box">
-                            <label for="input_name" >请填写标题</label>
+                            <label for="input_name" >文章标题</label>
                             <input type="text"  style="width: 60%" class="form-control" name="title"
                                    value="{{(null !== request('title')) ? request('title') : ''}}"  title="请填写标题">
                         </div>
@@ -65,7 +60,7 @@
                                 <td>{{$item->read_num}}</td>
                                 <td>{{$item->like_num}}</td>
                                 <td>{{$item->comment_num}}</td>
-                                <td>{{$tags[$item->tag_id]}}</td>
+                                <td>{{$types[$item->type_id]}}</td>
                                 <td>{{$category[$item->category_id]}}</td>
                                 <td>{{$item->is_comment ? '是' : '否'}}</td>
                                 <td>{{$item->is_recommend ? '是' : '否'}}</td>
@@ -98,8 +93,4 @@
             </div>
         </div>
     </div>
-@stop
-
-@section('script')
-    <script src="{{asset('js/admin/form.js')}}"></script>
 @stop

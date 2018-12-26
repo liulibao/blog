@@ -17,6 +17,15 @@ if(config('domain.admin.domain')){
         Route::namespace('User')->group(function () {
             Route::get('user', 'UserController@index')->name('admin.user');
             Route::get('user/subscriber', 'UserController@subscriber')->name('admin.subscriber');
+            Route::get('user/delete', 'UserController@delete')->name('admin.delete');
+        });
+
+        //日记管理
+        Route::namespace('Diary')->group(function () {
+            Route::get('diary', 'DiaryController@index')->name('admin.diary');
+            Route::get('diary/edit', 'DiaryController@edit')->name('admin.diary.edit');
+            Route::get('diary/delete', 'DiaryController@delete')->name('admin.diary.delete');
+            Route::post('diary/store', 'DiaryController@store')->name('admin.diary.store');
         });
 
         //文章管理
@@ -35,7 +44,5 @@ if(config('domain.admin.domain')){
         Route::get('/icons', function () {
             return view('admin.dashboard.icons');
         });
-
-
     });
 }

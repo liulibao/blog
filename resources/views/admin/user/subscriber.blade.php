@@ -1,10 +1,5 @@
 @extends('admin.layouts.app')
 
-@section('title')
-@parent
-    用户列表
-@stop
-
 @section('contents')
     <div class="row">
         <div class="col-xs-12">
@@ -13,7 +8,7 @@
                     <h3 class="box-title">{{isset($page_title) ? $page_title : ''}}</h3>
                     <form action="{{url('user/subscriber')}}" id="searchForm" method="get" class="search-form">
                         <div class="col-sm-3 search-box">
-                            <label for="input_name" >请填写用户名</label>
+                            <label for="input_name" >用户名</label>
                             <input type="text"  style="width: 60%" class="form-control" name="name"
                                    value="{{(null !== request('name')) ? request('name') : ''}}"  title="请填写用户名">
                         </div>

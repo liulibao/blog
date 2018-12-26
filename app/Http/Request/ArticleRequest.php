@@ -28,7 +28,7 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'required' ,
-            'tag_id' => 'numeric|digits_between:0,2' ,
+            'type_id' => 'numeric|digits_between:0,2' ,
             'category_id' => 'numeric|min:1' ,
             'contents' => 'required',
             'sort' => 'required|numeric'
@@ -43,8 +43,8 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title.required' => '文章标题不能为空' ,
-            'tag_id.required' => '请选择正确文章归属' ,
-            'tag_id.digits_between' => '请选择正确文章归属' ,
+            'type_id.required' => '请选择正确文章归属' ,
+            'type_id.digits_between' => '请选择正确文章归属' ,
             'category_id.numeric' => '请选择正确文章分类' ,
             'category_id.min' => '请选择正确文章分类' ,
             'contents.required' => '请填写文章内容',

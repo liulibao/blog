@@ -25,9 +25,9 @@ class ArticleRepository extends BaseRepository
      * 获取文章tag
      * @return mixed
      */
-    public function getTags()
+    public function getTypes()
     {
-        return $this->model->tags();
+        return $this->model->types();
     }
 
     /**

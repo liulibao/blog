@@ -49,7 +49,3 @@
         </div>
     </div>
 @stop
-
-@section('script')
-    <script src="{{asset('js/admin/form.js')}}"></script>
-@endsection

@@ -27,6 +27,9 @@
     <link href="{{asset('adminLET/dist/css/skins/_all-skins.min.css')}}" rel="stylesheet" type="text/css" />
 
     <style>
+        body {
+            font-family: 微軟正黑體, Helvetica, Arial, Verdana, sans-serif !important;
+        }
         .box-footer {
             text-align: right;
         }
@@ -49,6 +52,9 @@
         }
         .search-btu-box{
             text-align: right
+        }
+        .table>tbody>tr>td{
+            padding: 4px;
         }
     </style>
 
@@ -152,6 +158,7 @@
 <script src="{{asset('adminLET/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('adminLET/dist/js/app.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('layui/layui.all.js')}}"></script>
+<script src="{{asset('js/admin/form.js')}}"></script>
 @yield('script')
 </body>
 </html>
