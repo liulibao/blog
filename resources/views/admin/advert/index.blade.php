@@ -6,7 +6,6 @@
             <div class="box col-xs-11">
                 <div class="box-header" style="padding-left: 0;">
                     <h3 class="box-title">{{isset($page_title) ? $page_title : ''}}</h3>
-
                     <form action="{{url('diary')}}" id="searchForm" method="get" class="search-form">
                         <div class="col-sm-3 search-box">
                             <label for="input_name" >广告标题</label>
@@ -14,9 +13,19 @@
                                    value="{{(null !== request('title')) ? request('title') : ''}}"  title="请填写标题">
                         </div>
 
+                        <div class="col-sm-3 search-box">
+                            <label for="input_name" >广告分类</label>
+                            <select name="type_id" id="select_type" style="width: 60%" class="form-control" title="请选择广告分类">
+                                <option value="0">请选择广告分类</option>
+                                @foreach($types as $key=>$val)
+                                    <option value="{{$key}}">{{$val}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="search-btu-box" >
                             <a href="javascript:void (0);" class="btn btn-info searchBtn"><i class="fa fa-search"></i> 搜 索 </a>
-                            <a href="{{url('diary/edit')}}" class="btn btn-info"><i class="fa fa-plus"></i> 添加广告</a>
+                            <a href="{{url('advert/edit')}}" class="btn btn-info"><i class="fa fa-plus"></i> 添加广告</a>
                         </div>
                     </form>
                 </div>
@@ -33,6 +42,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @if($lists)
                         @foreach($lists as $item)
                             <tr role="row" class="odd">
                                 <td class="sorting_1">{{$item->id}}</td>
@@ -57,6 +67,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>

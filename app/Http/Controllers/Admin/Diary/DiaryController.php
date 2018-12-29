@@ -46,8 +46,6 @@ class DiaryController extends BaseController
         try{
             if(empty($request->id)) {
                 $page_title = '添加日记';
-
-                return view('admin.diary.edit', compact('page_title'));
             } else {
                 $page_title = '编辑日记';
 
@@ -56,9 +54,9 @@ class DiaryController extends BaseController
                 }
 
                 $lists = $this->repository->find($request->id);
-
-                return view('admin.diary.edit', compact('page_title', 'lists'));
             }
+
+            return view('admin.diary.edit', compact('page_title', 'lists'));
         } catch (\Exception $exception){
             return redirect('admin/error')->with('error', $exception->getMessage());
         }

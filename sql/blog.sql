@@ -75,6 +75,23 @@ CREATE TABLE `bg_dairies`(
   PRIMARY KEY `id`(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '个人日记表';
 
+-- 广告管理
+CREATE TABLE `bg_adverts`(
+  `id` INT(10) unsigned NOT NULL auto_increment,
+  `uid` INT(10) unsigned NOT NULL DEFAULT 0 comment '创建用户ID',
+  `title` VARCHAR(255) NOT NULL DEFAULT '' comment '广告标题',
+  `type_id` tinyint(3) unsigned not null DEFAULT '0' comment '广告类型',
+  `path` VARCHAR(255) NOT NULL DEFAULT '' comment '图片路由',
+  `remarks` VARCHAR(500) NOT NULL DEFAULT '' comment '广告备注',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  `deleted_at` INT(11) unsigned NOT NULL DEFAULT '0' comment '删除时间',
+  PRIMARY KEY `id`(`id`),
+  KEY `uid`(`uid`),
+  KEY `type_id`(`type_id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '广告表';
+
+
 -- 文章评论表
 CREATE TABLE IF NOT EXISTS `bg_comments` (
   `id` int(11) unsigned NOT NULL auto_increment,
@@ -84,6 +101,20 @@ CREATE TABLE IF NOT EXISTS `bg_comments` (
 PRIMARY KEY  (`id`),
 KEY `use_num` (`use_num`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文章评论表';
+
+-- 附件表
+CREATE TABLE IF NOT EXISTS `bg_attachments`(
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `original` VARCHAR(255) NOT NULL DEFAULT '' comment '原始文件名',
+  `filename` VARCHAR(255) NOT NULL DEFAULT '' comment '文件名',
+  `path` VARCHAR(255) NOT NULL DEFAULT '' comment '文件路径',
+  `ext` VARCHAR(255) NOT NULL DEFAULT '' comment '文件尾缀',
+  `mime_type` VARCHAR(255) NOT NULL DEFAULT '' comment '文件类型',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  `deleted_at` INT(11) unsigned NOT NULL DEFAULT '0' comment '删除时间',
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='附件表';
 
 -- 文章评论回复表
 CREATE TABLE IF NOT EXISTS `bg_comment_replaies` (

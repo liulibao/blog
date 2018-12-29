@@ -17,7 +17,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="input_name" class="col-sm-3 control-label"><span>*</span>分类标题 :</label>
-                            <div class="col-sm-6" style="padding-left: 0;">
+                            <div class="col-sm-5 no-padding">
                                 <input type="text" name="name" value="{{isset($data) ? $data->name : ''}}" class="form-control" id="input_name" placeholder="请填写分类标题">
                             </div>
                         </div>

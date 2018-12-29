@@ -19,7 +19,7 @@
 
                     <div class="form-group">
                         <label for="input_name" class="col-sm-3 control-label"><span>*</span>文章标题 :</label>
-                        <div class="col-sm-4" style="padding-left: 0;">
+                        <div class="col-sm-4 no-padding">
                             <input type="text" name="title" value="{{isset($lists) ? $lists->title : ''}}" class="form-control" id="input_name"
                                    placeholder="请填写文章标题">
                         </div>
@@ -27,7 +27,7 @@
 
                     <div class="form-group">
                         <label for="input_name" class="col-sm-3 control-label"><span>*</span>文章类型 :</label>
-                        <div class="col-sm-4" style="padding-left: 0;">
+                        <div class="col-sm-4 no-padding">
                             <select  class="form-control" style="width: 40%" name="type_id" id="" title="tags">
                                 <option value="-1">请选择文章类型</option>
                                 @foreach($types as $key => $item)
@@ -39,7 +39,7 @@
 
                     <div class="form-group">
                         <label for="input_category" class="col-sm-3 control-label"><span>*</span>文章分类 :</label>
-                        <div class="col-sm-4" style="padding-left: 0;">
+                        <div class="col-sm-4 no-padding">
                             <select  class="form-control" style="width: 40%" name="category_id" title="input_category">
                                 <option value="0">请选择文章分类</option>
                                 @foreach($category as $item)
@@ -51,29 +51,35 @@
 
                     <div class="form-group" style="">
                         <label class="col-sm-3 control-label"><span>*</span>文章内容 :</label>
-                        <textarea  id="editor" name="contents" style="width:75%;height:400px;display: inline-block" title="文章内容"><?php echo isset($lists) ? $lists->contents : ''?></textarea >
-                        <div class="article_content"></div>
+                        <div class="col-sm-6 no-padding">
+                            <textarea  id="editor" name="contents" style="height:400px;display: inline-block" title="文章内容"><?php echo isset($lists) ? $lists->contents : ''?></textarea >
+                            <div class="article_content"></div>
+                        </div>
                     </div>
 
 
                     <div class="form-group">
                         <label for="input_sort" class="col-sm-3 control-label"><span>*</span>排序 :</label>
-                        <input type="text" name="sort" class="form-control" style="width:20%;" id="input_sort"
+                        <div class="col-sm-4 no-padding">
+                            <input type="text" name="sort" class="form-control" style="width:40%;" id="input_sort"
                                value="{{isset($lists) ? $lists->sort : ''}}" placeholder="填写序号越小越靠前1-最靠前">
+                        </div>
                     </div>
 
 
                     <div class="form-group">
                         <label for="input_keyword" class="col-sm-3 control-label">关键字 :</label>
                         {{--<input name="keyword" value="" type="hidden" id="keywords">--}}
-                        <span data-save-id="keywords" data-limit-num="6">
-                             <input type="text" name="keyword" class="form-control key-word" style="width: 30%;" id="input_keyword" placeholder="添加关键字">
-                        </span>
+                        <div class="col-sm-4 no-padding">
+                            <span data-save-id="keywords" data-limit-num="6">
+                                 <input type="text" name="keyword" class="form-control key-word" id="input_keyword" placeholder="添加关键字">
+                            </span>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label for="input_comment" class="col-sm-3 control-label"><span>*</span>是否评论 :</label>
-                        <div class="radio">
+                        <div class="radio col-sm-4 no-padding">
                             <label>
                                 <input type="radio" name="is_comment" value="0"
                                 @if(!isset($lists)) {{'checked="checked"'}} @elseif($lists->is_comment == 0) {{'checked="checked"'}} @endif > 允 许
@@ -87,7 +93,7 @@
 
                     <div class="form-group">
                         <label for="input_recommend" class="col-sm-3 control-label"><span>*</span>是否推荐 :</label>
-                        <div class="radio">
+                        <div class="radio col-sm-4 no-padding">
                             <label><input type="radio" name="is_recommend" value="1"
                                 @if(isset($lists) && $lists->is_recommend == 1) {{'checked="checked"'}} @endif> 推 荐</label>
                             <label style="margin-left:25px;"><input type="radio" name="is_recommend" value="0"
@@ -97,7 +103,10 @@
 
                     <div class="form-group">
                         <label for="input_path" class="col-sm-3 control-label" >关联文章的URL :</label>
-                        <input type="text" name="path" class="form-control" style="width: 45%;" value="{{isset($lists) && $lists->path ? $lists->path : ''}}" id="input_path" placeholder="http://www....">
+                        <div class="col-sm-4 no-padding">
+                            <input type="text" name="path" class="form-control"
+                                   value="{{isset($lists) && $lists->path ? $lists->path : ''}}" id="input_path" placeholder="http://www....">
+                        </div>
                     </div>
 
                 </div>

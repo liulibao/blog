@@ -59,7 +59,6 @@ class ArticleController extends BaseController
             if(empty($request->id)){
 
                 $page_title = '添加文章';
-                return view('admin.article.edit', compact('page_title', 'types', 'category'));
             } else {
 
                 $page_title = '修改文章';
@@ -67,9 +66,9 @@ class ArticleController extends BaseController
                     throw new \Exception('请求参数错误');
                 }
                 $lists = $this->repository->find($request->id);
-                return view('admin.article.edit', compact('page_title', 'types', 'category', 'lists'));
             }
 
+            return view('admin.article.edit', compact('page_title', 'types', 'category', 'lists'));
         } catch (\Exception $exception){
             $message = $exception->getMessage();
             return view('admin.errors.404', compact('message'));

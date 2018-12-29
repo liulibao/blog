@@ -97,7 +97,7 @@
         </a>
         <ul class="treeview-menu">
             <li>
-                <a href="">
+                <a href="{{url('advert')}}">
                     <i class="fa fa-circle-o"></i> 幻灯片管理
                 </a>
             </li>

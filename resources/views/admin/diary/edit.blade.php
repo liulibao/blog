@@ -19,7 +19,7 @@
 
                         <div class="form-group">
                             <label for="input_name" class="col-sm-3 control-label"><span>*</span>日记标题 :</label>
-                            <div class="col-sm-4" style="padding-left: 0;">
+                            <div class="col-sm-4 no-padding">
                                 <input type="text" name="title" value="{{isset($lists) ? $lists->title : ''}}" class="form-control" id="input_name"
                                        placeholder="请填写日记标题">
                             </div>
@@ -27,8 +27,10 @@
 
                         <div class="form-group" style="">
                             <label class="col-sm-3 control-label"><span>*</span>日记内容 :</label>
-                            <textarea  id="editor" name="contents" style="width:75%;height:400px;display: inline-block" title="日记内容"><?php echo isset($lists) ? $lists->contents : ''?></textarea >
-                            <div class="article_content"></div>
+                            <div class="col-sm-6 no-padding">
+                                <textarea  id="editor" name="contents" style="height:400px;display: inline-block" title="日记内容"><?php echo isset($lists) ? $lists->contents : ''?></textarea >
+                                <div class="article_content"></div>
+                            </div>
                         </div>
 
                     </div>

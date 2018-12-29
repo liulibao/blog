@@ -40,7 +40,6 @@ class ArticleCategoryController extends BaseController
             if(empty($request->id)){
 
                 $page_title = '添加分类';
-                return view('admin.article.category.edit',compact('page_title'));
             } else {
 
                 $page_title = '编辑分类';
@@ -49,9 +48,9 @@ class ArticleCategoryController extends BaseController
                 }
 
                 $data = $this->repository->find($request->id);
-                return view('admin.article.category.edit', compact('page_title', 'data'));
             }
 
+            return view('admin.article.category.edit', compact('page_title', 'data'));
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
             return view('admin.errors.404', compact('message'));
