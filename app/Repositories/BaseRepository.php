@@ -12,6 +12,7 @@ namespace App\Repositories;
 use App\Exceptions\RepositoryException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application as App;
+use Illuminate\Support\Facades\Log;
 
 
 abstract class BaseRepository
@@ -55,6 +56,7 @@ abstract class BaseRepository
         return $this->model->get($columns);
     }
 
+
     /**
      * 获取model中的关联关系
      * @param array $relations
@@ -62,8 +64,7 @@ abstract class BaseRepository
      */
     public function with(array $relations)
     {
-        $this->model = $this->model->with($relations);
-        return $this;
+        return $this->model->with($relations);
     }
 
     /**

@@ -6,7 +6,7 @@
             <div class="box col-xs-11">
                 <div class="box-header" style="padding-left: 0;">
                     <h3 class="box-title">{{isset($page_title) ? $page_title : ''}}</h3>
-                    <form action="{{url('diary')}}" id="searchForm" method="get" class="search-form">
+                    <form action="{{url('advert')}}" id="searchForm" method="get" class="search-form">
                         <div class="col-sm-3 search-box">
                             <label for="input_name" >广告标题</label>
                             <input type="text"  style="width: 60%" class="form-control" name="title"
@@ -18,7 +18,7 @@
                             <select name="type_id" id="select_type" style="width: 60%" class="form-control" title="请选择广告分类">
                                 <option value="0">请选择广告分类</option>
                                 @foreach($types as $key=>$val)
-                                    <option value="{{$key}}">{{$val}}</option>
+                                    <option value="{{$key}}" @if( request('type_id') == $key) {{'selected'}} @endif >{{$val}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -34,10 +34,12 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th >ID</th>
-                            <th style="width: 70%">广告标题</th>
-                            <th >状态</th>
-                            <th >创建时间</th>
+                            <th style="width: 8px;">ID</th>
+                            <th >广告标题</th>
+                            <th >广告LOGO</th>
+                            <th >广告类型</th>
+                            <th style="width: 5%;">状态</th>
+                            <th style="width: 12%;">创建时间</th>
                             <th style="width: 12%;">操作</th>
                         </tr>
                         </thead>
@@ -47,6 +49,8 @@
                             <tr role="row" class="odd">
                                 <td class="sorting_1">{{$item->id}}</td>
                                 <td>{{$item->title}}</td>
+                                <td><img src="{{$item->attachment !== null ? $item->attachment->path : ''}}" height="50" alt="暂无图片"></td>
+                                <td>{{$types[$item->type_id]}}</td>
                                 <td>
                                     @if($item->deleted_at > 0)
                                         <span class="label label-danger">已删除</span>
@@ -56,12 +60,12 @@
                                 </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>
-                                    <a href="{{url('diary/edit?id='.$item->id)}}"  class="btn btn-default btn-sm">
+                                    <a href="{{url('advert/edit?id='.$item->id)}}"  class="btn btn-default btn-sm">
                                         <i class="fa fa-edit"></i> 编辑
                                     </a>
 
                                     <a href="javascript:void (0);"  class="btn btn-danger btn-sm submitDelete"
-                                       data-url="{{url('diary/delete')}}" data-id="{{$item->id}}">
+                                       data-url="{{url('advert/delete')}}" data-id="{{$item->id}}">
                                         <i class="fa  fa-trash"></i> 删除
                                     </a>
                                 </td>

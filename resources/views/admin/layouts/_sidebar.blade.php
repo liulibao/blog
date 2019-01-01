@@ -45,12 +45,12 @@
         </a>
         <ul class="treeview-menu">
             <li>
-                <a href="">
+                <a href="{{url('role')}}">
                     <i class="fa fa-circle-o"></i> 角色管理
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{url('menu')}}">
                     <i class="fa fa-circle-o"></i> 目录管理
                 </a>
             </li>

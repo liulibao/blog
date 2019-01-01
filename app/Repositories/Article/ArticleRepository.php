@@ -45,7 +45,8 @@ class ArticleRepository extends BaseRepository
             $result = $result->where('category_id', $request->category_id);
         }
 
-        return $result->orderBy('id', 'desc')
+        return $result ->orderBy('deleted_at', 'asc')
+            ->orderBy('id', 'desc')
             ->paginate();
     }
 }

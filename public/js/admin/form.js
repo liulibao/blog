@@ -18,7 +18,7 @@ jQuery(document).ready(function() {
         return form;
     };
 
-    //ajax 提议提交表单信息
+    //AJAX 提议提交表单信息
     $('.submitFormBtu').click(function (e) {
         e.defaultPrevented = false;
         var _this = $(this);
@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
 
     });
 
-    //ajax 提交
+    //AJAX 提交
     ajaxElement = function (elements, _this, back_url){
         $.ajax({
             url : $(elements).attr('action'),
@@ -92,7 +92,7 @@ jQuery(document).ready(function() {
         );
     });
 
-    //ajax 搜索
+    //AJAX 搜索
     $('.searchBtn').on('click', function () {
         var elements = getElements('searchForm');
         var params = $(elements).serialize();
@@ -114,6 +114,46 @@ jQuery(document).ready(function() {
 
         window.location.href= url;
     });
+
+
+    //AJAX  GET提交删除操作
+    $('.deleteFiles').click(function (){
+        var url = $(this).data('url');
+        var file_id = $(this).data('file_id');
+        layer.confirm(
+            '删除文件不可找回，你确定要删除该文件吗?',
+            {icon: 3, title:'提示'},
+            function(){
+                $.get(url,{'file_id':file_id},function (res){
+                    if (res.status == '1') {
+                        window.location.reload();
+                    } else {
+                        layer.msg( res.message, {icon: 2});
+                    }
+                },'json');
+            }
+        );
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     getUserInfo = function (ele, _this, url) {
         var value = $(_this).val();

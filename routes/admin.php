@@ -12,12 +12,27 @@ if(config('domain.admin.domain')){
 
         //首页
         Route::get('/', 'HomeController@index')->name('home');
+        Route::get('admin/error', 'HomeController@error')->name('admin.error');
 
         //用户管理
         Route::namespace('User')->group(function () {
             Route::get('user', 'UserController@index')->name('admin.user');
             Route::get('user/subscriber', 'UserController@subscriber')->name('admin.subscriber');
             Route::get('user/delete', 'UserController@delete')->name('admin.delete');
+        });
+
+        //权限管理
+        Route::namespace('Permission')->group(function () {
+            Route::get('role', 'RoleController@index')->name('admin.role');
+            Route::get('role/edit', 'RoleController@edit')->name('admin.role.edit');
+            Route::get('role/delete', 'RoleController@delete')->name('admin.role.delete');
+            Route::post('role/store', 'RoleController@store')->name('admin.role.store');
+
+
+            Route::get('menu', 'MenuController@index')->name('admin.role');
+            Route::get('menu/edit', 'MenuController@edit')->name('admin.role.edit');
+            Route::get('menu/delete', 'MenuController@delete')->name('admin.role.delete');
+            Route::post('menu/store', 'MenuController@store')->name('admin.role.store');
         });
 
         //文章管理
@@ -46,8 +61,9 @@ if(config('domain.admin.domain')){
             Route::get('advert', 'AdvertController@index')->name('admin.advert');
             Route::get('advert/edit', 'AdvertController@edit')->name('admin.advert.edit');
             Route::get('advert/delete', 'AdvertController@delete')->name('admin.advert.delete');
+            Route::get('advert/deleteFile', 'AdvertController@deleteFile')->name('admin.advert.deleteFile'); //删除文件
             Route::post('advert/store', 'AdvertController@store')->name('admin.advert.store');
-            Route::post('advert/uploadFile', 'AdvertController@uploadFile')->name('admin.advert.uploadFile'); //下载
+            Route::post('advert/uploadFile', 'AdvertController@uploadFile')->name('admin.advert.uploadFile'); //上传文件
         });
 
 

@@ -17,8 +17,11 @@
                 `-._______.-'
                 ___`. | .'___
                (______|______)
+
+             @if( null !== session('error') ) {{ session('error') }} @endif
+             <a href="javascript:history.back(-1)">返回</a>
           </pre>
-        @if(isset($message)) {{$message}} @endif
+
     </div>
 </div>
 @stop

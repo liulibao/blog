@@ -13,5 +13,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attachment extends Model
 {
-    protected $fillable = ['original', 'filename', 'path', 'ext', 'mime_type'];
+    protected $fillable = ['original', 'filename', 'path', 'size', 'ext', 'mime_type'];
 }

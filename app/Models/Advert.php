@@ -10,10 +10,11 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Advert extends Model
 {
-    protected $fillable = [];
+    protected $fillable = ['uid', 'title', 'attachment_id', 'type_id', 'remarks'];
 
     /**
      * 广告分类
@@ -24,5 +25,15 @@ class Advert extends Model
         return [
             '1'=>'幻灯片'
         ];
+    }
+
+    /**
+     * 获取附件
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function attachment()
+    {
+        return $this->hasOne(Attachment::class, 'id', 'attachment_id')
+            ->select('id', 'original', 'filename', 'size', 'path');
     }
 }

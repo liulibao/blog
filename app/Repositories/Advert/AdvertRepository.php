@@ -42,12 +42,20 @@ class AdvertRepository extends BaseRepository
     public function getLists(Request $request)
     {
         $result = $this->model;
-        if(!empty($result->title)){
+
+        if(!empty($request->title)){
             $result = $result->where('title', 'like', '%'.$request->title.'%');
         }
 
-        return $result = $result->orderBy('id', 'desc')
+        if(!empty($request->type_id)){
+            $result = $result->where('type_id', $request->type_id );
+        }
+
+        return $result = $result->where('deleted_at', '0')
+            ->with('attachment')
+            ->orderBy('id', 'desc')
             ->paginate();
     }
+
 
 }

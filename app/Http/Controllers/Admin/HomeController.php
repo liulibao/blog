@@ -22,4 +22,13 @@ class HomeController extends BaseController
     {
         return view('admin.home.index');
     }
+
+    /**
+     * 错误页面
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function error()
+    {
+        return view('admin.errors.error');
+    }
 }
