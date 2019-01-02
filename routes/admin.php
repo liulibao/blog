@@ -21,14 +21,15 @@ if(config('domain.admin.domain')){
             Route::get('user/delete', 'UserController@delete')->name('admin.delete');
         });
 
-        //权限管理
-        Route::namespace('Permission')->group(function () {
+        //系统管理
+        Route::namespace('System')->group(function () {
+            //角色管理
             Route::get('role', 'RoleController@index')->name('admin.role');
             Route::get('role/edit', 'RoleController@edit')->name('admin.role.edit');
             Route::get('role/delete', 'RoleController@delete')->name('admin.role.delete');
             Route::post('role/store', 'RoleController@store')->name('admin.role.store');
 
-
+            //菜单管理
             Route::get('menu', 'MenuController@index')->name('admin.role');
             Route::get('menu/edit', 'MenuController@edit')->name('admin.role.edit');
             Route::get('menu/delete', 'MenuController@delete')->name('admin.role.delete');

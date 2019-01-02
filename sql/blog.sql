@@ -137,6 +137,31 @@ CREATE TABLE `bg_roles` (
   KEY `sort`(`sort`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='角色表';
 
+-- 目录表
+DROP TABLE IF EXISTS `bg_menus`;
+CREATE TABLE `bg_menus` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(100) NOT NULL default '' comment '目录名称',
+  `pid` int(10) NOT NULL DEFAULT '0' comment '父级ID',
+  `is_show` tinyint(1) NOT NULL DEFAULT '0' comment '是否显示0: 隐藏 1:显示',
+  `icon` VARCHAR(100) NOT NULL DEFAULT '' comment '图标',
+  `sort` tinyint(3) NOT NULL DEFAULT '0' COMMENT '排序越小越靠前',
+  `remarks` varchar(100) NOT NULL default '' comment '备注',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  `deleted_at` INT(11) unsigned NOT NULL DEFAULT '0' comment '删除时间',
+  primary key(`id`),
+  KEY `sort`(`sort`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='目录表';
+
+
+DROP TABLE IF EXISTS `bg_icons`;
+CREATE TABLE `bg_icons` (
+  `id` int unsigned not null auto_increment,
+  `name` varchar(100) not null default '' comment '角色名称',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  primary key(`id`),
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='图标表';
 
 -- 4、角色-权限表 (role_permissions) role_id permission_id
 DROP TABLE IF EXISTS `bg_role_permissions`;

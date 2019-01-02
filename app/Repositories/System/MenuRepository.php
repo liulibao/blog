@@ -2,17 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: hf-li
- * Date: 2019/1/1
- * Time: 18:45
+ * Date: 2019/1/2
+ * Time: 21:55
  */
 
-namespace App\Repositories\Permission;
+namespace App\Repositories\System;
 
 
-use App\Models\Role;
+use App\Models\Menu;
 use App\Repositories\BaseRepository;
 
-class RoleRepository extends BaseRepository
+class MenuRepository extends BaseRepository
 {
 
     /**
@@ -21,11 +21,11 @@ class RoleRepository extends BaseRepository
      */
     public function model()
     {
-        return Role::class;
+        return Menu::class;
     }
 
     /**
-     * 获取列表
+     * 首页列表
      */
     public function getLists()
     {
@@ -33,6 +33,4 @@ class RoleRepository extends BaseRepository
             ->orderBy('id', 'desc')
             ->paginate();
     }
-
-
 }

@@ -39,8 +39,8 @@
 
     <li class="treeview ">
         <a href="#">
-            <i class="fa  fa-key"></i>
-            <span>权限管理</span>
+            <i class="fa fa-cogs"></i>
+            <span>系统设置</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">

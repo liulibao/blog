@@ -6,11 +6,11 @@
  * Time: 16:53
  */
 
-namespace App\Http\Controllers\Admin\Permission;
+namespace App\Http\Controllers\Admin\System;
 
 
 use App\Http\Controllers\Admin\BaseController;
-use App\Repositories\Permission\RoleRepository;
+use App\Repositories\System\RoleRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -46,9 +46,19 @@ class RoleController extends BaseController
     public function edit(Request $request)
     {
         try{
-            $page_title = '添加角色';
+            if(empty($request->id)){
+                $page_title = '添加角色';
+            } else {
+                $page_title = '修改角色';
 
-            return view('admin.permission.role.edit', compact('page_title'));
+                if (intval($request->id) <= 0) {
+                    throw new \Exception('请求参数有误');
+                }
+
+                $data = $this->repository->find($request->id);
+            }
+
+            return view('admin.permission.role.edit', compact('page_title', 'data'));
         } catch (\Exception $exception) {
 
             return redirect('admin/error')->with('error', $exception->getMessage());
@@ -62,7 +72,23 @@ class RoleController extends BaseController
      */
     public function store(Request $request)
     {
-        // TODO: Implement store() method.
+        try{
+            if(empty($request->id)){
+
+                $this->repository->create(array_filter($request->all()));
+            } else {
+
+                if(intval($request->id) <= 0){
+                    throw new \Exception('请求参数错误');
+                }
+
+                $this->repository->update(array_filter($request->all()), $request->id);
+            }
+
+            return ApiResponse::success();
+        } catch (\Exception $exception){
+            return ApiResponse::error($exception->getMessage());
+        }
     }
 
     /**
