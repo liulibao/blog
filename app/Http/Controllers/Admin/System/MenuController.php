@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin\System;
 
 
 use App\Http\Controllers\Admin\BaseController;
+use App\Repositories\System\IconRepository;
 use App\Repositories\System\MenuRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -22,9 +23,15 @@ class MenuController extends BaseController
      */
     protected $repository;
 
-    public function __construct( MenuRepository $repository)
+    /**
+     * @var
+     */
+    protected $iconRepository;
+
+    public function __construct( MenuRepository $repository, IconRepository $iconRepository)
     {
         $this->repository = $repository;
+        $this->iconRepository = $iconRepository;
     }
 
     /**
@@ -33,10 +40,10 @@ class MenuController extends BaseController
      */
     public function index()
     {
-        $page_title = '角色列表';
+        $page_title = '目录列表';
         $lists = $this->repository->getLists();
 
-        return view('admin.permission.role.index', compact('page_title', 'lists'));
+        return view('admin.system.menu.index', compact('page_title', 'lists'));
     }
 
     /**
@@ -47,6 +54,8 @@ class MenuController extends BaseController
     public function edit(Request $request)
     {
         try{
+            $icons = $this->iconRepository->getLists();
+
             if(empty($request->id)){
                 $page_title = '添加角色';
             } else {
@@ -59,7 +68,7 @@ class MenuController extends BaseController
                 $data = $this->repository->find($request->id);
             }
 
-            return view('admin.permission.role.edit', compact('page_title', 'data'));
+            return view('admin.system.menu.edit', compact('page_title', 'icons', 'data'));
         } catch (\Exception $exception) {
 
             return redirect('admin/error')->with('error', $exception->getMessage());

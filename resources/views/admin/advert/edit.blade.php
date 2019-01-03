@@ -191,7 +191,8 @@
                 $('#attachment_id').val(msg.response.data.id);
 //                alert(msg.response.message);
             } else if(msg.response.status === 0) {
-                alert(msg.response);
+                console.log(msg.response);
+                alert(msg.response.message);
             }
         }).on('filepreupload', function(event, data) { //上传前
             console.log(data);

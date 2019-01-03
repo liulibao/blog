@@ -109,6 +109,9 @@ CREATE TABLE IF NOT EXISTS `bg_attachments`(
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='附件表';
 
+ALTER TABLE `bg_attachments`
+ADD COLUMN `size`  varchar(10) NOT NULL DEFAULT '' COMMENT '文件大小', AFTER `path`;
+
 
 -- 2、用户-角色 (users_roles)
 DROP TABLE IF EXISTS `bg_user_roles`;
@@ -119,7 +122,7 @@ CREATE TABLE `bg_user_roles` (
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
   primary key(`id`),
-  UNIQUE KEY `user_id` (`user_id`)
+  UNIQUE KEY `uid` (`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='用户-角色关系表';
 
 
@@ -142,6 +145,7 @@ DROP TABLE IF EXISTS `bg_menus`;
 CREATE TABLE `bg_menus` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `name` varchar(100) NOT NULL default '' comment '目录名称',
+  `path` varchar(100) NOT NULL default '' comment '目录路由',
   `pid` int(10) NOT NULL DEFAULT '0' comment '父级ID',
   `is_show` tinyint(1) NOT NULL DEFAULT '0' comment '是否显示0: 隐藏 1:显示',
   `icon` VARCHAR(100) NOT NULL DEFAULT '' comment '图标',
@@ -158,10 +162,20 @@ CREATE TABLE `bg_menus` (
 DROP TABLE IF EXISTS `bg_icons`;
 CREATE TABLE `bg_icons` (
   `id` int unsigned not null auto_increment,
-  `name` varchar(100) not null default '' comment '角色名称',
+  `name` varchar(100) not null default '' comment 'ICON名',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
-  primary key(`id`),
+  primary key(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='图标表';
+
+insert INTO `bg_icons` (`name`) VALUES ('fa-book'),('fa-send'),('fa-search'),('fa-users'),('fa-use'),('fa-reply'),(' fa-folder'),
+('fa-user-plus'),('fa-cart-arrow-down'),('fa-cart-plus'),('fa-server'),('fa-bar-chart'),(' fa-bell-slash'),(' fa-bookmark'),
+(' fa-calendar-o'),(' fa-check'),(' fa-check-square-o'),(' fa-comment'),(' fa-comments'),(' fa-dashboard'),(' fa-ellipsis-v'),(' fa-eye-slash'),
+(' fa-eye-slash'),('  fa-eye'),(' fa-file-excel-o'),(' fa-file-photo-o'),(' fa-file-video-o'),('fa-gear'),('fa-gears'),('  fa-image'),
+('  fa-institution'),('  fa-location-arrow'),('  fa-mail-forward'),(' fa-map-marker'),(' fa-phone'),(' fa-pie-chart'),
+(' fa-level-down'),(' fa-print'),(' fa-search-minus'),(' fa-server'),('fa-sort'),('fa-sort-amount-desc'),('fa-sort-numeric-asc'),
+(' fa-sitemap'),('  fa-spinner'),('  fa-star'),(' fa-star-half-o'),(' fa-tag'),(' fa-tags'),(' fa-university'),
+('  fa-trash'),('  fa-wrench');
+
 
 -- 4、角色-权限表 (role_permissions) role_id permission_id
 DROP TABLE IF EXISTS `bg_role_permissions`;

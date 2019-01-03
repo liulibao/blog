@@ -15,7 +15,7 @@
     <meta name="keywords" content="@yield('keywords','学习框架,laravel,php,java')">
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta http-equiv="content-type" content="text/html; charset=gb2312">
-        <meta http-equiv="content-language" content="zh-cn">
+    <meta http-equiv="content-language" content="zh-cn">
     <!-- Bootstrap 3.3.4 -->
     <link href="{{asset('adminLET/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
