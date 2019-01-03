@@ -169,12 +169,12 @@ CREATE TABLE `bg_icons` (
 
 insert INTO `bg_icons` (`name`) VALUES ('fa-book'),('fa-send'),('fa-search'),('fa-users'),('fa-use'),('fa-reply'),(' fa-folder'),
 ('fa-user-plus'),('fa-cart-arrow-down'),('fa-cart-plus'),('fa-server'),('fa-bar-chart'),(' fa-bell-slash'),(' fa-bookmark'),
-(' fa-calendar-o'),(' fa-check'),(' fa-check-square-o'),(' fa-comment'),(' fa-comments'),(' fa-dashboard'),(' fa-ellipsis-v'),(' fa-eye-slash'),
-(' fa-eye-slash'),('  fa-eye'),(' fa-file-excel-o'),(' fa-file-photo-o'),(' fa-file-video-o'),('fa-gear'),('fa-gears'),('  fa-image'),
-('  fa-institution'),('  fa-location-arrow'),('  fa-mail-forward'),(' fa-map-marker'),(' fa-phone'),(' fa-pie-chart'),
-(' fa-level-down'),(' fa-print'),(' fa-search-minus'),(' fa-server'),('fa-sort'),('fa-sort-amount-desc'),('fa-sort-numeric-asc'),
-(' fa-sitemap'),('  fa-spinner'),('  fa-star'),(' fa-star-half-o'),(' fa-tag'),(' fa-tags'),(' fa-university'),
-('  fa-trash'),('  fa-wrench');
+('fa-calendar-o'),('fa-check'),('fa-check-square-o'),('fa-comment'),('fa-comments'),('fa-dashboard'),('fa-ellipsis-v'),('fa-eye-slash'),
+('fa-eye-slash'),('fa-eye'),('fa-file-excel-o'),('fa-file-photo-o'),('fa-file-video-o'),('fa-gear'),('fa-gears'),('fa-image'),
+('fa-institution'),('fa-location-arrow'),('fa-mail-forward'),('fa-map-marker'),('fa-phone'),('fa-pie-chart'),
+('fa-level-down'),('fa-print'),('fa-search-minus'),('fa-server'),('fa-sort'),('fa-sort-amount-desc'),('fa-sort-numeric-asc'),
+('fa-sitemap'),('fa-spinner'),('fa-star'),('fa-star-half-o'),('fa-tag'),('fa-tags'),('fa-university'),
+('fa-trash'),('fa-wrench');
 
 
 -- 4、角色-权限表 (role_permissions) role_id permission_id

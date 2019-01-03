@@ -35,7 +35,7 @@ class RoleController extends BaseController
         $page_title = '角色列表';
         $lists = $this->repository->getLists();
 
-        return view('admin.permission.role.index', compact('page_title', 'lists'));
+        return view('admin.system.role.index', compact('page_title', 'lists'));
     }
 
     /**
@@ -58,7 +58,7 @@ class RoleController extends BaseController
                 $data = $this->repository->find($request->id);
             }
 
-            return view('admin.permission.role.edit', compact('page_title', 'data'));
+            return view('admin.system.role.edit', compact('page_title', 'data'));
         } catch (\Exception $exception) {
 
             return redirect('admin/error')->with('error', $exception->getMessage());
