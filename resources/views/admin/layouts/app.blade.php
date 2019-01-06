@@ -41,10 +41,13 @@
             color: red;
             font-size: 15px;
         }
-
-         .search-form{
+        .form-group .no-padding span:last-child{
+            font-size: 12px;
+            color: red;
+        }
+        .search-form{
              margin-top: 10px;
-         }
+        }
         .search-box label{
             float: left;
             line-height: 35px;

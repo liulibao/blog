@@ -31,7 +31,7 @@
                             <th >最新登陆时间</th>
                             <th >状态</th>
                             <th >创建时间</th>
-                            <th style="width: 12%;">操作</th>
+                            <th style="width: 20%;">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,11 +51,16 @@
                                 </td>
                                 <td>{{$item->created_at}}</td>
                                 <td>
-                                    <a href="{{url('user/edit?id='.$item->id)}}"  class="btn btn-default btn-sm">
+                                    <a href="{{url('user/edit?id='.$item->id)}}"  class="btn btn-default btn-xs">
                                         <i class="fa fa-edit"></i> 编辑
                                     </a>
 
-                                    <a href="javascript:void (0);"  class="btn btn-danger btn-sm submitDelete"
+                                    <a href="javascript:void(0);" data-num="0" data-id="{{$item->id}}" data-url="{{url('user')}}"
+                                       class="btn btn-primary btn-xs layerModel">
+                                        <i class="fa fa-cog"></i> 分配角色
+                                    </a>
+
+                                    <a href="javascript:void (0);"  class="btn btn-danger btn-xs submitDelete"
                                        data-url="{{url('user/delete')}}" data-id="{{$item->id}}">
                                         <i class="fa  fa-trash"></i> 删除
                                     </a>

@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class="box-footer" style="text-align: center">
+                <div class="box-footer" style="padding-right: 60%">
                     <a href="javascript:void (0);" data-back_url="{{route('admin.advert')}}" data-is_confirm="false"
                        class="btn btn-info submitFormBtu" >立即提交
                     </a>

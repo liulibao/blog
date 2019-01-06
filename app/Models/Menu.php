@@ -13,6 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-   protected $fillable = ['name', 'pid', 'is_show', 'sort', 'remarks'];
+   protected $fillable = ['name', 'pid', 'path', 'depth', 'icon', 'is_show', 'sort', 'remarks'];
 
 }

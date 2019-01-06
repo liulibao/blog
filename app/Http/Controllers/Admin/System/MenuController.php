@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin\System;
 
 
 use App\Http\Controllers\Admin\BaseController;
+use App\Http\Request\MenuRequest;
 use App\Repositories\System\IconRepository;
 use App\Repositories\System\MenuRepository;
 use App\Traits\ApiResponse;
@@ -42,6 +43,7 @@ class MenuController extends BaseController
     {
         $page_title = '目录列表';
         $lists = $this->repository->getLists();
+        $lists = format_data_tree($lists);
 
         return view('admin.system.menu.index', compact('page_title', 'lists'));
     }
@@ -55,6 +57,8 @@ class MenuController extends BaseController
     {
         try{
             $icons = $this->iconRepository->getLists();
+            $menu = $this->repository->getMenu();
+            $menu = format_data_tree($menu);
 
             if(empty($request->id)){
                 $page_title = '添加角色';
@@ -68,7 +72,7 @@ class MenuController extends BaseController
                 $data = $this->repository->find($request->id);
             }
 
-            return view('admin.system.menu.edit', compact('page_title', 'icons', 'data'));
+            return view('admin.system.menu.edit', compact('page_title', 'icons', 'data', 'menu'));
         } catch (\Exception $exception) {
 
             return redirect('admin/error')->with('error', $exception->getMessage());
@@ -77,22 +81,23 @@ class MenuController extends BaseController
 
     /**
      * 保存数据
-     * @param Request $request
+     * @param MenuRequest $request
      * @return mixed
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
         try{
+
             if(empty($request->id)){
 
-                $this->repository->create(array_filter($request->all()));
+                $this->repository->create($request->all());
             } else {
 
                 if(intval($request->id) <= 0){
                     throw new \Exception('请求参数错误');
                 }
 
-                $this->repository->update(array_filter($request->all()), $request->id);
+                $this->repository->update($request->all(), $request->id);
             }
 
             return ApiResponse::success();

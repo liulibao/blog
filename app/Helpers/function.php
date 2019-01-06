@@ -21,4 +21,36 @@ if (!function_exists('format_array')) {
         });
         return $result;
     }
+
+}
+
+if(!function_exists('format_data_tree')){
+    /**
+     *  组装分级菜单
+     * @param array $items 菜单节点
+     * @param int $pid
+     * @return array
+     */
+    function format_data_tree($items, $pid = 0)
+    {
+        $result = array();
+        if(gettype($items) === 'object') {
+            foreach($items as $v){
+                if($v->pid == $pid){
+                    $v->children = format_data_tree($items, $v->id);
+                    $result[] = $v;
+                }
+            }
+        } else {
+            foreach($items as $v){
+                if($v['pid'] == $pid){
+                    $v['children'] = format_data_tree($items, $v['id']);
+                    $result[] = $v;
+                }
+            }
+        }
+
+        return $result;
+    }
+
 }

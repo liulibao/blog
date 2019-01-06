@@ -31,4 +31,12 @@ class HomeController extends BaseController
     {
         return view('admin.errors.error');
     }
+
+    /**
+     * 使用layer 弹层报错提示
+     */
+    public function layerError()
+    {
+        return view('admin.errors.layer_error');
+    }
 }

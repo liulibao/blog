@@ -135,6 +135,35 @@ jQuery(document).ready(function() {
         );
     });
 
+    //弹层
+    $('.layerModel').click(function () {
+        var url = $(this).data('url');
+        var id = $(this).data('id');
+        lock = false;
+        console.log(lock);
+        if(!lock){
+            $.get(url,{'id':id},function (res){
+                if (res.status == '1') {
+                    if(!lock){
+                        layer.open({
+                            type: 2, // Layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                            area: ['60%','450px'],
+                            title: res.data['title'],
+                            // shade: 0.8,  //遮罩透明度
+                            shadeClose: true, //点击遮罩区域是否关闭页面
+                            content: res.data['url']
+                        });
+                        lock = true;
+                        console.log(lock);
+                    }
+                    lock = true;
+                } else {
+                    layer.msg( res.message, {icon: 2});
+                }
+            },'json');
+        }
+    });
+
 
 
 

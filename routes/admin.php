@@ -13,40 +13,44 @@ if(config('domain.admin.domain')){
         //首页
         Route::get('/', 'HomeController@index')->name('home');
         Route::get('admin/error', 'HomeController@error')->name('admin.error');
+        Route::get('admin/layerError', 'HomeController@layerError')->name('admin.layerError');
 
         //用户管理
         Route::namespace('User')->group(function () {
             Route::get('user', 'UserController@index')->name('admin.user');
+            Route::get('user/editRole', 'UserController@editRole')->name('admin.editRole');
             Route::get('user/subscriber', 'UserController@subscriber')->name('admin.subscriber');
             Route::get('user/delete', 'UserController@delete')->name('admin.delete');
         });
 
         //系统管理
-        Route::namespace('System')->group(function () {
+        Route::namespace('System')->prefix('system')->group(function () {
             //角色管理
             Route::get('role', 'RoleController@index')->name('admin.role');
             Route::get('role/edit', 'RoleController@edit')->name('admin.role.edit');
+            Route::get('role/editPermission', 'RoleController@editPermission')->name('admin.role.editPermission');
             Route::get('role/delete', 'RoleController@delete')->name('admin.role.delete');
             Route::post('role/store', 'RoleController@store')->name('admin.role.store');
+            Route::post('role/storePermission', 'RoleController@storePermission')->name('admin.role.storePermission');
 
             //菜单管理
-            Route::get('menu', 'MenuController@index')->name('admin.role');
-            Route::get('menu/edit', 'MenuController@edit')->name('admin.role.edit');
-            Route::get('menu/delete', 'MenuController@delete')->name('admin.role.delete');
-            Route::post('menu/store', 'MenuController@store')->name('admin.role.store');
+            Route::get('menu', 'MenuController@index')->name('admin.menu');
+            Route::get('menu/edit', 'MenuController@edit')->name('admin.menu.edit');
+            Route::get('menu/delete', 'MenuController@delete')->name('admin.menu.delete');
+            Route::post('menu/store', 'MenuController@store')->name('admin.menu.store');
         });
 
         //文章管理
-        Route::namespace('Article')->group(function () {
-            Route::get('article', 'ArticleController@index')->name('admin.article');
-            Route::get('article/edit', 'ArticleController@edit')->name('admin.article.edit');
-            Route::get('article/delete', 'ArticleController@delete')->name('admin.article.delete');
-            Route::post('article/store', 'ArticleController@store')->name('admin.article.store');
+        Route::namespace('Article')->prefix('article')->group(function () {
+            Route::get('/', 'ArticleController@index')->name('admin.article');
+            Route::get('edit', 'ArticleController@edit')->name('admin.article.edit');
+            Route::get('delete', 'ArticleController@delete')->name('admin.article.delete');
+            Route::post('store', 'ArticleController@store')->name('admin.article.store');
 
-            Route::get('article/category', 'ArticleCategoryController@index')->name('admin.article.category');
-            Route::get('article/category/edit', 'ArticleCategoryController@edit')->name('admin.article.category.edit');
-            Route::get('article/category/delete', 'ArticleCategoryController@delete')->name('admin.article.category.delete');
-            Route::post('article/category/store', 'ArticleCategoryController@store')->name('admin.article.category.store');
+            Route::get('category', 'ArticleCategoryController@index')->name('admin.article.category');
+            Route::get('category/edit', 'ArticleCategoryController@edit')->name('admin.article.category.edit');
+            Route::get('category/delete', 'ArticleCategoryController@delete')->name('admin.article.category.delete');
+            Route::post('category/store', 'ArticleCategoryController@store')->name('admin.article.category.store');
         });
 
         //日记管理

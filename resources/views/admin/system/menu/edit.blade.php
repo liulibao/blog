@@ -1,12 +1,20 @@
 @extends('admin.layouts.app')
 
 @section('style')
-    <link href="{{asset('adminLET/select2/dist/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('adminLET/plugins/iCheck/all.css')}}" rel="stylesheet" type="text/css" />
     <style>
         *{
             margin:0;
             padding:0;
             box-sizing:border-box;
+        }
+        .f_select-box .icon-search{
+            background: url({{asset('images/select_point.gif')}}) no-repeat;
+            width: 15px;
+            height: 14px;
+            position: absolute;
+            top: 15px;
+            left: 45%;
         }
         .f_select {
             list-style:none;
@@ -16,20 +24,33 @@
             border:1px solid #d2d6de;
             display:none;
         }
-        li a {
+        .f_select li {
             display:inline-block;
             width:100%;
-            height:100%;
-            line-height: 30px;
+            height:20px;
+            line-height: 20px;
             text-decoration:none;
             color:#555;
             padding-left: 10px;
         }
-        li a:hover{
+        .f_select li:hover{
             background-color:#00c0ef;
-            line-height: 25px;
+            height:30px;
+            line-height: 30px;
             color: #fff;
+            z-index: 99;
         }
+        .control-label .iradio_minimal-blue{
+            margin-right: 20px;
+        }
+        .f_selected li{
+            background-color:#00c0ef;
+            height:30px;
+            line-height: 30px;
+            color: #fff;
+            z-index: 99;
+        }
+
     </style>
 @stop
 
@@ -41,110 +62,106 @@
                     <h3 class="box-title">{{isset($page_title) ? $page_title : ''}}</h3>
                 </div>
 
-                <form action="{{url('article/category/store')}}" class="form-horizontal" id="postForm">
-
-                    {{ csrf_field() }}
-
-                    <input type="hidden" name="id" value="{{isset($data) ? $data->id : ''}}">
-
-                    <div class="form-group">
-                        <label for="input_category" class="col-sm-3 control-label"><span>*</span>上一级目录 :</label>
-                        <div class="col-sm-5 no-padding">
-                            <select  class="form-control" style="width: 50%" name="category_id" title="input_category">
-                                <option value="0">请选择目录</option>
-                                <option selected="selected">Alabama</option>
-                                {{--@foreach($category as $item)--}}
-                                    {{--<option @if(isset($lists) && $lists->category_id == $item->id) {{"selected='selected'"}} @endif value="{{$item->id}}">{{$item->name}}</option>--}}
-                                {{--@endforeach--}}
-                            </select>
-                        </div>
-                    </div>
-
+                <form action="{{url('system/menu/store')}}" class="form-horizontal" id="postForm">
                     <div class="box-body">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" value="{{isset($data) ? $data->id : ''}}">
+
                         <div class="form-group">
                             <label for="input_name" class="col-sm-3 control-label"><span>*</span>目录名称 :</label>
-                            <div class="col-sm-5 no-padding">
-                                <input type="text" name="name" value="{{isset($data) ? $data->name : ''}}" class="form-control" id="input_name" placeholder="请填写分类标题">
+                            <div class="col-sm-3 no-padding">
+                                <input type="text" name="name" value="{{isset($data) ? $data->name : ''}}"
+                                       class="form-control" id="input_name" autocomplete="off" placeholder="请填写目录名称">
                             </div>
                         </div>
-                    </div>
 
-                    <div class="box-body">
                         <div class="form-group">
-                            <label for="input_name" class="col-sm-3 control-label"><span>*</span>目录路由 :</label>
+                            <label for="input_category" class="col-sm-3 control-label">上级目录 :</label>
                             <div class="col-sm-5 no-padding">
-                                <input type="text" name="path" value="{{isset($data) ? $data->name : ''}}" class="form-control" id="input_name" placeholder="请填写分类标题">
+                                <select  class="form-control" style="width: 50%" name="pid" title="请填选择上级目录">
+                                    <option value="0">请选择上级目录</option>
+                                    @if(!empty($menu))
+                                    @foreach($menu as $item)
+                                        <option value="{{$item->id}}" @if(isset($data) && $data->pid == $item->id) {{"selected='selected'"}} @endif >
+                                            {{$item->name}}
+                                        </option>
+                                        @if(is_array($item->children))
+                                        @foreach($item->children as $val)
+                                            <option value="{{$val->id}}"  @if(isset($data) && $data->pid == $val->id) {{"selected='selected'"}} @endif >
+                                                <?php echo str_repeat(">>", 1)?>{{ $val->name}}
+                                            </option>
+                                        @endforeach
+                                        @endif
+                                    @endforeach
+                                    @endif
+                                </select>
+                                <span>不选择表示顶级目录</span>
                             </div>
                         </div>
-                    </div>
 
-
-                    <div class="form-group">
-                        <label for="input_category" class="col-sm-3 control-label"><span>*</span>目录图标 :</label>
-                        <div class="col-sm-5 no-padding">
-                            <input id="f_select_input" class="form-control" style="width: 50%" type="text" placeholder="请选择目录图标"/>
-                            <ul id="f_select" class="f_select">
-                                @foreach($icons as $item)
-                                <li><a href="javascript:void (0);" class="fa {{$item->name}}">  &nbsp;&nbsp;{{$item->name}}</a> </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-
-                    {{--<div class="form-group">--}}
-                        {{--<label>Minimal</label>--}}
-                        {{--<label>--}}
-                            {{--<select class="form-control select2 select2-hidden-accessible" style="width: 100%;"--}}
-                                    {{--tabindex="-1" aria-hidden="true">--}}
-                                {{--<option selected="selected">Alabama</option>--}}
-                                {{--<option>Alaska</option>--}}
-                                {{--<option>California</option>--}}
-                                {{--<option>Delaware</option>--}}
-                                {{--<option>Tennessee</option>--}}
-                                {{--<option>Texas</option>--}}
-                                {{--<option>Washington</option>--}}
-                            {{--</select>--}}
-                        {{--</label>--}}
-                        {{--<span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">--}}
-                            {{--<span class="selection">--}}
-                                {{--<span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-23s5-container">--}}
-                                    {{--<span class="select2-selection__rendered" id="select2-23s5-container" title="Alabama">Alabama</span>--}}
-                                    {{--<span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>--}}
-                                {{--</span>--}}
-                            {{--</span>--}}
-                            {{--<span class="dropdown-wrapper" aria-hidden="true"></span>--}}
-                        {{--</span>--}}
-                    {{--</div>--}}
-
-
-                    <div class="box-body">
                         <div class="form-group">
-                            <label for="input_name" class="col-sm-3 control-label"><span>*</span>是否显示 :</label>
-                            <div class="col-sm-5 no-padding">
-                                <input type="text" name="is_show" value="{{isset($data) ? $data->name : ''}}" class="form-control" id="input_name" placeholder="请填写分类标题">
+                            <label for="input_name" class="col-sm-3 control-label">
+                                <span>*</span>目录路由 :
+                            </label>
+                            <div class="col-sm-3 no-padding">
+                                <input type="text" name="path" value="{{isset($data) ? $data->path : ''}}" autocomplete="off"
+                                       class="form-control" id="input_name" placeholder="请填写目录路由">
+                                <span>路由格式如: admin/index</span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="input_sort" class="col-sm-3 control-label"><span>*</span>排序 :</label>
-                        <div class="col-sm-5 no-padding">
-                            <input type="text" name="sort" class="form-control" style="width:50%;" id="input_sort"
-                                   value="{{isset($lists) ? $lists->sort : ''}}" placeholder="填写序号越小越靠前1-最靠前">
-                        </div>
-                    </div>
-
-                    <div class="box-body">
                         <div class="form-group">
-                            <label for="input_name" class="col-sm-3 control-label"><span>*</span>备注 :</label>
+                            <label for="input_category" class="col-sm-3 control-label">
+                                <span class="icon-show">*</span>目录图标 :
+                            </label>
+                            <div class="col-sm-5 no-padding f_select-box">
+                                <i class="icon-search"></i>
+                                <input id="f_select_input" name="icon" value="@if(isset($data)){{$data->icon}}@endif" class="form-control" readonly="readonly"
+                                       style="width: 50%;background-color: #fff;" type="text" placeholder="请选择目录图标"/>
+                                <ul id="f_select_id" class="f_select">
+                                    <li>请选择图标</li>
+                                    @foreach($icons as $item)
+                                    <li class="fa {{$item->name}}">
+                                        &nbsp;&nbsp;{{$item->name}}
+                                    </li>
+                                    @endforeach
+                                </ul>
+                                <span>选择顶级目录时,必选图标</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input_name" class="col-sm-3 control-label"><span>*</span>显示状态 :</label>
                             <div class="col-sm-5 no-padding">
-                                <input type="text" name="is_show" value="{{isset($data) ? $data->name : ''}}" class="form-control" id="input_name" placeholder="请填写分类标题">
+                                <div class="control-label" style="width:31%;">
+                                    隐藏 <input type="radio" name="is_show" value="0" checked class="minimal iradio_minimal-blue"
+                                              @if(isset($data) && $data->is_show == 0) {{'checked'}} @endif title="">
+                                    显示 <input type="radio" name="is_show" value="1" class="minimal iradio_minimal-blue"
+                                              @if(isset($data) && $data->is_show == 1) {{'checked'}} @endif title="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input_sort" class="col-sm-3 control-label"><span>*</span>排序 :</label>
+                            <div class="col-sm-5 no-padding">
+                                <input type="text" name="sort" class="form-control" style="width:50%;" id="input_sort" autocomplete="off"
+                                       value="{{isset($data) ? $data->sort : ''}}" placeholder="填写序号越小越靠前1-最靠前">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input_name" class="col-sm-3 control-label">备注 :</label>
+                            <div class="col-sm-5 no-padding">
+                                <textarea class="form-control" id="input_name" placeholder="请填写备注" title="备注信息">
+                                    {{isset($data) ? $data->remarks : ''}}
+                                </textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div class="box-footer" style="text-align: center">
-                        <a href="javascript:void (0);" data-back_url="{{route('admin.article.category')}}" data-is_confirm="false"
+                    <div class="box-footer" style="padding-right: 60%">
+                        <a href="javascript:void (0);" data-back_url="{{route('admin.menu')}}" data-is_confirm="false"
                            class="btn btn-info submitFormBtu" >立即提交
                         </a>
                         <a href="javascript:history.go(-1);" class="btn btn-default"> 返回</a>
@@ -157,24 +174,52 @@
 @stop
 
 @section('script')
-    <script src="{{asset('adminLET/select2/dist/js/select2.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('adminLET/plugins/iCheck/icheck.js')}}" type="text/javascript"></script>
     <script>
+
+        $(function () {
+            //icon 是否显示的问题
+            $('select[name="pid"]').change(function () {
+                if($(this).val() != 0 ) {
+                    $('.icon-show').addClass('hidden');
+                } else {
+                    $('.icon-show').removeClass('hidden');
+                }
+            });
+
+            //radio
+            $('input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            });
+        });
+
+        //仿select
         var ipt=document.getElementById('f_select_input');
-        var ul=document.getElementById('f_select');
+        var ul=document.getElementById('f_select_id');
         var lis=ul.children;
-        ipt.onfocus=function(){
+        ipt.onclick=function () {
             ul.style.display='block';
         };
-        ipt.onblur=function(){
+        ipt.onfocus = function(){
+            ul.style.display='block';
+        };
+        ipt.onblur = function(){
             setTimeout(function(){
                 ul.style.display='none';
             },200)
-
+        };
+        ul.onmouseleave = function(){
+            ul.style.display='none';
         };
         //模拟option点击事件
         for(var i=0;i<lis.length;i++){
             lis[i].onclick=function(){
-                ipt.value=this.innerText.replace(/^\s+|\s+$/g,"");
+                if( this.innerText.replace(/^\s+|\s+$/g,"") == '请选择图标'){
+                    ipt.value = '';
+                } else {
+                    ipt.value=this.innerText.replace(/^\s+|\s+$/g,"");
+                }
             }
         }
     </script>
