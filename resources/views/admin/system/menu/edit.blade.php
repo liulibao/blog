@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('style')
-    <link href="{{asset('adminLET/plugins/iCheck/all.css')}}" rel="stylesheet" type="text/css" />
     <style>
         *{
             margin:0;
@@ -39,9 +38,6 @@
             line-height: 30px;
             color: #fff;
             z-index: 99;
-        }
-        .control-label .iradio_minimal-blue{
-            margin-right: 20px;
         }
         .f_selected li{
             background-color:#00c0ef;
@@ -133,11 +129,15 @@
                         <div class="form-group">
                             <label for="input_name" class="col-sm-3 control-label"><span>*</span>显示状态 :</label>
                             <div class="col-sm-5 no-padding">
-                                <div class="control-label" style="width:31%;">
-                                    隐藏 <input type="radio" name="is_show" value="0" checked class="minimal iradio_minimal-blue"
-                                              @if(isset($data) && $data->is_show == 0) {{'checked'}} @endif title="">
-                                    显示 <input type="radio" name="is_show" value="1" class="minimal iradio_minimal-blue"
+                                <div class="radio_box">
+                                    <input type="radio" name="is_show" value="0" checked id="is_show_0"
+                                          @if(isset($data) && $data->is_show == 0) {{'checked'}} @endif title="">
+                                    <label for="is_show_0">隐藏</label>
+
+
+                                    <input type="radio" name="is_show" value="1" id="is_show_1"
                                               @if(isset($data) && $data->is_show == 1) {{'checked'}} @endif title="">
+                                    <label for="is_show_1">显示</label>
                                 </div>
                             </div>
                         </div>
@@ -174,9 +174,7 @@
 @stop
 
 @section('script')
-    <script src="{{asset('adminLET/plugins/iCheck/icheck.js')}}" type="text/javascript"></script>
     <script>
-
         $(function () {
             //icon 是否显示的问题
             $('select[name="pid"]').change(function () {
@@ -185,12 +183,6 @@
                 } else {
                     $('.icon-show').removeClass('hidden');
                 }
-            });
-
-            //radio
-            $('input[type="radio"].minimal').iCheck({
-                checkboxClass: 'icheckbox_minimal-blue',
-                radioClass: 'iradio_minimal-blue'
             });
         });
 

@@ -1,0 +1,72 @@
+.form-group .radio_box{
+    height: 34px;
+    line-height: 38px;
+}
+
+.form-group .radio_box label{
+    margin-left: 3px;
+    margin-right: 20px;
+}
+
+input[type=checkbox]:after {
+    content: "";
+    display:block;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+    color: #fff;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-sizing:border-box;
+    cursor: pointer;
+    /*增加一些动画*/
+    -webkit-transition : all ease-in-out 300ms;
+    -moz-transition : all ease-in-out 300ms;
+    transition : all ease-in-out 300ms;
+}
+
+input[type=checkbox]:checked:after {
+    content: '\2714';
+    border: 1px solid #00C0F2;
+    color: #00C0F2;
+    font-weight: bold;
+}
+
+/*单选框 选中之后的样式*/
+input[type=radio]:after {
+    content: "";
+    display:block;
+    width: 18px;
+    height: 18px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 11px;
+    font-size: 30px;
+    position: relative;
+    left: -3px;
+    top: -3px;
+    color: #fff;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-sizing:border-box;
+    margin-right: 20px;
+    cursor: pointer;
+    /*增加一些动画*/
+    -webkit-transition : all ease-in-out 300ms;
+    -moz-transition : all ease-in-out 300ms;
+    transition : all ease-in-out 300ms;
+}
+
+input[type=radio]:checked:after  {
+    content: '\2022';
+    border: 1px solid #00C0F2;
+    color: #00C0F2;
+    font-weight: 800;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1);
+}

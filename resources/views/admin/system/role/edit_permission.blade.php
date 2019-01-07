@@ -6,6 +6,8 @@
 
     <input type="hidden" name="rid" value=" @if(isset($rid)){{$rid}}@endif">
 
+    <input type="hidden" name="is_edit" value=" {{$is_edit}}">
+
     {{ csrf_field() }}
 
     @if(isset($menus))
@@ -13,7 +15,8 @@
     <div class="box box-info">
         <div class="box-body with-border">
             <label>
-                <input type="checkbox" value="{{$item['id']}}" name="permission[]" class="checkbox-parent checkbox-parent{{$item['id']}}" data-id="{{$item['id']}}">
+                <input type="checkbox" value="{{$item['id']}}" @if(isset($permission) && in_array($item['id'], $permission)) {{'checked'}} @endif
+                       name="permission[]" class="checkbox-parent checkbox-parent{{$item['id']}}" data-id="{{$item['id']}}">
                 &nbsp;&nbsp;{{$item['name']}}
             </label>
         </div>
@@ -23,13 +26,15 @@
             @foreach($item['children'] as $key=>$val)
             @if($key > 0) <br /> @endif
             <label style="margin-right: 5px;">
-                <input type="checkbox" value="{{$val['id']}}" name="permission[]" data-pid="{{$item['id']}}" class="checkbox-son checkbox-son{{$item['id']}}">
+                <input type="checkbox" value="{{$val['id']}}"  @if(isset($permission) && in_array($val['id'], $permission)) {{'checked'}} @endif
+                       name="permission[]" data-pid="{{$item['id']}}" class="checkbox-son checkbox-son{{$item['id']}}">
                 &nbsp;&nbsp;{{$val['name']}}
             </label>
                 @if(is_array($val['children']))
                 @foreach($val['children'] as $v)
                     <label style="margin-right: 5px;">
-                        <input type="checkbox" value="{{$v['id']}}" name="permission[]" data-pid="{{$item['id']}}" class="checkbox-son checkbox-son{{$item['id']}}">
+                        <input type="checkbox" value="{{$v['id']}}"  @if(isset($permission) && in_array($v['id'], $permission)) {{'checked'}} @endif
+                               name="permission[]" data-pid="{{$item['id']}}" class="checkbox-son checkbox-son{{$item['id']}}">
                         &nbsp;&nbsp;{{$v['name']}}
                     </label>
                 @endforeach
@@ -40,11 +45,12 @@
     </div>
     @endforeach
     @endif
+
     <div style="height: 35px; width: 100%;"></div>
     <div  style="margin-left: -15px;text-align: center;
     position: fixed;bottom: 0;z-index: 99;width: 100%;padding: 10px;background-color: #fff;">
-        <a href="javascript:void (0);" data-back_url="{{route('admin.role')}}" data-is_confirm="false"
-           class="btn btn-info submitFormBtu" >立即提交
+        <a href="javascript:void (0);" data-is_confirm="false" class="btn btn-info layerSubmitFormBtu" >
+            立即提交
         </a>
     </div>
 </form>
@@ -56,7 +62,6 @@
         //当改变全选值时
         $(".checkbox-parent").change(function(){
             var id = $(this).data('id');
-            console.log(id);
             //如果全选被选中，则选中所有子选项;否则取消选中子选项
             if($(this).is(":checked")){
                 $(".checkbox-son"+ id).prop("checked",true);

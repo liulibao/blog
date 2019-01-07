@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Http\Request\RoleRequest;
 use App\Models\RolePermission;
 use App\Repositories\System\MenuRepository;
+use App\Repositories\System\RolePermissionRepository;
 use App\Repositories\System\RoleRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -30,10 +31,21 @@ class RoleController extends BaseController
      */
     protected $menuRepository;
 
-    public function __construct( RoleRepository $repository, MenuRepository $menuRepository)
+    /**
+     * @var
+     */
+    protected $rolePermissionRepository;
+
+    public function __construct(
+        RoleRepository $repository,
+        MenuRepository $menuRepository,
+        RolePermissionRepository $rolePermissionRepository
+
+    )
     {
         $this->repository = $repository;
         $this->menuRepository = $menuRepository;
+        $this->rolePermissionRepository = $rolePermissionRepository;
     }
 
     /**
@@ -47,11 +59,10 @@ class RoleController extends BaseController
         if(!empty($request->id) && intval($request->id) > 0){
             $returnData = array(
                 'url' => url('system/role/editPermission?rid=' . $request->id),
-                'title' => '设置角色'
+                'title' => '设置权限'
             );
             return ApiResponse::success($returnData);
         }
-
 
         $lists = $this->repository->getLists();
         return view('admin.system.role.index', compact('page_title', 'lists'));
@@ -95,12 +106,21 @@ class RoleController extends BaseController
             if(empty($request->rid) || intval($request->rid) <= 0) {
                 throw new \Exception('请求参数错误,请重新请求');
             }
+
+            $is_edit = 0;
             $rid = $request->rid;
 
             $menu = $this->menuRepository->getMenu()->toArray();
             $menus = format_data_tree($menu);
 
-            return view('admin.system.role.edit_permission', compact('rid', 'menus'));
+            //获取当前角色拥有的权限
+            $permission = $this->rolePermissionRepository->getPermissionByRoleId($request->rid);
+            if($permission){
+                $is_edit = 1;
+                $permission = json_decode($permission['menu_id'], true);
+            }
+
+            return view('admin.system.role.edit_permission', compact('rid', 'is_edit', 'menus', 'permission'));
         } catch (\Exception $exception){
             return redirect('admin/layerError')->with('error', $exception->getMessage());
         }
@@ -109,16 +129,26 @@ class RoleController extends BaseController
     /**
      * 保存权限
      * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function storePermission(Request $request)
     {
         try{
-            $menu_id = json_encode($request->permission);
+            $permission = (array)$request->permission;
+            if($permission) {
+                sort($permission);
+            }
+
             $data = array(
                 'role_id' => $request->rid,
-                'menu_id' => $menu_id
+                'menu_id' => json_encode($permission)
             );
-            (new RolePermission())->create($data);
+
+            if($request->is_edit) {
+                 $this->rolePermissionRepository->update(array('menu_id' => json_encode($permission)), array('role_id' => $request->rid));
+            } else {
+                $this->rolePermissionRepository->create($data);
+            }
             return ApiResponse::success();
         } catch (\Exception $exception) {
             return ApiResponse::error($exception->getMessage());

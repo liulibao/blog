@@ -25,6 +25,8 @@
     <!-- Theme style -->
     <link href="{{asset('adminLET/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('adminLET/dist/css/skins/_all-skins.min.css')}}" rel="stylesheet" type="text/css" />
+    <!--自定义表单样式-->
+    <link href="{{asset('css/form.css')}}" rel="stylesheet" type="text/css" />
 
     <style>
         body {

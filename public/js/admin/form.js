@@ -164,6 +164,56 @@ jQuery(document).ready(function() {
         }
     });
 
+    //AJAX 提议提交表单信息
+    $('.layerSubmitFormBtu').click(function (e) {
+        e.defaultPrevented = false;
+        var _this = $(this);
+        var is_confirm = $(this).data('is_confirm');
+        var elements = getElements('postForm');
+        if(is_confirm) {
+            layer.confirm(
+                '确定提交嘛？',
+                {icon: 3, title:'提示'},
+                function(){
+                    ajaxLayerElement(elements, _this);
+                }
+            );
+        } else {
+            ajaxLayerElement(elements, _this);
+        }
+
+    });
+
+    //AJAXLayer 提交
+    ajaxLayerElement = function (elements, _this){
+        $.ajax({
+            url : $(elements).attr('action'),
+            type : 'POST',
+            dataType : 'json',
+            data : $(elements).serialize(),
+            success : function (res) {
+                console.log(res);
+                if (res.status == 1) {
+                    if (res.message) {
+                        layer.msg(res.message, {icon: 1});
+                    }
+                    setTimeout(function () {
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    },500)
+
+                } else {
+                    layer.msg( res.message, {icon: 2});
+                    return false;
+                }
+            },
+            error : function () {
+                layer.msg('服务器繁忙', {icon: 2});
+                return false;
+            }
+        });
+    };
+
 
 
 
