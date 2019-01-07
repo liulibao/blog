@@ -16,7 +16,7 @@
         line-height: 13px;
         font-size: 12px;
         color: #fff;
-        border: 2px solid #ddd;
+        border: 1px solid #ddd;
         background-color: #fff;
         box-sizing:border-box;
         cursor: pointer;
@@ -30,14 +30,12 @@
     }
 
     input[type=checkbox]:checked:after  {
-        content: '\2714';
         /*content: '\2713';*/
-        /*border: 2px solid #5774FF;*/
-        color: #5774FF;
+        /*color: #5774FF;*/
+        content: '\2714';
+        border: 1px solid #00C0F2;
+        color: #00C0F2;
         font-weight: bold;
-    }
-    .minimals{
-        margin-right: 2px;
     }
 </style>
 
