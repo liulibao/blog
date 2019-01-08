@@ -72,8 +72,8 @@ class MenuRepository extends BaseRepository
     public function getMenu()
     {
         return $this->model->where('deleted_at', 0)
-            ->orderBy('sort', 'asc')
             ->select('id','name', 'pid')
+            ->orderBy('sort', 'asc')
             ->get();
     }
 

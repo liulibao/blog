@@ -20,6 +20,7 @@ class HomeController extends BaseController
      */
     public function index(Request $request)
     {
+        var_dump($this->menus);
         return view('admin.home.index');
     }
 

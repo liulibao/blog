@@ -18,4 +18,20 @@ class Role extends Model
      */
     protected $fillable = ['name', 'remarks', 'sort'];
 
+    /**
+     * 获取角色权限
+     */
+    public function permission()
+    {
+        return $this->hasOne(RolePermission::class, 'role_id', 'id');
+    }
+
+    /**
+     * 获取用户的角色id
+     */
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class, 'id', 'role_id');
+    }
+
 }

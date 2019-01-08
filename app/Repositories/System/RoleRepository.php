@@ -33,4 +33,21 @@ class RoleRepository extends BaseRepository
             ->orderBy('id', 'desc')
             ->paginate();
     }
+
+    /**
+     * 获取用户角色权限
+     * @param $uid
+     * @return mixed
+     */
+    public function getUserRolePermission($uid)
+    {
+        return $this->model
+            ->leftJoin('user_roles', 'user_roles.role_id', '=', 'roles.id')
+            ->select('roles.id','roles.name','roles.sort', 'user_roles.role_id')
+            ->where('user_roles.uid', $uid)
+            ->with('permission')
+            ->first();
+    }
+
+
 }
