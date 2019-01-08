@@ -59,7 +59,9 @@ class RoleController extends BaseController
         if(!empty($request->id) && intval($request->id) > 0){
             $returnData = array(
                 'url' => url('system/role/editPermission?rid=' . $request->id),
-                'title' => '设置权限'
+                'title' => '设置权限',
+                'width'  => '60%',
+                'height' => '450px'
             );
             return ApiResponse::success($returnData);
         }

@@ -33,6 +33,4 @@ class RoleRepository extends BaseRepository
             ->orderBy('id', 'desc')
             ->paginate();
     }
-
-
 }

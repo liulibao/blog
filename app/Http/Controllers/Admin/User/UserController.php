@@ -11,9 +11,12 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Admin\BaseController;
 use App\Repositories\System\MenuRepository;
+use App\Repositories\System\RoleRepository;
 use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRoleRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends BaseController
@@ -26,12 +29,22 @@ class UserController extends BaseController
     /**
      * @var
      */
-    protected $menuRepository;
+    protected $roleRepository;
 
-    public function __construct(UserRepository $repository, MenuRepository $menuRepository)
+    /**
+     * @var
+     */
+    protected $userRoleRepository;
+
+    public function __construct(
+        UserRepository $repository,
+        RoleRepository $roleRepository,
+        UserRoleRepository $userRoleRepository
+    )
     {
         $this->repository = $repository;
-        $this->menuRepository = $menuRepository;
+        $this->roleRepository = $roleRepository;
+        $this->userRoleRepository = $userRoleRepository;
     }
 
     /**
@@ -45,8 +58,10 @@ class UserController extends BaseController
 
         if(!empty($request->id) && intval($request->id) > 0){
             $returnData = array(
-                'url' => url('user/editRole?uid=' . $request->id),
-                'title' => '设置角色'
+                'url'    => url('user/setRole?uid=' . $request->id),
+                'title'  => '设置角色',
+                'width'  => '30%',
+                'height' => '450px'
             );
             return ApiResponse::success($returnData);
         }
@@ -60,18 +75,27 @@ class UserController extends BaseController
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editRole(Request $request)
+    public function setRole(Request $request)
     {
         try{
             if(empty($request->uid) || intval($request->uid) <= 0) {
                 throw new \Exception('请求参数错误,请重新请求');
             }
+
             $uid = $request->uid;
+            $is_edit = 0;
 
-            $menu = $this->menuRepository->getMenu()->toArray();
-            $menus = format_data_tree($menu);
+            $roles = $this->roleRepository->all(['id', 'name'])->toArray();
 
-            return view('admin.user.edit_role', compact('uid', 'menus'));
+            //获取当前用户的角色
+            $userRole = $this->userRoleRepository->getUserRoleByUid($request->uid);
+
+            if($userRole){
+                $is_edit = 1;
+                $userRole = json_decode($userRole['role_id'], true);
+            }
+
+            return view('admin.user.edit_role', compact('uid', 'is_edit', 'roles' , 'userRole'));
         } catch (\Exception $exception){
             return redirect('admin/layerError')->with('error', $exception->getMessage());
         }
@@ -80,10 +104,30 @@ class UserController extends BaseController
     /**
      * 保存用户角色
      * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function storeUserRole(Request $request)
     {
+        try{
+            $roles = (array)$request->roles;
+            if($roles) {
+                sort($roles);
+            }
 
+            $data = array(
+                'uid' => $request->uid,
+                'role_id' => json_encode($roles)
+            );
+
+            if($request->is_edit) {
+                $this->userRoleRepository->update(array('role_id' => json_encode($roles)), array('uid' => $request->uid));
+            } else {
+                $this->userRoleRepository->create($data);
+            }
+            return ApiResponse::success();
+        } catch (\Exception $exception) {
+            return ApiResponse::error($exception->getMessage());
+        }
     }
 
     /**
@@ -109,11 +153,17 @@ class UserController extends BaseController
             if(intval($request->id) <= 0) {
                 throw new \Exception('请求参数有误');
             }
-
+            DB::beginTransaction();
             $this->repository->delete($request->id, true);
-
+            $hasRole = $this->userRoleRepository->getUserRoleByUid($request->id);
+            Log::info($hasRole);
+            if($hasRole){
+                $this->userRoleRepository->deleteUserRole($request->id);
+            }
+            DB::commit();
             return ApiResponse::success();
         } catch (\Exception $exception){
+            DB::rollBack();
             return ApiResponse::error($exception->getMessage());
         }
     }

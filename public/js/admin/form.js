@@ -147,7 +147,7 @@ jQuery(document).ready(function() {
                     if(!lock){
                         layer.open({
                             type: 2, // Layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                            area: ['60%','450px'],
+                            area: [res.data['width'], res.data['height']],
                             title: res.data['title'],
                             // shade: 0.8,  //遮罩透明度
                             shadeClose: true, //点击遮罩区域是否关闭页面
@@ -200,7 +200,7 @@ jQuery(document).ready(function() {
                     setTimeout(function () {
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                         parent.layer.close(index); //再执行关闭
-                    },500)
+                    },600)
 
                 } else {
                     layer.msg( res.message, {icon: 2});

@@ -33,7 +33,7 @@ class UserRepository extends BaseRepository
      */
     public function getLists(Request $request, $is_admin = true)
     {
-        $result = $this->model;
+        $result = $this->model->where('deleted_at', 0);
 
         if($is_admin) {
             $result = $result->where('is_admin', User::IS_ADMIN);

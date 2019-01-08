@@ -18,9 +18,10 @@ if(config('domain.admin.domain')){
         //用户管理
         Route::namespace('User')->group(function () {
             Route::get('user', 'UserController@index')->name('admin.user');
-            Route::get('user/editRole', 'UserController@editRole')->name('admin.editRole');
-            Route::get('user/subscriber', 'UserController@subscriber')->name('admin.subscriber');
             Route::get('user/delete', 'UserController@delete')->name('admin.delete');
+            Route::get('user/setRole', 'UserController@setRole')->name('admin.setRole');
+            Route::get('user/subscriber', 'UserController@subscriber')->name('admin.subscriber');
+            Route::post('user/storeUserRole', 'UserController@storeUserRole')->name('admin.storeUserRole');
         });
 
         //系统管理
@@ -28,9 +29,9 @@ if(config('domain.admin.domain')){
             //角色管理
             Route::get('role', 'RoleController@index')->name('admin.role');
             Route::get('role/edit', 'RoleController@edit')->name('admin.role.edit');
-            Route::get('role/editPermission', 'RoleController@editPermission')->name('admin.role.editPermission');
             Route::get('role/delete', 'RoleController@delete')->name('admin.role.delete');
             Route::post('role/store', 'RoleController@store')->name('admin.role.store');
+            Route::get('role/editPermission', 'RoleController@editPermission')->name('admin.role.editPermission');
             Route::post('role/storePermission', 'RoleController@storePermission')->name('admin.role.storePermission');
 
             //菜单管理

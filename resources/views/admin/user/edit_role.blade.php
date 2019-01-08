@@ -2,45 +2,32 @@
 
 @section('contents')
 
-<form action="{{url('system/menu/store')}}" class="form-horizontal" id="postForm">
+<form action="{{url('user/storeUserRole')}}" class="form-horizontal" id="postForm">
+
     <input type="hidden" name="uid" value=" @if(isset($uid)){{$uid}}@endif">
-    @if(isset($menus))
-    @foreach($menus as $item)
+
+    <input type="hidden" name="is_edit" value=" @if(isset($is_edit)){{$is_edit}}@endif">
+
+    {{csrf_field()}}
+
+    @if(isset($roles))
     <div class="box box-info">
         <div class="box-body with-border">
-            <label>
-                <input type="checkbox" value="{{$item['id']}}" name="auth_id[]" class="checkbox-parent checkbox-parent{{$item['id']}}" data-id="{{$item['id']}}">
+            @foreach($roles as $item)
+            <label style="margin-right: 10px;">
+                <input type="checkbox" value="{{$item['id']}}"  @if(isset($userRole) && in_array($item['id'], $userRole)) {{'checked'}} @endif
+                name="roles[]" class="checkbox-parent checkbox-parent{{$item['id']}}" data-id="{{$item['id']}}">
                 &nbsp;&nbsp;{{$item['name']}}
             </label>
-        </div>
-
-        @if(is_array($item['children']))
-        <div class="box-body">
-            @foreach($item['children'] as $key=>$val)
-            @if($key > 0) <br /> @endif
-            <label style="margin-right: 5px;">
-                <input type="checkbox" value="{{$val['id']}}" name="auth_id[]" data-pid="{{$item['id']}}" class="checkbox-son checkbox-son{{$item['id']}}">
-                &nbsp;&nbsp;{{$val['name']}}
-            </label>
-                @if(is_array($val['children']))
-                @foreach($val['children'] as $v)
-                    <label style="margin-right: 5px;">
-                        <input type="checkbox" value="{{$v['id']}}" name="auth_id[]" data-pid="{{$item['id']}}" class="checkbox-son checkbox-son{{$item['id']}}">
-                        &nbsp;&nbsp;{{$v['name']}}
-                    </label>
-                @endforeach
-                @endif
             @endforeach
         </div>
-        @endif
     </div>
-    @endforeach
     @endif
     <div style="height: 35px; width: 100%;"></div>
     <div  style="margin-left: -15px;text-align: center;
     position: fixed;bottom: 0;z-index: 99;width: 100%;padding: 10px;background-color: #fff;">
-        <a href="javascript:void (0);" data-back_url="{{route('admin.menu')}}" data-is_confirm="false"
-           class="btn btn-info submitFormBtu" >立即提交
+        <a href="javascript:void (0);" data-is_confirm="false"
+           class="btn btn-info layerSubmitFormBtu" >立即提交
         </a>
     </div>
 </form>

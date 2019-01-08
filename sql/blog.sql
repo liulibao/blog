@@ -33,7 +33,7 @@ CREATE TABLE `bg_user_roles` (
   `role_id` VARCHAR(100) not null default '' comment '角色ID',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
-  primary key(`uid`),
+  primary key(`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='用户-角色关系表';
 
 
@@ -57,12 +57,12 @@ CREATE TABLE `bg_roles` (
 
 -- 角色-权限表 (role_permissions) role_id permission_id
 DROP TABLE IF EXISTS `bg_role_permissions`;
-CREATE TABLE `bg_role_authority` (
+CREATE TABLE `bg_role_permissions` (
   `role_id` int unsigned not null default '0' comment '角色ID',
   `menu_id` VARCHAR(255) not null default '' comment '权限ID',
-  `created_at` TIMESTAMP NOT NULL DEFAULT '0' comment '添加时间',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '添加时间',
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  primary key(`role_id`),
+  primary key(`role_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COMMENT='角色-权限关系表';
 
 
