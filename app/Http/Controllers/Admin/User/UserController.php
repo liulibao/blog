@@ -156,7 +156,7 @@ class UserController extends BaseController
             DB::beginTransaction();
             $this->repository->delete($request->id, true);
             $hasRole = $this->userRoleRepository->getUserRoleByUid($request->id);
-            Log::info($hasRole);
+
             if($hasRole){
                 $this->userRoleRepository->deleteUserRole($request->id);
             }
