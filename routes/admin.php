@@ -10,6 +10,12 @@ if(config('domain.admin.domain')){
         ->middleware('web')
         ->group(function () {
 
+        //登陆
+        Route::get('login', function (){
+            return view('admin.login');
+        });
+//        Route::get('login', 'HomeController@index')->name('home');
+
         //首页
         Route::get('/', 'HomeController@index')->name('home');
         Route::get('admin/error', 'HomeController@error')->name('admin.error');

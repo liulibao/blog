@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('style')
-    <link rel="stylesheet" href="{{asset('adminLet/bootstrap-fileinput/css/fileinput.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/adminlet/bootstrap-fileinput/css/fileinput.min.css')}}">
 @stop
 
 @section('contents')
@@ -133,8 +133,8 @@
 @stop
 
 @section('script')
-    <script src="{{asset('adminLet/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
-    <script src="{{asset('adminLet/bootstrap-fileinput/locales/zh.js')}}"></script>
+    <script src="{{asset('admin/adminlet/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
+    <script src="{{asset('admin/adminlet/bootstrap-fileinput/locales/zh.js')}}"></script>
     <script type="text/javascript">
         $("#uploadImage").fileinput({
             language : 'zh',

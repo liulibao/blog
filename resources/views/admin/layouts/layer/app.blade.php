@@ -1,6 +1,6 @@
-<link href="{{asset('adminLET/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('adminLET/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('css/form.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin/adminlet/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin/adminlet/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('admin/css/form.css')}}" rel="stylesheet" type="text/css" />
 <style>
     .box-body {
         font-size: 12px;
@@ -16,8 +16,8 @@
     </div>
 </div>
 
-<script src="{{asset('adminLET/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
-<script src="{{asset('adminLET/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('admin/adminlet/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
+<script src="{{asset('admin/adminlet/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('layui/layui.all.js')}}"></script>
-<script src="{{asset('js/admin/form.js')}}"></script>
+<script src="{{asset('admin/js/form.js')}}"></script>
 @yield('script')

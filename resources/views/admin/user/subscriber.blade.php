@@ -74,5 +74,5 @@
 @stop
 
 @section('script')
-    <script src="{{asset('js/admin/form.js')}}"></script>
+    <script src="{{asset('admin/js/form.js')}}"></script>
 @stop

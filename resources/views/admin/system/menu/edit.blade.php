@@ -8,7 +8,7 @@
             box-sizing:border-box;
         }
         .f_select-box .icon-search{
-            background: url({{asset('images/select_point.gif')}}) no-repeat;
+            background: url({{asset('admin/images/select_point.gif')}}) no-repeat;
             width: 15px;
             height: 14px;
             position: absolute;

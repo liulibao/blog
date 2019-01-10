@@ -17,16 +17,16 @@
     <meta http-equiv="content-type" content="text/html; charset=gb2312">
     <meta http-equiv="content-language" content="zh-cn">
     <!-- Bootstrap 3.3.4 -->
-    <link href="{{asset('adminLET/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin/adminlet/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- FontAwesome 4.3.0 -->
-    <link href="{{asset('adminLET/dist/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin/adminlet/dist/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- Ionicons 2.0.0 -->
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="{{asset('adminLET/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{asset('adminLET/dist/css/skins/_all-skins.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin/adminlet/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin/adminlet/dist/css/skins/_all-skins.min.css')}}" rel="stylesheet" type="text/css" />
     <!--自定义表单样式-->
-    <link href="{{asset('css/form.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('admin/css/form.css')}}" rel="stylesheet" type="text/css" />
 
     <style>
         body {
@@ -86,13 +86,13 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle"  data-toggle="dropdown">
-                            <img src="{{asset('adminLET/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image"/>
+                            <img src="{{asset('admin/adminlet/dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image"/>
                             <span class="hidden-xs">Alexander Pierce</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header" style="background: #222d32;">
-                                <img src="{{asset('adminLET/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+                                <img src="{{asset('admin/adminlet/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
                                 <p>
                                     Alexander Pierce - Web Developer
                                     <small>Member since Nov. 2012</small>
@@ -120,7 +120,7 @@
         <section class="sidebar">
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{asset('adminLET/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
+                    <img src="{{asset('admin/adminlet/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image" />
                 </div>
                 <div class="pull-left info">
                     <p>Alexander Pierce</p>
@@ -159,11 +159,11 @@
 
 
 <!-- AdminLTE App -->
-<script src="{{asset('adminLET/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
-<script src="{{asset('adminLET/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('adminLET/dist/js/app.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('admin/adminlet/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
+<script src="{{asset('admin/adminlet/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('admin/adminlet/dist/js/app.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('layui/layui.all.js')}}"></script>
-<script src="{{asset('js/admin/form.js')}}"></script>
+<script src="{{asset('admin/js/form.js')}}"></script>
 @yield('script')
 </body>
 </html>
