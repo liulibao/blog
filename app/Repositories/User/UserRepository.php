@@ -31,15 +31,10 @@ class UserRepository extends BaseRepository
      * @param bool $is_admin 是否是管理员
      * @return
      */
-    public function getLists(Request $request, $is_admin = true)
+    public function getLists(Request $request)
     {
-        $result = $this->model->where('deleted_at', 0);
-
-        if($is_admin) {
-            $result = $result->where('is_admin', User::IS_ADMIN);
-        } else {
-            $result = $result->where('is_admin', User::IS_USER);
-        }
+        $result = $this->model->where('deleted_at', 0)
+            ->where('is_admin', User::IS_USER);
 
         if(!empty($request->name)){
             $result = $result->where('name', 'like' ,'%'.trim($request->name).'%');

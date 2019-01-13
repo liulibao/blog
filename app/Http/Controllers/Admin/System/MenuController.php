@@ -31,6 +31,7 @@ class MenuController extends BaseController
 
     public function __construct( MenuRepository $repository, IconRepository $iconRepository)
     {
+        parent::__construct();
         $this->repository = $repository;
         $this->iconRepository = $iconRepository;
     }

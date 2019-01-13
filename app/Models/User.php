@@ -11,7 +11,6 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    const IS_ADMIN = 1; //管理员
     const IS_USER = 0; //用户
 
     /**

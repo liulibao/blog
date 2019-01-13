@@ -10,21 +10,12 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
-use App\Repositories\System\MenuRepository;
-use App\Repositories\System\RoleRepository;
+use App\Models\Menu;
+use App\Models\RolePermission;
+use Illuminate\Support\Facades\Session;
 
 class BaseController extends Controller
 {
-    /**
-     * @var RoleRepository
-     */
-    protected $roleRepository;
-
-    /**
-     * @var
-     */
-    protected $menuRepository;
-
     /**
      * @var
      */
@@ -38,6 +29,11 @@ class BaseController extends Controller
     /**
      * @var array
      */
+    protected $role_ids = [];
+
+    /**
+     * @var array
+     */
     public $menu_ids = [];
 
     /**
@@ -45,14 +41,17 @@ class BaseController extends Controller
      */
     public $menus = [];
 
-    public function __construct(RoleRepository $roleRepository, MenuRepository $menuRepository)
+
+    public function __construct()
     {
-        $this->roleRepository = $roleRepository;
-        $this->menuRepository = $menuRepository;
+        //检测登陆
+        $this->user = Session::get('user');
+        $this->uid = $this->user['id'];
+        $this->role_id = 1;
         $this->getUserHasPermission();
-//        $this->getUserHasMenu();
-        $this->uid = 1;
+        $this->getUserHasMenu();
     }
+
 
     //获取IP
     public function getIP()
@@ -65,31 +64,36 @@ class BaseController extends Controller
     /**
      * 获取角色权限ID
      */
-    public function getUserHasPermission()
+    protected function getUserHasPermission()
     {
-        $data = $this->roleRepository->getUserRolePermission($this->uid)->toArray();
-        var_dump($data);
-//        if($data){
-//            $this->menu_ids = json_decode($data['menu_id'], true);
-//        }
+        $menu_ids = (new RolePermission())->where('role_id', 1)->value('menu_id');
+
+        if($menu_ids){
+            $this->menu_ids = explode(',', $menu_ids);
+        }
+
     }
 
+
     /**
-     * 获取menu列表
+     * 获取用户拥有的menu列表
      */
     public function getUserHasMenu()
     {
-        var_dump($this->menu_ids);
         if($this->menu_ids) {
-            foreach ($this->menu_ids as $item){
-                $map = array(
-                    'is_show' => 1,
-                    'deleted_at' => 0,
-                    'id' => $item
-                );
-                $this->menus[] = $this->menuRepository->where($map)->first();
+            $map = array(
+                'is_show' => 1,
+            );
+            $data = (new Menu())->where($map)
+                ->whereIn('id', $this->menu_ids)
+                ->select('id', 'name', 'path', 'icon', 'pid')
+                ->orderBy('sort', 'ASC')
+                ->get()
+                ->toArray();
+
+            if ($data) {
+                $this->menus[] = $data;
             }
         }
-
     }
 }

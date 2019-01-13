@@ -11,7 +11,7 @@
     <li class="header">MAIN NAVIGATION</li>
 
     <li class="treeview ">
-        <a href="{{url('/')}}">
+        <a href="{{url('home')}}">
             <i class="fa fa-dashboard"></i>
             <span>首页</span>
         </a>

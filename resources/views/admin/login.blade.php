@@ -20,16 +20,21 @@ use \Illuminate\Support\Facades\Cookie;
         <form action="{{url('login')}}" autocomplete="off" method="post" id="postForm">
             <input type="hidden" name="_token" value="{{ csrf_token()}}">
 
-            <div>
-                <input type="text" name="username" class="username" value="{{!empty(Cookie::get('username')) ? Cookie::get('username') : ''}}" placeholder="Username">
-                <span class="show_error">用户名不能为空</span>
 
-                <input type="password" value="{{!empty(\Illuminate\Support\Facades\Cookie::get('username')) ? Cookie::get('username') : ''}}" name="password" class="password" placeholder="Password">
-                <span class="show_error" >密码不能为空</span>
-            </div>
-            <div>
-                <label class="add_cart_radio"><input type="checkbox" {{!empty(Cookie::get('remember_me')) ? 'checked' : ''}} name="remember_me"  value="1">  Remember me</label>
-            </div>
+            <input type="text" name="username" class="username" value="{{!empty(Cookie::get('username')) ? Cookie::get('username') : ''}}"
+                   placeholder="请输入用户名">
+            <span class="show_error">用户名不能为空</span>
+
+            <input type="password" value="" name="password" class="password" autocomplete="off" placeholder="请输入用户密码">
+            <span class="show_error" >密码不能为空</span>
+
+
+
+            <label class="add_cart_radio">
+                <input type="checkbox" {{!empty(Cookie::get('remember_me')) ? 'checked' : ''}} name="is_remember"  value="1">
+                Remember me
+            </label>
+
             <button type="button" class="submitBtu"> 登 陆 </button>
         </form>
     </div>
@@ -39,7 +44,7 @@ use \Illuminate\Support\Facades\Cookie;
 <!--转圈圈-->
 <script src="{{asset('admin/js/supersized.3.2.7.min.js')}}"></script>
 <script src="{{asset('admin/js/supersized-init.js')}}"></script>
-<script src="{{asset('admin/js/main.js')}}"></script>
+<script src="{{asset('admin/js/login.js')}}"></script>
 </body>
 </html>
 

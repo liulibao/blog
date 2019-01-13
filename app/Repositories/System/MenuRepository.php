@@ -68,11 +68,17 @@ class MenuRepository extends BaseRepository
 
     /**
      * 获取目录
+     * @param array $map
+     * @return
      */
-    public function getMenu()
+    public function getMenu(array $map = array())
     {
-        return $this->model->where('deleted_at', 0)
-            ->select('id','name', 'pid')
+        $model = $this->model->where('deleted_at', 0);
+        if(!empty($map)) {
+           $model = $model->where($map);
+        }
+
+        return $model->select('id','name', 'pid')
             ->orderBy('sort', 'asc')
             ->get();
     }
@@ -82,7 +88,7 @@ class MenuRepository extends BaseRepository
      * @param $id
      * @return mixed
      */
-    public function getDepthById($id)
+    public function getDepthById(int $id)
     {
         return $this->model->where('deleted_at', 0)
             ->where('id', $id)

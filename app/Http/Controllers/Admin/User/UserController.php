@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Admin\BaseController;
 use App\Repositories\System\MenuRepository;
 use App\Repositories\System\RoleRepository;
+use App\Repositories\User\AdminRepository;
 use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRoleRepository;
 use App\Traits\ApiResponse;
@@ -29,6 +30,11 @@ class UserController extends BaseController
     /**
      * @var
      */
+    protected $adminRepository;
+
+    /**
+     * @var
+     */
     protected $roleRepository;
 
     /**
@@ -39,11 +45,14 @@ class UserController extends BaseController
     public function __construct(
         UserRepository $repository,
         RoleRepository $roleRepository,
+        AdminRepository $adminRepository,
         UserRoleRepository $userRoleRepository
     )
     {
+        parent::__construct();
         $this->repository = $repository;
         $this->roleRepository = $roleRepository;
+        $this->adminRepository = $adminRepository;
         $this->userRoleRepository = $userRoleRepository;
     }
 
@@ -66,7 +75,7 @@ class UserController extends BaseController
             return ApiResponse::success($returnData);
         }
 
-        $lists = $this->repository->getLists($request);
+        $lists = $this->adminRepository->getLists($request);
         return view('admin.user.index', compact('page_title', 'lists'));
     }
 
@@ -92,7 +101,7 @@ class UserController extends BaseController
 
             if($userRole){
                 $is_edit = 1;
-                $userRole = json_decode($userRole['role_id'], true);
+                $userRole = explode(',',$userRole['role_id']);
             }
 
             return view('admin.user.edit_role', compact('uid', 'is_edit', 'roles' , 'userRole'));
@@ -112,15 +121,16 @@ class UserController extends BaseController
             $roles = (array)$request->roles;
             if($roles) {
                 sort($roles);
+                $roles = implode(',', $roles);
             }
 
             $data = array(
                 'uid' => $request->uid,
-                'role_id' => json_encode($roles)
+                'role_id' => $roles
             );
 
             if($request->is_edit) {
-                $this->userRoleRepository->update(array('role_id' => json_encode($roles)), array('uid' => $request->uid));
+                $this->userRoleRepository->update(array('role_id' => $roles), array('uid' => $request->uid));
             } else {
                 $this->userRoleRepository->create($data);
             }

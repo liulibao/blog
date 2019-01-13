@@ -40,9 +40,9 @@ class RoleController extends BaseController
         RoleRepository $repository,
         MenuRepository $menuRepository,
         RolePermissionRepository $rolePermissionRepository
-
     )
     {
+        parent::__construct();
         $this->repository = $repository;
         $this->menuRepository = $menuRepository;
         $this->rolePermissionRepository = $rolePermissionRepository;
@@ -119,7 +119,7 @@ class RoleController extends BaseController
             $permission = $this->rolePermissionRepository->getPermissionByRoleId($request->rid);
             if($permission){
                 $is_edit = 1;
-                $permission = json_decode($permission['menu_id'], true);
+                $permission = explode(',', $permission['menu_id']);
             }
 
             return view('admin.system.role.edit_permission', compact('rid', 'is_edit', 'menus', 'permission'));
@@ -139,15 +139,16 @@ class RoleController extends BaseController
             $permission = (array)$request->permission;
             if($permission) {
                 sort($permission);
+                $permission = implode(',', $permission);
             }
 
             $data = array(
                 'role_id' => $request->rid,
-                'menu_id' => json_encode($permission)
+                'menu_id' => $permission
             );
 
             if($request->is_edit) {
-                 $this->rolePermissionRepository->update(array('menu_id' => json_encode($permission)), array('role_id' => $request->rid));
+                 $this->rolePermissionRepository->update(array('menu_id' => $permission), array('role_id' => $request->rid));
             } else {
                 $this->rolePermissionRepository->create($data);
             }

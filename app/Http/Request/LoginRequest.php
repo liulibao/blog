@@ -13,18 +13,33 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
 {
-    public function authorization()
+    /**
+     * @return bool
+     */
+    public function authorize()
     {
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
-        return [];
+        return [
+            'username' => 'required',
+            'password' => 'required'
+        ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
-        return [];
+        return [
+            'username.required' => '用户名不能为空',
+            'password.required' => '用户密码不能为空',
+        ];
     }
 }

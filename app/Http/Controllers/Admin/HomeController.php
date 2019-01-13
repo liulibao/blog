@@ -9,18 +9,28 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Repositories\User\AdminRepository;
 use Illuminate\Http\Request;
 
 class HomeController extends BaseController
 {
     /**
+     * @var
+     */
+    protected $repository;
+
+    public function __construct(AdminRepository $repository)
+    {
+        parent::__construct();
+    }
+
+    /**
      * 首页
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        var_dump($this->menus);
         return view('admin.home.index');
     }
 
