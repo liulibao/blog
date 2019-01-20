@@ -22,6 +22,7 @@ class ArticleCategoryController extends BaseController
 
     public function __construct(ArticleCategoryRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 

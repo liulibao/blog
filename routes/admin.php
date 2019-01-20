@@ -24,7 +24,7 @@ if(config('domain.admin.domain')){
 
         //用户管理
         Route::namespace('User')->group(function () {
-            Route::get('user', 'UserController@index')->name('admin.user');
+            Route::get('user/index', 'UserController@index')->name('admin.user');
             Route::get('user/delete', 'UserController@delete')->name('admin.delete');
             Route::get('user/setRole', 'UserController@setRole')->name('admin.setRole');
             Route::get('user/subscriber', 'UserController@subscriber')->name('admin.subscriber');

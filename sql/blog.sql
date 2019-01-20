@@ -276,7 +276,7 @@ CREATE TABLE `bg_icons` (
   primary key(`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='图标表';
 
-insert INTO `bg_icons` (`name`) VALUES ('fa-book'),('fa-send'),('fa-search'),('fa-users'),('fa-user'),('fa-reply'),
+insert INTO `bg_icons` (`name`) VALUES ('fa-book'),('fa-circle-o'),('fa-send'),('fa-search'),('fa-users'),('fa-user'),('fa-reply'),
 ('fa-folder'),('fa-user-plus'),('fa-cart-arrow-down'),('fa-cart-plus'),('fa-server'),('fa-bar-chart'),('fa-bell-slash'),
 ('fa-bookmark'),('fa-calendar-o'),('fa-check'),('fa-check-square-o'),('fa-comment'),('fa-comments'),('fa-dashboard'),
 ('fa-ellipsis-v'),('fa-eye-slash'),('fa-eye-slash'),('fa-eye'),('fa-file-excel-o'),('fa-file-photo-o'),('fa-file-video-o'),

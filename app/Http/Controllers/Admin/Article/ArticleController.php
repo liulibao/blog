@@ -27,6 +27,7 @@ class ArticleController extends BaseController
         ArticleCategoryRepository $categoryRepository
     )
     {
+        parent::__construct();
         $this->repository = $repository;
         $this->categoryRepository = $categoryRepository;
     }

@@ -12,6 +12,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\RolePermission;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class BaseController extends Controller
@@ -29,17 +32,17 @@ class BaseController extends Controller
     /**
      * @var array
      */
-    protected $role_ids = [];
-
-    /**
-     * @var array
-     */
     public $menu_ids = [];
 
     /**
      * @var array
      */
     public $menus = [];
+
+    /**
+     * @var array
+     */
+    protected $hasPermission = [];
 
 
     public function __construct()
@@ -50,16 +53,22 @@ class BaseController extends Controller
         $this->role_id = 1;
         $this->getUserHasPermission();
         $this->getUserHasMenu();
+        $this->isHasPermission();
+        view()->share('userHasMenu', $this->menus);
+        view()->share('request_prefix', format_url(getCurrentUrl())[1]);
     }
 
-
-    //获取IP
-    public function getIP()
+    /**
+     * 是否拥有权限
+     * @param Request $request
+     */
+    protected function isHasPermission()
     {
-        $request = request();
-        $ip = ip2long($request->getClientIp());
-        return  bindec(decbin($ip));
+        $path = array_column($this->hasPermission, 'path' , 'id');
+//        var_dump($path);
+//        echo getCurrentUrl();
     }
+
 
     /**
      * 获取角色权限ID
@@ -78,12 +87,13 @@ class BaseController extends Controller
     /**
      * 获取用户拥有的menu列表
      */
-    public function getUserHasMenu()
+    protected function getUserHasMenu()
     {
         if($this->menu_ids) {
             $map = array(
-                'is_show' => 1,
+                'is_show' => Menu::IS_SHOW,
             );
+
             $data = (new Menu())->where($map)
                 ->whereIn('id', $this->menu_ids)
                 ->select('id', 'name', 'path', 'icon', 'pid')
@@ -91,8 +101,11 @@ class BaseController extends Controller
                 ->get()
                 ->toArray();
 
+            $this->hasPermission = $data;
+            $data = format_data_tree($data);
+
             if ($data) {
-                $this->menus[] = $data;
+                $this->menus = $data;
             }
         }
     }

@@ -40,6 +40,7 @@ class AdvertController extends BaseController
      */
     public function __construct(AdvertRepository $repository, UploadService $service)
     {
+        parent::__construct();
         $this->repository = $repository;
         $this->uploadService = $service;
         $this->admin_id = 1;

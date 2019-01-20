@@ -210,7 +210,7 @@
                 if( this.innerText.replace(/^\s+|\s+$/g,"") == '请选择图标'){
                     ipt.value = '';
                 } else {
-                    ipt.value=this.innerText.replace(/^\s+|\s+$/g,"");
+                    ipt.value = this.innerText.replace(/^\s+|\s+$/g,"");
                 }
             }
         }
