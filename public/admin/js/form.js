@@ -1,3 +1,4 @@
+var isClick = false;
 jQuery(document).ready(function() {
 /* layer 的使用 icon [0-! 1-√ 2-x 3-? 4-🔒 5-😭 6-(*^_^*) ]
    function(){
@@ -25,18 +26,21 @@ jQuery(document).ready(function() {
         var back_url = $(this).data('back_url');
         var is_confirm = $(this).data('is_confirm');
         var elements = getElements('postForm');
-        if(is_confirm) {
-            layer.confirm(
-                '确定提交嘛？',
-                {icon: 3, title:'提示'},
-                function(){
-                    ajaxElement(elements, _this, back_url);
-                }
-            );
-        } else {
-            ajaxElement(elements, _this, back_url);
-        }
+        if(!isClick) {
+            isClick = true;
+            if(is_confirm) {
+                layer.confirm(
+                    '确定提交嘛？',
+                    {icon: 3, title:'提示'},
+                    function(){
+                        ajaxElement(elements, _this, back_url);
+                    }
+                );
+            } else {
+                ajaxElement(elements, _this, back_url);
+            }
 
+        }
     });
 
     //AJAX 提交
@@ -47,7 +51,7 @@ jQuery(document).ready(function() {
             dataType : 'json',
             data : $(elements).serialize(),
             success : function (res) {
-                console.log(res);
+                isClick = false;
                 if (res.status == 1) {
                     if (res.message) {
                         layer.msg(res.message, {icon: 1});
@@ -67,6 +71,7 @@ jQuery(document).ready(function() {
                 }
             },
             error : function () {
+                isClick = false;
                 layer.msg('服务器繁忙', {icon: 2});
                 return false;
             }
@@ -170,18 +175,20 @@ jQuery(document).ready(function() {
         var _this = $(this);
         var is_confirm = $(this).data('is_confirm');
         var elements = getElements('postForm');
-        if(is_confirm) {
-            layer.confirm(
-                '确定提交嘛？',
-                {icon: 3, title:'提示'},
-                function(){
-                    ajaxLayerElement(elements, _this);
-                }
-            );
-        } else {
-            ajaxLayerElement(elements, _this);
+        if(!isClick) {
+            isClick = true;
+            if(is_confirm) {
+                layer.confirm(
+                    '确定提交嘛？',
+                    {icon: 3, title:'提示'},
+                    function(){
+                        ajaxLayerElement(elements, _this);
+                    }
+                );
+            } else {
+                ajaxLayerElement(elements, _this);
+            }
         }
-
     });
 
     //AJAXLayer 提交
@@ -206,8 +213,11 @@ jQuery(document).ready(function() {
                     layer.msg( res.message, {icon: 2});
                     return false;
                 }
+
+                isClick = false;
             },
             error : function () {
+                isClick = false;
                 layer.msg('服务器繁忙', {icon: 2});
                 return false;
             }

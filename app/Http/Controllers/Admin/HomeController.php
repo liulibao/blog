@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Repositories\User\AdminRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends BaseController
 {

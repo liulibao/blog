@@ -29,6 +29,14 @@ class LoginController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        return view('admin.login');
+    }
+
+    /**
      * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      */

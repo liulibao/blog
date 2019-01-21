@@ -6,18 +6,16 @@
  * Time: 22:00
  */
 if(config('domain.admin.domain')){
+
     Route::domain(config('domain.admin.domain'))
-        ->middleware('web')
+        ->middleware('admin.auth')
         ->group(function () {
 
         //登陆
-        Route::get('login', function (){
-            return view('admin.login');
-        });
-
+        Route::get('/login', 'LoginController@index')->name('login');
         Route::post('login', 'LoginController@login');
 
-        //首页
+            //首页
         Route::get('home', 'HomeController@index')->name('home');
         Route::get('admin/error', 'HomeController@error')->name('admin.error');
         Route::get('admin/layerError', 'HomeController@layerError')->name('admin.layerError');
@@ -63,7 +61,7 @@ if(config('domain.admin.domain')){
 
         //日记管理
         Route::namespace('Diary')->group(function () {
-            Route::get('diary', 'DiaryController@index')->name('admin.diary');
+            Route::get('diary/index', 'DiaryController@index')->name('admin.diary');
             Route::get('diary/edit', 'DiaryController@edit')->name('admin.diary.edit');
             Route::get('diary/delete', 'DiaryController@delete')->name('admin.diary.delete');
             Route::post('diary/store', 'DiaryController@store')->name('admin.diary.store');
@@ -71,7 +69,7 @@ if(config('domain.admin.domain')){
 
         //广告管理
         Route::namespace('Advert')->group(function (){
-            Route::get('advert', 'AdvertController@index')->name('admin.advert');
+            Route::get('advert/index', 'AdvertController@index')->name('admin.advert');
             Route::get('advert/edit', 'AdvertController@edit')->name('admin.advert.edit');
             Route::get('advert/delete', 'AdvertController@delete')->name('admin.advert.delete');
             Route::get('advert/deleteFile', 'AdvertController@deleteFile')->name('admin.advert.deleteFile'); //删除文件
@@ -80,7 +78,7 @@ if(config('domain.admin.domain')){
         });
 
 
-        Route::get('/icons', function () {
+        Route::get('test/icons', function () {
             return view('admin.dashboard.icons');
         });
     });

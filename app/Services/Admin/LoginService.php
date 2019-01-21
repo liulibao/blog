@@ -2,22 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: hf-li
- * Date: 2018/12/6
- * Time: 21:55
+ * Date: 2019/1/21
+ * Time: 22:43
  */
 
-namespace App\Http\Controllers\Admin;
+namespace App\Services\Admin;
 
 
-use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\RolePermission;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Contracts\Session\Session;
 
-class BaseController extends Controller
+class LoginService
 {
     /**
      * @var
@@ -44,23 +40,22 @@ class BaseController extends Controller
      */
     protected $hasPermission = [];
 
-
     public function __construct()
     {
-//        //检测登陆
-//        $this->user = Session::get('user');
-//        $this->uid = $this->user['id'];
-//        $this->role_id = 1;
-//        $this->getUserHasPermission();
-//        $this->getUserHasMenu();
-//        $this->isHasPermission();
-//        view()->share('userHasMenu', $this->menus);
-//        view()->share('request_prefix', format_url(getCurrentUrl())[1]);
+        //检测登陆
+        $this->user = Session::get('user');
+        $this->uid = $this->user['id'];
+        $this->role_id = 1;
+        $this->getUserHasPermission();
+        $this->getUserHasMenu();
+        $this->isHasPermission();
+        view()->share('userHasMenu', $this->menus);
+        view()->share('request_prefix', format_url(getCurrentUrl())[1]);
     }
 
     /**
      * 是否拥有权限
-     * @param Request $request
+     * @internal param Request $request
      */
     protected function isHasPermission()
     {

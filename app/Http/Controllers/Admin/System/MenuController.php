@@ -62,9 +62,9 @@ class MenuController extends BaseController
             $menu = format_data_tree($menu);
 
             if(empty($request->id)){
-                $page_title = '添加角色';
+                $page_title = '添加目录';
             } else {
-                $page_title = '修改角色';
+                $page_title = '修改目录';
 
                 if (intval($request->id) <= 0) {
                     throw new \Exception('请求参数有误');
