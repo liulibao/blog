@@ -13,7 +13,7 @@ use App\Repositories\User\AdminRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class HomeController extends BaseController
+class CommentController extends BaseController
 {
     /**
      * @var
@@ -33,6 +33,15 @@ class HomeController extends BaseController
     public function index()
     {
         return view('admin.home.index');
+    }
+
+    /**
+     * 管理图标
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function icon()
+    {
+        return view('admin.dashboard.icons');
     }
 
     /**

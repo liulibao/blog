@@ -31,7 +31,7 @@ if(!function_exists('getCurrentUrl')){
      */
     function getCurrentUrl()
     {
-        return \Request::getRequestUri();
+        return trim(\Request::getRequestUri(), '/');
     }
 
 }
@@ -94,14 +94,14 @@ if (!function_exists('format_array')) {
      * @param $val_name 【指定获取的字段】
      * @return array
      */
-    function format_array($arr, $key_name, $val_name , $is_all = false)
+    function format_array($arr, $key, $value, $is_all = false)
     {
         $result = array();
-        array_walk($arr, function($value, $key) use (&$result, $key_name, $val_name , $is_all){
+        array_walk($arr, function($item, $ke) use (&$result, $key, $value , $is_all){
             if($is_all){
-                $result [$value[$key_name]] = $value;
+                $result [$item[$key]] = $item;
             } else {
-                $result [$value[$key_name]] = $value[$val_name];
+                $result [$item[$key]] = $item[$value];
             }
         });
         return $result;

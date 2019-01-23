@@ -47,15 +47,15 @@ class BaseController extends Controller
 
     public function __construct()
     {
-//        //检测登陆
-//        $this->user = Session::get('user');
-//        $this->uid = $this->user['id'];
-//        $this->role_id = 1;
-//        $this->getUserHasPermission();
-//        $this->getUserHasMenu();
-//        $this->isHasPermission();
-//        view()->share('userHasMenu', $this->menus);
-//        view()->share('request_prefix', format_url(getCurrentUrl())[1]);
+        //检测登陆
+        $this->user = Session::get('user');
+        $this->uid = $this->user['id'];
+        $this->role_id = 1;
+        $this->getUserHasPermission();
+        $this->getUserHasMenu();
+        $this->isHasPermission();
+        view()->share('userHasMenu', $this->menus);
+        view()->share('request_prefix', getCurrentUrl());
     }
 
     /**

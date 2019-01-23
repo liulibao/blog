@@ -39,12 +39,6 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'admin.auth' => [
-            \Illuminate\Session\Middleware\StartSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            AdminAuthenticate::class
-        ],
-
         'api' => [
             'throttle:60,1',
             'bindings',
@@ -73,7 +67,7 @@ class Kernel extends HttpKernel
 //        'api.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
         'api.refresh' => \App\Http\Middleware\RefreshToken::class,
         'test' => \App\Http\Middleware\CheckTest::class,
-//        'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class,
+        'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class,
     ];
 
     /**

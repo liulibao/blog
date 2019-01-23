@@ -20,7 +20,8 @@ class AdminAuthenticate
      * @var array
      */
     protected $except = [
-        'login','/login'
+        'login',
+        'test/icons'
     ];
 
     /**
@@ -30,12 +31,14 @@ class AdminAuthenticate
      */
     public function handle($request, Closure $next)
     {
+        if(in_array(getCurrentUrl(), $this->except)) {
+            return $next($request);
+        }
 
-        Log::info('我走的是后台');
-        Log::info(json_encode(session('user')));
         if(!session('user')){
             return redirect('/login');
         }
+
         return $next($request);
     }
 }
