@@ -12,6 +12,40 @@ if(!function_exists('format_url')) {
     }
 }
 
+if(!function_exists('isGet')) {
+    /**
+     * 是否是 get 请求
+     * @return mixed
+     */
+    function isGet ()
+    {
+        return \Request::isMethod('get');
+    }
+}
+
+if(!function_exists('isPost')) {
+    /**
+     * 是否是 post 请求
+     * @return mixed
+     */
+    function isPost ()
+    {
+        return \Request::isMethod('post');
+    }
+}
+
+
+if(!function_exists('isAjax')) {
+    /**
+     * 是否是 ajax 请求
+     * @return mixed
+     */
+    function isAjax ()
+    {
+        return Request()->ajax();
+    }
+}
+
 if(!function_exists('getCurrentIp')){
     /**
      * 获取当前的IP
@@ -24,12 +58,23 @@ if(!function_exists('getCurrentIp')){
     }
 }
 
-if(!function_exists('getCurrentUrl')){
+if(!function_exists('getCurrentUrl')) {
     /**
-     * 获取当前的url 路由
+     * 获取当前的完整路不含有参数
      * @return mixed
      */
-    function getCurrentUrl()
+    function getCurrentUrl(){
+        $route = getCurrentFullRoute();
+        return explode('?', $route)[0];
+    }
+}
+
+if(!function_exists('getCurrentFullRoute')){
+    /**
+     * 获取当前的完整路由含有参数
+     * @return mixed
+     */
+    function getCurrentFullRoute()
     {
         return trim(\Request::getRequestUri(), '/');
     }

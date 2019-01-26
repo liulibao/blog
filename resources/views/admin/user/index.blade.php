@@ -55,7 +55,7 @@
                                         <i class="fa fa-edit"></i> 编辑
                                     </a>
 
-                                    <a href="javascript:void(0);" data-num="0" data-id="{{$item->id}}" data-url="{{url('user')}}"
+                                    <a href="javascript:void(0);" data-num="0" data-id="{{$item->id}}" data-url="{{url('user/index')}}"
                                        class="btn btn-primary btn-xs layerModel">
                                         <i class="fa fa-cog"></i> 分配角色
                                     </a>

@@ -7,9 +7,11 @@
  */
 
 Route::domain(config('domain.admin.domain'))
-    ->middleware(['web', 'admin.auth'])// 中间件
+    ->middleware('admin.auth')// 中间件
     ->group(function () {
+
     //登陆
+    Route::get('/', 'LoginController@index');
     Route::get('login', 'LoginController@index')->name('login');
     Route::post('login', 'LoginController@login');
 

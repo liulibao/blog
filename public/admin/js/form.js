@@ -66,7 +66,7 @@ jQuery(document).ready(function() {
                     }
 
                 } else {
-                    layer.msg( res.message, {icon: 2});
+                    layer.msg(res.message, {icon: 2});
                     return false;
                 }
             },
@@ -86,13 +86,19 @@ jQuery(document).ready(function() {
             '你确定要删除该条(ID:'+id+')记录吗?',
             {icon: 3, title:'提示'},
             function(){
-                $.get(url,{'id':id},function (res){
-                    if (res.status == '1') {
-                        window.location.reload();
-                    } else {
-                        layer.msg(res.message,'错误提示');
+                $.ajax({
+                    type:'get',
+                    url:url,
+                    data:{'id':id},
+                    dataType:'json',
+                    success:function(res){
+                        if (res.status == '1') {
+                            window.location.reload();
+                        } else {
+                            layer.msg( res.message, {icon: 2});
+                        }
                     }
-                },'json');
+                });
             }
         );
     });
@@ -129,13 +135,19 @@ jQuery(document).ready(function() {
             '删除文件不可找回，你确定要删除该文件吗?',
             {icon: 3, title:'提示'},
             function(){
-                $.get(url,{'file_id':file_id},function (res){
-                    if (res.status == '1') {
-                        window.location.reload();
-                    } else {
-                        layer.msg( res.message, {icon: 2});
+                $.ajax({
+                    type:'get',
+                    url:url,
+                    data:{'file_id':file_id},
+                    dataType:'json',
+                    success:function(res){
+                        if (res.status == '1') {
+                            window.location.reload();
+                        } else {
+                            layer.msg( res.message, {icon: 2});
+                        }
                     }
-                },'json');
+                });
             }
         );
     });
@@ -145,27 +157,37 @@ jQuery(document).ready(function() {
         var url = $(this).data('url');
         var id = $(this).data('id');
         lock = false;
-        console.log(lock);
+        // console.log(lock);
         if(!lock){
-            $.get(url,{'id':id},function (res){
-                if (res.status == '1') {
-                    if(!lock){
-                        layer.open({
-                            type: 2, // Layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                            area: [res.data['width'], res.data['height']],
-                            title: res.data['title'],
-                            // shade: 0.8,  //遮罩透明度
-                            shadeClose: true, //点击遮罩区域是否关闭页面
-                            content: res.data['url']
-                        });
+            $.ajax({
+                type:'get',
+                url:url,
+                data:{'id':id},
+                dataType:'json',
+                success:function(res){
+                    if (res.status == 1) {
+                        if(!lock){
+                            layer.open({
+                                type: 2, // Layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                                area: [res.data['width'], res.data['height']],
+                                title: res.data['title'],
+                                // shade: 0.8,  //遮罩透明度
+                                shadeClose: true, //点击遮罩区域是否关闭页面
+                                content: res.data['url']
+                            });
+                            lock = true;
+                            // console.log(lock);
+                        }
                         lock = true;
-                        console.log(lock);
+                    } else {
+                        if(!lock) {
+                            lock = true;
+                            layer.msg( res.message, {icon: 2});
+                        }
+
                     }
-                    lock = true;
-                } else {
-                    layer.msg( res.message, {icon: 2});
                 }
-            },'json');
+            });
         }
     });
 
@@ -188,6 +210,10 @@ jQuery(document).ready(function() {
             } else {
                 ajaxLayerElement(elements, _this);
             }
+
+            setTimeout(function () {
+               isClick = false;
+            }, 10000);
         }
     });
 
@@ -202,23 +228,19 @@ jQuery(document).ready(function() {
                 console.log(res);
                 if (res.status == 1) {
                     if (res.message) {
-                        layer.msg(res.message, {icon: 1});
+                        parent.layer.msg(res.message, {icon: 1,  time: 1000});
                     }
-                    setTimeout(function () {
-                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                        parent.layer.close(index); //再执行关闭
-                    },600)
-
                 } else {
-                    layer.msg( res.message, {icon: 2});
+                    parent.layer.msg(res.message, {icon: 2,  time: 1000});
                     return false;
                 }
-
-                isClick = false;
+                setTimeout(function () {
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                },1200);
             },
             error : function () {
-                isClick = false;
-                layer.msg('服务器繁忙', {icon: 2});
+                layer.msg('服务器繁忙', {icon: 2,  time: 1000});
                 return false;
             }
         });

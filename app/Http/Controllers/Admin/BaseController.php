@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\RolePermission;
+use App\Traits\ApiResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,45 +45,18 @@ class BaseController extends Controller
      */
     protected $hasPermission = [];
 
+    protected $role_id;
+
 
     public function __construct()
     {
         //检测登陆
         $this->user = Session::get('user');
         $this->uid = $this->user['id'];
-        $this->role_id = 1;
-        $this->getUserHasPermission();
-        $this->getUserHasMenu();
-        $this->isHasPermission();
-        view()->share('userHasMenu', $this->menus);
-        view()->share('request_prefix', getCurrentUrl());
+//        $this->getUserHasMenu();
+//        view()->share('userHasMenu', $this->menus);
+//        view()->share('request_prefix', getCurrentUrl());
     }
-
-    /**
-     * 是否拥有权限
-     * @param Request $request
-     */
-    protected function isHasPermission()
-    {
-        $path = array_column($this->hasPermission, 'path' , 'id');
-//        var_dump($path);
-//        echo getCurrentUrl();
-    }
-
-
-    /**
-     * 获取角色权限ID
-     */
-    protected function getUserHasPermission()
-    {
-        $menu_ids = (new RolePermission())->where('role_id', 1)->value('menu_id');
-
-        if($menu_ids){
-            $this->menu_ids = explode(',', $menu_ids);
-        }
-
-    }
-
 
     /**
      * 获取用户拥有的menu列表
@@ -91,21 +65,14 @@ class BaseController extends Controller
     {
         if($this->menu_ids) {
             $map = array(
-                'is_show' => Menu::IS_SHOW,
+                'is_show' => Menu::IS_SHOW
             );
 
-            $data = (new Menu())->where($map)
-                ->whereIn('id', $this->menu_ids)
-                ->select('id', 'name', 'path', 'icon', 'pid')
-                ->orderBy('sort', 'ASC')
-                ->get()
-                ->toArray();
+            $data = (new Menu())->getMenu($map, $this->menu_ids)->toArray();
+            $datas = format_data_tree($data);
 
-            $this->hasPermission = $data;
-            $data = format_data_tree($data);
-
-            if ($data) {
-                $this->menus = $data;
+            if ($datas) {
+                $this->menus = $datas;
             }
         }
     }

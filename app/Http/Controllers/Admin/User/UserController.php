@@ -67,7 +67,7 @@ class UserController extends BaseController
 
         if(!empty($request->id) && intval($request->id) > 0){
             $returnData = array(
-                'url'    => url('user/setRole?uid=' . $request->id),
+                'url'    => url('user/setRole?layer=1&uid=' . $request->id),
                 'title'  => '设置角色',
                 'width'  => '30%',
                 'height' => '450px'
