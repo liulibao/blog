@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\RolePermission;
+use App\Services\Admin\LoginService;
 use App\Traits\ApiResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Request;
@@ -30,50 +31,14 @@ class BaseController extends Controller
      */
     public $user = [];
 
-    /**
-     * @var array
-     */
-    public $menu_ids = [];
-
-    /**
-     * @var array
-     */
-    public $menus = [];
-
-    /**
-     * @var array
-     */
-    protected $hasPermission = [];
-
-    protected $role_id;
-
 
     public function __construct()
     {
-        //检测登陆
-        $this->user = Session::get('user');
-        $this->uid = $this->user['id'];
-//        $this->getUserHasMenu();
-//        view()->share('userHasMenu', $this->menus);
-//        view()->share('request_prefix', getCurrentUrl());
+
     }
 
-    /**
-     * 获取用户拥有的menu列表
-     */
-    protected function getUserHasMenu()
+    public function getUser()
     {
-        if($this->menu_ids) {
-            $map = array(
-                'is_show' => Menu::IS_SHOW
-            );
-
-            $data = (new Menu())->getMenu($map, $this->menu_ids)->toArray();
-            $datas = format_data_tree($data);
-
-            if ($datas) {
-                $this->menus = $datas;
-            }
-        }
+        return collect(session('user'))->toArray();
     }
 }

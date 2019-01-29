@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //将菜单视为公共区域
+        View::composer('admin.layouts._sidebar', function($view) {
+
+            $view->with('privileges', 'test');
+        });
     }
 
     /**

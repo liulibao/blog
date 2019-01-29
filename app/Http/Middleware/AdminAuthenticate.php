@@ -23,8 +23,7 @@ class AdminAuthenticate
      * @var array
      */
     protected $except = [
-        'login',
-        'test/icons'
+//        'login',
     ];
 
     /**
@@ -35,28 +34,31 @@ class AdminAuthenticate
     public function handle(Request $request, Closure $next)
     {
         //判断权限
-        if(in_array(getCurrentUrl(), $this->except)) {
-            return $next($request);
-        }
+//        if(in_array(getCurrentUrl(), $this->except)) {
+//            return $next($request);
+//        }
 
         //判断是否登陆
-        if(!session('user')){
+        if(!session('user')) {
             return redirect('/login');
         }
 
-        $isAuth = (new LoginService())->isHasPermission();
+        $loginService = new LoginService();
+        $isAuth = $loginService->isHasPermission();
+        $menus = $loginService->getUserHasMenu();
+        $router_prefix = explode('/', getCurrentUrl())[0];
+
         if(!$isAuth) {
             if(isPost() || isAjax()) {
-                return ApiResponse::error('您无此权限2');
+                return ApiResponse::error('您无此权限');
             } else {
                 $url = isset($request->layer) ? 'admin/layerError' : 'admin/error';
-                return redirect($url)->with('error', '您无此权限3');
+                return redirect($url)->with('error', '您无此权限');
             }
         }
 
-        $menus = (new LoginService())->getUserHasMenu();
         view()->share('userHasMenu', $menus);
-        view()->share('request_prefix', getCurrentUrl());
+        view()->share('request_prefix', $router_prefix);
 
         return $next($request);
     }

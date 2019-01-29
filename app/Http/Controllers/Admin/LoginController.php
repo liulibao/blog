@@ -13,6 +13,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Request\LoginRequest;
 use App\Repositories\User\AdminRepository;
 use App\Traits\ApiResponse;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -51,6 +53,19 @@ class LoginController extends Controller
                 throw new \Exception('登陆失败');
             }
 
+        } catch (\Exception $exception) {
+            return ApiResponse::error($exception->getMessage());
+        }
+    }
+
+    /**
+     * 退出登陆
+     */
+    public function logout()
+    {
+        try{
+            Session::forget('user');
+            return ApiResponse::success();
         } catch (\Exception $exception) {
             return ApiResponse::error($exception->getMessage());
         }

@@ -6,19 +6,24 @@
  * Time: 22:00
  */
 
-Route::domain(config('domain.admin.domain'))
-    ->middleware('admin.auth')// 中间件
-    ->group(function () {
+//登陆
+Route::get('/', 'LoginController@index');
+Route::get('login', 'LoginController@index')->name('login');
+Route::post('login', 'LoginController@login');
+Route::get('logout', 'LoginController@logout');
+Route::get('admin/error', 'CommentController@error')->name('admin.error');
+Route::get('admin/layerError', 'CommentController@layerError')->name('admin.layerError');
 
-    //登陆
-    Route::get('/', 'LoginController@index');
-    Route::get('login', 'LoginController@index')->name('login');
-    Route::post('login', 'LoginController@login');
+Route::middleware('admin.auth')// 中间件
+    ->group(function () {
 
     //首页
     Route::get('home', 'CommentController@index')->name('home');
     Route::get('admin/error', 'CommentController@error')->name('admin.error');
     Route::get('admin/layerError', 'CommentController@layerError')->name('admin.layerError');
+
+    //icon
+    Route::get('test/icons', 'CommentController@icon')->name('icon');
 
     //用户管理
     Route::namespace('User')->group(function () {
@@ -77,7 +82,6 @@ Route::domain(config('domain.admin.domain'))
         Route::post('advert/uploadFile', 'AdvertController@uploadFile')->name('admin.advert.uploadFile'); //上传文件
     });
 
-    //icon
-    Route::get('test/icons', 'CommentController@icon')->name('icon');
+
 });
 

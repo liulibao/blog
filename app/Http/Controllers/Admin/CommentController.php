@@ -27,8 +27,8 @@ class CommentController extends BaseController
 
     /**
      * 首页
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param Request $request
      */
     public function index()
     {

@@ -17,24 +17,9 @@ use Illuminate\Support\Facades\Session;
 class LoginService
 {
     /**
-     * @var
-     */
-    public $uid;
-
-    /**
-     * @var array
-     */
-    public $user = [];
-
-    /**
      * @var array
      */
     public $menu_ids = [];
-
-    /**
-     * @var array
-     */
-    public $menus = [];
 
     /**
      * @var array
@@ -43,9 +28,6 @@ class LoginService
 
     public function __construct()
     {
-        //检测登陆
-        $this->user = Session::get('user');
-        $this->uid = $this->user['id'];
         $this->role_id = 1;
         $this->isHasPermission();
     }
@@ -69,20 +51,6 @@ class LoginService
         }
     }
 
-
-    /**
-     * 获取角色权限ID
-     */
-    protected function getUserHasPermission()
-    {
-        $menu_ids = (new RolePermission())->where('role_id', $this->role_id)->value('menu_id');
-
-        if($menu_ids){
-            $this->menu_ids = explode(',', $menu_ids);
-        }
-
-    }
-
     /**
      * 获取用户拥有的menu列表
      */
@@ -100,6 +68,19 @@ class LoginService
         }
 
         return $menu;
+    }
+
+    /**
+     * 获取角色权限ID
+     */
+    protected function getUserHasPermission()
+    {
+        $menu_ids = (new RolePermission())->where('role_id', $this->role_id)->value('menu_id');
+
+        if($menu_ids){
+            $this->menu_ids = explode(',', $menu_ids);
+        }
+
     }
 
     /**
