@@ -63,11 +63,7 @@ class LoginController extends Controller
      */
     public function logout()
     {
-        try{
-            Session::forget('user');
-            return ApiResponse::success();
-        } catch (\Exception $exception) {
-            return ApiResponse::error($exception->getMessage());
-        }
+        Session::forget('user');
+        return redirect('/login');
     }
 }

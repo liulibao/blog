@@ -1,11 +1,6 @@
 <?php
 
 return[
-    'admin' =>[
-      'domain' => env('APP_DOMAIN', ''),
-    ],
-    'web' => [
-        'domain' => 'local.blog.com'
-    ]
-
+    'admin' =>  env('APP_ADMIN_DOMAIN', ''),
+    'web' => env('APP_WEB_DOMAIN', ''),
 ];

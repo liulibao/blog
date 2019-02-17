@@ -46,4 +46,15 @@ class ApiResponse
         );
         return response()->json($info);
     }
+
+    /**
+     * 请求参数错误直接返回错误页面并提示
+     * @param string $message
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public static function requestError($message = '请求参数错误')
+    {
+        setRequestError($message);
+        return redirect('error');
+    }
 }

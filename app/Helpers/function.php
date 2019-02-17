@@ -1,5 +1,50 @@
 <?php
 
+if(!function_exists('setRequestError')) {
+    /**
+     * 设置请求错误信息
+     * @param $key
+     * @return mixed
+     */
+    function setRequestError($value, $key = 'request_error') {
+
+        return \Session::put($key, $value);
+    }
+}
+
+if(!function_exists('getCache')) {
+    /**
+     * 获取缓存
+     * @param $key
+     * @return mixed
+     */
+   function getCache($key) {
+       return \Illuminate\Support\Facades\Cache::get($key);
+   }
+}
+
+if(!function_exists('setCache')) {
+    /**
+     * 设置缓存
+     * @param $key
+     * @return mixed
+     */
+   function setCache($key, $value, $time) {
+       return \Illuminate\Support\Facades\Cache::add($key, $value, $time);
+   }
+}
+
+if(!function_exists('delCache')) {
+    /**
+     * 删除缓存
+     * @param $key
+     * @return mixed
+     */
+   function delCache($key) {
+       return \Illuminate\Support\Facades\Cache::forget($key);
+   }
+}
+
 if(!function_exists('format_url')) {
     /**
      * 格式化url 路由

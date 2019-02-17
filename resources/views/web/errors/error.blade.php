@@ -1,0 +1,1 @@
+{!! \Illuminate\Support\Facades\Session::has('request_error') ? \Illuminate\Support\Facades\Session::get('request_error') : '' !!}
