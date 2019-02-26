@@ -7,7 +7,7 @@
  */
 
 //登陆
-Route::get('/', 'LoginController@index');
+Route::get('', 'LoginController@index');
 Route::get('login', 'LoginController@index')->name('login');
 Route::post('login', 'LoginController@login');
 Route::get('logout', 'LoginController@logout');

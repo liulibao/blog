@@ -11,10 +11,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-class LoginController extends Controller
+class LoginController extends BaseController
 {
 
     public function test()

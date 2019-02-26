@@ -93,20 +93,6 @@ abstract class BaseRepository
     }
 
     /**
-     * 单条数据的保存
-     * @param array $data
-     * @return mixed
-     * @throws RepositoryException
-     */
-    public function create(array $data)
-    {
-        if(count($data, 1) !== count($data))
-            throw new RepositoryException('create method is support single insertion only');
-
-        return $this->model->create($data);
-    }
-
-    /**
      * 保存没有大量分配的模型
      * save a model without massive assignment
      *
@@ -121,14 +107,41 @@ abstract class BaseRepository
         return $this->model->save();
     }
 
+
     /**
-     * 更新
-     * @param $data
-     * @param $condition
+     * 单条数据的保存
+     * @param array $data
+     * @param string $cache_key
+     * @param bool $is_del_cache
      * @return mixed
      * @throws RepositoryException
      */
-    public function update(array $data, $condition)
+    public function create(array $data, $cache_key = '',$is_del_cache = false)
+    {
+        if(count($data, 1) !== count($data))
+            throw new RepositoryException('create method is support single insertion only');
+
+        if($cache_key && !$is_del_cache) {
+            throw new RepositoryException('设置第二个参数同时第三个参数应设为true');
+        }
+
+        if($cache_key && $is_del_cache) {
+            delCache($cache_key);
+        }
+
+        return $this->model->create($data);
+    }
+
+    /**
+     * 更新
+     * @param array $data
+     * @param $condition
+     * @param string $cache_key 缓存key
+     * @param bool $is_del_cache
+     * @return mixed
+     * @throws RepositoryException
+     */
+    public function update(array $data, $condition, $cache_key = '',$is_del_cache = false)
     {
         if(empty($data)){
             throw new RepositoryException('修改内容不可为空');
@@ -136,6 +149,14 @@ abstract class BaseRepository
 
         if(isset($data['_token'])){
             unset($data['_token']);
+        }
+
+        if($cache_key && !$is_del_cache) {
+            throw new RepositoryException('设置第三个参数同时第四个参数应设为true');
+        }
+
+        if($cache_key && $is_del_cache) {
+            delCache($cache_key);
         }
 
         if(is_array($condition)){
@@ -152,14 +173,25 @@ abstract class BaseRepository
      * 根据id删除
      * @param $id
      * @param bool $isSoftDelete
+     * @param string $cache_key
+     * @param bool $is_del_cache
      * @return mixed
+     * @throws RepositoryException
      */
-    public function delete($id, $isSoftDelete = false)
+    public function delete($id, $isSoftDelete = false, $cache_key = '',$is_del_cache = false)
     {
         if($isSoftDelete){
             $data = array(
                 'deleted_at' => time()
             );
+
+            if($cache_key && !$is_del_cache) {
+                throw new RepositoryException('设置第三个参数同时第四个参数应设为true');
+            }
+
+            if($cache_key && $is_del_cache) {
+                delCache($cache_key);
+            }
 
             return $this->model->where('id', $id)->update($data);
         } else {

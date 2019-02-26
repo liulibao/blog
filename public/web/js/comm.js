@@ -1,22 +1,17 @@
 $(document).ready(function () {
-	
-	
-	
     //nav
 	$("#mnavh").click(function(){
-    $("#starlist").toggle();
-	$("#mnavh").toggleClass("open");
+        $("#starlist").toggle();
+        $("#mnavh").toggleClass("open");
 	});
 	  
-var obj=null;
-var As=document.getElementById('starlist').getElementsByTagName('a');
-obj = As[0];
-for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
-obj=As[i];}
-obj.id='selected';
+    var obj=null;
+    var As=document.getElementById('starlist').getElementsByTagName('a');
+    obj = As[0];
+    for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+    obj=As[i];}
+    obj.id='selected';
 
-	
-  
 	var new_scroll_position = 0;
 	var last_scroll_position;
 	var header = document.getElementById("header");
@@ -69,17 +64,17 @@ obj.id='selected';
 	
 	//≤‡¿∏πÃ∂®
 		   
-	//aside
-    var Sticky = new hcSticky('aside', {
-      stickTo: 'main',
-      innerTop: 200,
-      followScroll: false,
-      queries: {
-        480: {
-          disable: true,
-          stickTo: 'body'
-        }
-      }
-    });
+    // //aside
+    // var Sticky = new hcSticky('aside', {
+    //   stickTo: 'main',
+    //   innerTop: 200,
+    //   followScroll: false,
+    //   queries: {
+    //     480: {
+    //       disable: true,
+    //       stickTo: 'body'
+    //     }
+    //   }
+    // });
 	
 	});

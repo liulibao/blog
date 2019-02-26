@@ -91,14 +91,14 @@ class MenuController extends BaseController
 
             if(empty($request->id)){
 
-                $this->repository->create($request->all());
+                $this->repository->creates($request->all());
             } else {
 
                 if(intval($request->id) <= 0){
                     throw new \Exception('请求参数错误');
                 }
 
-                $this->repository->update($request->all(), $request->id);
+                $this->repository->updates($request->all(), $request->id);
             }
 
             return ApiResponse::success();

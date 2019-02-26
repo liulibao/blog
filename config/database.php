@@ -56,6 +56,22 @@ return [
             'engine' => null,
         ],
 
+        'mysql_line' => [
+            'driver' => 'mysql',
+            'host' => '120.79.151.130',
+            'port' => '3306',
+            'database' => 'lavarel_blog',
+            'username' => 'self_me',
+            'password' => 'root123',
+            'unix_socket' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => 'blog_',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

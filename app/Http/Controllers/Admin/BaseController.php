@@ -31,10 +31,8 @@ class BaseController extends Controller
      */
     public $user = [];
 
-
     public function __construct()
     {
-
     }
 
     public function getUser()

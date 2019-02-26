@@ -29,7 +29,7 @@ class MenuRepository extends BaseRepository
      * @param $data
      * @return mixed
      */
-    public function create(array $data)
+    public function creates(array $data)
     {
         if($data['pid'] > 0){
             $depth = $this->getDepthById($data['pid']);
@@ -45,7 +45,7 @@ class MenuRepository extends BaseRepository
      * @param $condition
      * @return mixed
      */
-    public function update(array $data, $condition)
+    public function updates(array $data, $condition)
     {
         if($data['pid'] > 0){
             $depth = $this->getDepthById($data['pid']);

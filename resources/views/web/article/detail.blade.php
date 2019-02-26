@@ -15,10 +15,10 @@
             <h3 class="news_title">{{$article['title']}}</h3>
             <div class="bloginfo">
                 <ul>
-                    <li class="author">作者：<a href="/">杨青</a></li>
-                    <li class="lmname"><a href="/">学无止境</a></li>
+                    <li class="author">作者：<a href="javascript:void(0);">{{isset($article['name']) ? $article['name'] : ''}}</a></li>
+                    <li class="lmname"><a href="javascript:void(0);">{{isset($article['username']) ? $article['username'] : ''}}</a></li>
                     <li class="timer">时间：{{date('Y-m-d', strtotime($article['created_at']))}}</li>
-                    <li class="view">{{$article['read_num']}}人已阅读</li>
+                    <li class="view">阅读：{{$article['read_num']}}人已阅读</li>
                 </ul>
             </div>
 
@@ -27,7 +27,7 @@
                 <a href="/" target="_blank">小世界</a>
             </div>
 
-            <div class="news_about"><strong>简介</strong>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</div>
+            <div class="news_about"><strong>简介</strong>{{isset($article['summary']) ? $article['summary'] : ''}}</div>
             <div class="news_con"><?php echo isset($article) ? $article['contents'] :  '';?></div>
         </div>
         <div class="share">

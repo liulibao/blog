@@ -23,7 +23,8 @@ class Advert extends Model
     public function types()
     {
         return [
-            '1'=>'幻灯片'
+            '1'=>'幻灯片',
+            '2'=>'广告图片'
         ];
     }
 

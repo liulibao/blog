@@ -20,7 +20,7 @@ class ApiResponse
      * @internal param int $code
      * @internal param array $data
      */
-    public static function success(array $data = array(), $message = '操作成功', $status = 1)
+    public static function success($data = array(), $message = '操作成功', $status = 1)
     {
         $info = array(
             'status' => $status,

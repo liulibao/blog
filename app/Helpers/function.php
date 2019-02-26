@@ -1,5 +1,67 @@
 <?php
 
+if(!function_exists('handPagination')) {
+    /**
+     * 手动分页
+     * @param $data 【数组】
+     * @param $page 【页码】
+     * @param $url 【跳转路径】
+     * @param int $perPage
+     * @return \Illuminate\Pagination\LengthAwarePaginator 【每页数目|int $perPage 每页数目】
+     */
+    function handPagination($data, $page, $url, $perPage=10){
+        $item = array_slice($data, ($page-1)*$perPage, $perPage);
+        $total = count($data);
+        $paginate =new \Illuminate\Pagination\LengthAwarePaginator($item, $total, $perPage, $page, [
+            'path' => $url,
+            'pageName' => 'page'
+        ]);
+
+        return $paginate;
+    }
+}
+
+if(!function_exists('getSummary')) {
+    /**
+     * 获取内容摘要
+     * @param $content
+     * @param int $start
+     * @param int $end
+     * @param string $char
+     * @return null|string
+     */
+    function getSummary($content, $start = 0, $end = 150, $char = 'utf-8')
+    {
+        if (empty($content)) {
+            return null;
+        }
+        return (mb_substr(str_replace(' ', '', strip_tags($content)), $start, $end, $char));
+    }
+}
+
+if(!function_exists('grabPictures')){
+    /**
+     * 抓取内容全部图片
+     * @param $str
+     * @return null
+     */
+    function grabPictures($str)
+    {
+        if (empty($str)) {
+            return '';
+        }
+
+        $pattern="/<[img|IMG].*?src=[\'|\"](.*?(?:[\.gif|\.jpg]))[\'|\"].*?[\/]?>/";
+        preg_match_all($pattern, $str, $match);
+
+        if(!empty($match[1])) {
+            return $match[1][0];
+        }
+
+        return '';
+    }
+}
+
 if(!function_exists('setRequestError')) {
     /**
      * 设置请求错误信息
@@ -29,7 +91,7 @@ if(!function_exists('setCache')) {
      * @param $key
      * @return mixed
      */
-   function setCache($key, $value, $time) {
+   function setCache($key, $value, $time = 3600) {
        return \Illuminate\Support\Facades\Cache::add($key, $value, $time);
    }
 }
@@ -99,7 +161,23 @@ if(!function_exists('getCurrentIp')){
     function getCurrentIp()
     {
         $ip = ip2long(request()->getClientIp());
-        return  bindec(decbin($ip));
+        return  bindec(decbin($ip)); //无符号的整型数
+    }
+}
+
+if(!function_exists('getLong2IpCurrentIp')){
+    /**
+     * 获取当前的IP(还原ip段)
+     * @return string
+     */
+    function getCurrentLong2Ip($ip)
+    {
+        if (!$ip || intval($ip) < 0 ) {
+            return '';
+        }
+
+        return
+             long2ip($ip);
     }
 }
 

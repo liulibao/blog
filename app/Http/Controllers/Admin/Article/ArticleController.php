@@ -15,6 +15,7 @@ use App\Repositories\Article\ArticleCategoryRepository;
 use App\Repositories\Article\ArticleRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\HtmlString;
 
 class ArticleController extends BaseController
 {
@@ -76,6 +77,8 @@ class ArticleController extends BaseController
         }
     }
 
+
+
     /**
      * 保存数据
      * @param ArticleRequest $request
@@ -93,7 +96,8 @@ class ArticleController extends BaseController
             }
 
             if(isset($request->id)){
-                $this->repository->update($request->all(), $request->id);
+                $article_cache_key = 'article_cache_key_' . $request->id;
+                $this->repository->update($request->all(), $request->id, $article_cache_key, true);
             } else {
                 $this->repository->create($request->all());
             }

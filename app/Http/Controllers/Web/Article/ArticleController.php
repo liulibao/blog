@@ -10,17 +10,19 @@ namespace App\Http\Controllers\Web\Article;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\BaseController;
 use App\Repositories\Article\ArticleRepository;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class ArticleController extends Controller
+class ArticleController extends BaseController
 {
     protected $repository;
 
     public function __construct(ArticleRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 
@@ -41,6 +43,7 @@ class ArticleController extends Controller
         if(!$article) {
             return ApiResponse::requestError('文章被删除或者不存在');
         }
+        $this->repository->countArticleTypeNum($article_id);
 
         return view('web.article.detail', compact('article'));
     }

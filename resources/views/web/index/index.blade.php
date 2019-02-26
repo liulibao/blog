@@ -45,30 +45,33 @@
                     </div>
 
                     <div class="picshowtxt">
-                        <div class="picshowtxt_left"> <span>1</span>/<i>12</i></div>
-                        {{--<div class="picshowtxt_right"></div>--}}
+                        <div class="picshowtxt_left"> <span>1</span>/<i>{{count($advert)}}</i></div>
+                        <div class="picshowtxt_right"></div>
                     </div>
 
                     <div class="picshowlist">
                         <div class="picshowlist_mid">
-                            <div class="picmidleft"> <a href="javascript:void(0)" id="preArrow_B"><span class="sleft"></span></a> </div>
+                            <div class="picmidleft">
+                                <a href="javascript:void(0)" id="preArrow_B">
+                                    <span class="sleft"></span>
+                                </a>
+                            </div>
                             <div class="picmidmid">
                                 <ul>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/1.jpg')}}" alt="" bigimg="{{asset('web/images/1.jpg')}}" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/2.jpg')}}" alt="" bigimg="{{asset('web/images/2.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/3.jpg')}}" alt="" bigimg="{{asset('web/images/3.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/4.jpg')}}" alt="" bigimg="{{asset('web/images/4.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/5.jpg')}}" alt="" bigimg="{{asset('web/images/5.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/6.jpg')}}" alt="" bigimg="{{asset('web/images/6.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/7.jpg')}}" alt="" bigimg="{{asset('web/images/7.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/8.jpg')}}" alt="" bigimg="{{asset('web/images/8.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/9.jpg')}}" alt="" bigimg="{{asset('web/images/9.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/10.jpg')}}" alt="" bigimg="{{asset('web/images/10.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/11.jpg')}}" alt="" bigimg="{{asset('web/images/11.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
-                                    <li> <a href="javascript:void(0);"><img src="{{asset('web/images/12.jpg')}}" alt="" bigimg="{{asset('web/images/12.jpg')}}" text="《古剑》小师妹迪丽热巴清新写真宛若小仙女" /></a></li>
+                                    @foreach($advert as $item)
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <img src="{{$item['path']}}" alt="" bigimg="{{$item['path']}}" />
+                                        </a>
+                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
-                            <div class="picmidright"> <a href="javascript:void(0)" id="nextArrow_B"><span class="sright"></span></a> </div>
+                            <div class="picmidright">
+                                <a href="javascript:void(0)" id="nextArrow_B">
+                                    <span class="sright"></span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -82,21 +85,21 @@
         <li>
             <h3><a href="{{url('article/detail', ['id' => $item['id']])}}">{{$item['title']}}</a></h3>
             <span>
-                <a href="/">
-                    <img src="{{asset('web/images/1.jpg')}}">
+                <a href="{{url('article/detail', ['id' => $item['id']])}}">
+                    <img src="{{$item['image']}}">
                 </a>
             </span>
-            <p>{{strip_tags($item['contents'])}}</p>
+            <p>{{$item['summary']}}</p>
             <div class="article-icons">
                 <ul>
                     <li>
-                        <a href="javascript:void(0);" title="创建时间: 2019-02-12 11:15">
+                        <a href="javascript:void(0);" title="创建时间: {{date('Y-m-d H:i', strtotime($item['created_at']))}}">
                             <i class="fa fa-calendar"></i>{{date('Y-m-d H:i', strtotime($item['created_at']))}}
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);" title="作者: admin">
-                            <i class="fa fa-user"></i>admin
+                        <a href="javascript:void(0);" title="作者: {{$item['username']}}">
+                            <i class="fa fa-user"></i>{{$item['username']}}
                         </a>
                     </li>
                     <li>
@@ -110,7 +113,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);" title="查看分类"><i class="fa fa-tag"></i>PHP</a>
+                        {{--<a href="javascript:void(0);" title="查看分类"><i class="fa fa-tag"></i>PHP</a>--}}
                     </li>
                 </ul>
             </div>
@@ -119,6 +122,20 @@
         @endif
     </div>
 
+
+    <div class="page-list">
+        @if($article['last_page'] > 1)
+            <a href="{{$article['first_page_url']}}" class="@if($article['current_page'] == 1) {{'curPage'}} @endif">第一页</a>&nbsp;&nbsp;
+            @if(request('page') != 1)
+                <a href="{{$article['prev_page_url']}}" >上一页</a>&nbsp;&nbsp;
+            @endif
+
+            @if(request('page') != $article['last_page'])
+                <a href="{{$article['next_page_url']}}" >下一页</a>
+            @endif
+            <a href="{{$article['last_page_url']}}" class="@if($article['current_page'] == $article['last_page']) {{'curPage'}} @endif">最后一页</a>
+        @endif
+    </div>
 @stop
 
 {{--@section('scripts')--}}

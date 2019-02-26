@@ -9,10 +9,7 @@
 namespace App\Http\Controllers\Web;
 
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
-
-class CommonController extends Controller
+class CommonController extends BaseController
 {
     /**
      * 错误页面

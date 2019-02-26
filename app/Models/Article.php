@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    const IS_RECOMMEND = 1;
+
     protected $fillable = [
             'uid','title','image',
             'path','keyword','category_id',

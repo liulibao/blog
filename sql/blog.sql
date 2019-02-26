@@ -207,6 +207,8 @@ CREATE TABLE `bg_articles`(
   KEY `id_category_id` (`id`,`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 
+ALTER TABLE `blogs`.`bg_articles`
+MODIFY COLUMN `created_at` VARCHAR(255) not NULL DEFAULT '' COMMENT '创建时间' AFTER `is_recommend`;
 -- 文章分类
 CREATE TABLE `bg_article_categories`(
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -266,6 +268,48 @@ CREATE TABLE IF NOT EXISTS `bg_attachments`(
 
 ALTER TABLE `bg_attachments`
 ADD COLUMN `size`  varchar(10) NOT NULL DEFAULT '' COMMENT '文件大小', AFTER `path`;
+
+
+-- 系统统计表d
+DROP TABLE IF EXISTS `bg_system_counts`;
+CREATE TABLE `bg_system_counts`(
+  `id` int unsigned not null auto_increment,
+  `member_num` int unsigned not null default '0' comment'累计会员数量(注册的人数)',
+  `visit_num` int unsigned not null default '0' comment '累计访问量',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `update_at`(`updated_at`)
+)ENGINE=Innodb DEFAULT CHARSET=utf8 auto_increment=1 comment='系统统计表';
+
+-- 每日浏览统计
+DROP TABLE IF EXISTS `bg_day_counts`;
+CREATE TABLE `bg_day_counts`(
+  `id` int unsigned not null auto_increment,
+  `visit_ip` VARCHAR(20) not null default '' comment '访问ip',
+  `visit_num` int(10) NULL DEFAULT 0 COMMENT '用户访问的次数',
+  `is_member` tinyint(1) not null default '0' comment '是否是会员0-不是，1-是',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `visit_ip`(`visit_ip`)
+)ENGINE=Innodb DEFAULT CHARSET=utf8 auto_increment=1 comment='每日浏览统计';
+
+-- 统计用户访问信息
+DROP TABLE IF EXISTS `bg_user_visits`;
+CREATE TABLE `bg_user_visits`(
+  `id` int unsigned not null auto_increment,
+  `uid` int(10) NOT NULL DEFAULT '0' COMMENT '访问用户的uid',
+  `visit_ip` VARCHAR(20) NOT NULL DEFAULT '' comment '访问ip',
+  `visit_num` int(10) NOT NULL DEFAULT '0' COMMENT '用户访问的次数',
+  `visit_url` VARCHAR(255) NOT NULL DEFAULT '' comment '访问路径',
+  `is_member` tinyint(1) NOT NULL DEFAULT '0' comment '是否是会员0-不是，1-是',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `visit_ip`(`visit_ip`),
+  KEY `visit_url`(`visit_url`)
+)ENGINE=Innodb DEFAULT CHARSET=utf8 auto_increment=1 comment='统计用户访问信息';
 
 
 DROP TABLE IF EXISTS `bg_icons`;

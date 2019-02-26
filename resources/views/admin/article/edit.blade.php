@@ -51,8 +51,8 @@
 
                     <div class="form-group" style="">
                         <label class="col-sm-3 control-label"><span>*</span>文章内容 :</label>
-                        <div class="col-sm-6 no-padding">
-                            <textarea  id="editor" name="contents" style="height:400px;display: inline-block" title="文章内容"><?php echo isset($lists) ? $lists->contents : ''?></textarea >
+                        <div class="col-sm-8 no-padding">
+                            <textarea  id="editor" name="contents" style="height:300px;display: inline-block" title="文章内容">HtmlDecode({!! $lists->contents !!})</textarea >
                             <div class="article_content"></div>
                         </div>
                     </div>
