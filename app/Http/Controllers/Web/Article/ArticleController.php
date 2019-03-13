@@ -47,4 +47,56 @@ class ArticleController extends BaseController
 
         return view('web.article.detail', compact('article'));
     }
+
+    /**
+     * 文章点赞
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function thumbsUp(Request $request)
+    {
+        try{
+            if(!$request->art_id || intval($request->art_id) <= 0) {
+                throw new \Exception('请求参数错误');
+            }
+
+            $article = $this->repository->getArticleDetail($request->art_id);
+
+            if(!$article) {
+                throw new \Exception('文章被删除或者不存在');
+            }
+
+            $this->repository->countArticleTypeNum($request->art_id, 'like_num');
+
+            return ApiResponse::success();
+        } catch (\Exception $exception) {
+            return ApiResponse::error($exception->getMessage());
+        }
+    }
+
+    /**
+     * 获取文章点赞数
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function articleLikes(Request $request)
+    {
+        try{
+            if(!$request->art_id || intval($request->art_id) <= 0) {
+                throw new \Exception('请求参数错误');
+            }
+
+            $article = $this->repository->getArticleDetail($request->art_id);
+
+            if(!$article) {
+                throw new \Exception('文章被删除或者不存在');
+            }
+
+            $this->repository->find($request->art_id, ['like_num']);
+
+            return ApiResponse::success();
+        } catch (\Exception $exception) {
+            return ApiResponse::error($exception->getMessage());
+        }
+    }
 }

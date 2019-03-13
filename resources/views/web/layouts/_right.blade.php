@@ -32,6 +32,9 @@
         -webkit-border-radius: 5px;
         font-weight: normal;
     }
+    h2 {
+        margin-top: 0;
+    }
 </style>
 {{--<div class="web-author" style="animation-name: floatAll; animation-duration: 1.14286s;">--}}
     {{--<div class="author-tx">--}}
@@ -46,7 +49,10 @@
     <ul>
         <li><span><img src="http://www.lovya.cn/static/web/images/tag.jpg"></span></li>
         <li>
-            <p><b>杨青</b>，一个80后草根女站长！09年入行。一直潜心研究web前端技术，一边工作一边积累经验，分享一些个人博客模板，以及SEO优化等心得。</p>
+            <p>
+                <b>LovYa</b>，
+                一位90后草根码农！入行不久。具有佛系心态，
+                写博客不过是为了及时行乐，学习一写东西并简单的做一些记录。</p>
         </li>
     </ul>
 </div>

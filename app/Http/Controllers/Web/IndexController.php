@@ -36,7 +36,6 @@ class IndexController extends BaseController
      */
     public function index(Request $request)
     {
-//        $this->getAi();
         $article = $this->articleRepository->getWebLists($request);
         $advert = $this->getIndexAdvert();
         return view('web.index.index', compact('article', 'advert'));

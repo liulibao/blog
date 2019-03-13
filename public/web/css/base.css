@@ -39,7 +39,7 @@ nav { width: 1000px; margin: auto }
 /*#starlist #selected { color: #f65a8a; }*/
 #starlist #selected { color: #1E9FFF; font-size: 19px; }
 .header-navigation { position: fixed; top: 0; width: 100%; height: 60px; line-height: 60px; background: rgba(0,0,0,.8);
-    text-align: center; border-bottom: 1px solid #ddd; box-shadow: 0 1px 1px rgba(0,0,0,.04); z-index: 9999;
+    text-align: center; /*border-bottom: 1px solid #ddd;*/ border-bottom: 1px solid #000; box-shadow: 0 1px 1px rgba(0,0,0,.04); z-index: 9999;
 }
 /* Slide transitions */
 .slideUp { -webkit-transform: translateY(-100px); -ms-transform: translateY(-100px); -o-transform: translateY(-100px);
@@ -55,11 +55,88 @@ footer { width: 100%; font-size: 14px; color: #a5a4a4;background: rgba(0,0,0,.8)
     clear: both;
 }
 footer a { color: #a5a4a4; }
-/*cd-top*/
-/*cd-top*/
+
+/*cd-top 返回顶部*/
 .cd-top { display: inline-block; height: 40px; width: 40px; position: fixed; bottom: 40px; right: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); overflow: hidden; text-indent: 100%; white-space: nowrap;
     background: rgba(0, 0, 0, 0.8) url(../images/top.png) no-repeat center; visibility: hidden; opacity: 0;
     -webkit-transition: all 0.3s; -moz-transition: all 0.3s; transition: all 0.3s;
 }
 .cd-top.cd-is-visible { visibility: visible; opacity: 1; }
+
+/**
+    首页幻灯片
+ */
+.mySlides {display:none}
+/* 幻灯片容器 */
+.slideshow-container {max-width: 1000px;position: relative;margin: auto; }
+
+/* 下一张 & 上一张 按钮 */
+.prev, .next {
+    cursor: pointer;position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+}
+
+/* 定位 "下一张" 按钮靠右 */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+/* 标题文本 */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* 标记符号 */
+.dot {
+    cursor:pointer;
+    height: 13px;
+    width: 13px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* 淡出动画 */
+.fades {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fades {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
+@keyframes fades {
+    from {opacity: .4}
+    to {opacity: 1}
+}

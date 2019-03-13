@@ -53,7 +53,7 @@
                                     @if( isset($lists) && $lists->attachment )
                                     <div class="file-preview-thumbnails" style="margin-left:8px;position: relative;z-index: 99;">
                                         <div class="file-preview-frame krajee-default  kv-preview-thumb" style="margin-top: 17px;" data-template="image">
-                                            <div class="kv-file-content">
+                                            <div class="kv-file-content" style="height: auto;">
                                                 <img src="{{isset($lists) && $lists->attachment ? $lists->attachment->path : ''}}"
                                                      style="height: auto;width: auto; max-height: 100%;max-width: 100%" alt="">
                                             </div>

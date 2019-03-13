@@ -67,7 +67,7 @@ class AdvertRepository extends BaseRepository
 
         $result = $this->model->where('adverts.deleted_at', '0')
             ->where('adverts.type_id', $type_id)
-            ->select('adverts.id','adverts.title','adverts.path as jump_url','adverts.attachment_id', 'attachments.path')
+            ->select('adverts.id','adverts.title','adverts.path as jump_url','adverts.remarks as remarks','adverts.attachment_id', 'attachments.path')
             ->leftJoin('attachments', 'attachments.id', '=', 'adverts.attachment_id')
             ->orderBy('adverts.id', 'desc')
             ->get();

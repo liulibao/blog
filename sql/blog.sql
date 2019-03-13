@@ -221,6 +221,17 @@ CREATE TABLE `bg_article_categories`(
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
 
+DROP TABLE IF EXISTS `bg_article_likes`;
+CREATE TABLE `bg_article_likes`(
+  `id` int unsigned not null auto_increment,
+  `uid` int unsigned not null default '0' comment'用户id或者ip',
+  `` int unsigned not null default '0' comment'用户id或者ip',
+  `article_id` int unsigned not null default '0' comment '累计访问量',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `uid_article_id`(`uid`, `article_id`)
+)ENGINE=Innodb DEFAULT CHARSET=utf8 auto_increment=1 comment='文章点赞表';
+
 -- 个人日记
 CREATE TABLE `bg_dairies`(
   `id` INT(10) unsigned NOT NULL auto_increment,
