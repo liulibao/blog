@@ -53,42 +53,44 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($lists as $item)
-                            <tr role="row" class="odd">
-                                <td class="sorting_1">{{$item->id}}</td>
-                                <td>{{$item->title}}</td>
-                                <td>{{$item->read_num}}</td>
-                                <td>{{$item->like_num}}</td>
-                                <td>{{$item->comment_num}}</td>
-                                <td>{{$types[$item->type_id]}}</td>
-                                <td>{{$category[$item->category_id]}}</td>
-                                <td>{{$item->is_comment ? '是' : '否'}}</td>
-                                <td>{{$item->is_recommend ? '是' : '否'}}</td>
-                                <td>
-                                    @if($item->deleted_at > 0)
-                                        <span class="label label-danger">已删除</span>
-                                    @else
-                                        <span class="label label-success">正常</span>
-                                    @endif
-                                </td>
-                                <td>{{$item->created_at}}</td>
-                                <td>
-                                    <a href="{{url('article/edit?id='.$item->id)}}"  class="btn btn-default btn-sm">
-                                        <i class="fa fa-edit"></i> 编辑
-                                    </a>
+                           @if(isset($lists))
+                               @foreach($lists as $item)
+                                   <tr role="row" class="odd">
+                                       <td class="sorting_1">{{$item->id}}</td>
+                                       <td>{{$item->title}}</td>
+                                       <td>{{$item->read_num}}</td>
+                                       <td>{{$item->like_num}}</td>
+                                       <td>{{$item->comment_num}}</td>
+                                       <td>{{$types[$item->type_id]}}</td>
+                                       <td>{{$category[$item->category_id]}}</td>
+                                       <td>{{$item->is_comment ? '是' : '否'}}</td>
+                                       <td>{{$item->is_recommend ? '是' : '否'}}</td>
+                                       <td>
+                                           @if($item->deleted_at > 0)
+                                               <span class="label label-danger">已删除</span>
+                                           @else
+                                               <span class="label label-success">正常</span>
+                                           @endif
+                                       </td>
+                                       <td>{{$item->created_at}}</td>
+                                       <td>
+                                           <a href="{{url('article/edit?id='.$item->id)}}"  class="btn btn-default btn-sm">
+                                               <i class="fa fa-edit"></i> 编辑
+                                           </a>
 
-                                    <a href="javascript:void (0);"  class="btn btn-danger btn-sm submitDelete"
-                                       data-url="{{url('article/delete')}}" data-id="{{$item->id}}">
-                                        <i class="fa  fa-trash"></i> 删除
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
+                                           <a href="javascript:void (0);"  class="btn btn-danger btn-sm submitDelete"
+                                              data-url="{{url('article/delete')}}" data-id="{{$item->id}}">
+                                               <i class="fa  fa-trash"></i> 删除
+                                           </a>
+                                       </td>
+                                   </tr>
+                               @endforeach
+                           @endif
                         </tbody>
                     </table>
                 </div>
                 <div class="box-footer clearfix">
-                    {{ $lists->links() }}
+                    {{ isset($lists) ? $lists->links() : ''}}
                 </div>
             </div>
         </div>

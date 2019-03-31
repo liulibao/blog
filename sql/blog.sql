@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `bg_users`;
 CREATE TABLE `bg_users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '姓名',
   `password` char(64) NOT NULL DEFAULT '' COMMENT '密码',
@@ -12,7 +12,7 @@ CREATE TABLE `bg_users` (
   `login_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   `created_at` timestamp DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  `deleted_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `deleted_at` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_id`(`email`,`id`),
   KEY `blog_name_pass` (`username`,`password`),
@@ -23,7 +23,7 @@ CREATE TABLE `bg_users` (
 -- ----------------------------
 -- Records of blog_admin
 -- ----------------------------
-INSERT INTO `bg_users` VALUES ('1', '臭不要脸的', 'admin', '$2y$10$TKyqv10LedsMxbwVP2QFFOM0DA4xgibDRyUIlEHl6hL/6Imvwarc.', '18365295838@163.com', '18365295838', '2130706433', '1', '第一次登陆','2018-04-14 21:14:45', '2018-04-14 21:14:45', '2018-04-14 21:14:45', '0');
+INSERT INTO `bg_users` VALUES ('2', 'admin', '臭不要脸的', '$2y$10$TKyqv10LedsMxbwVP2QFFOM0DA4xgibDRyUIlEHl6hL/6Imvwarc.', '18365295838@163.com', '18365295838', '2130706433', '1', '第一次登陆','2018-04-14 21:14:45', '2018-04-14 21:14:45', '2018-04-14 21:14:45', '0');
 
 
 -- 用户-角色 (users_roles)
@@ -69,10 +69,10 @@ CREATE TABLE `bg_role_permissions` (
 -- 目录表
 DROP TABLE IF EXISTS `bg_menus`;
 CREATE TABLE `bg_menus` (
-  `id` int(10) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL auto_increment,
   `name` varchar(100) NOT NULL default '' comment '目录名称',
   `path` varchar(100) NOT NULL default '' comment '目录路由',
-  `pid` int(10) NOT NULL DEFAULT '0' comment '父级ID',
+  `pid` int(11) NOT NULL DEFAULT '0' comment '父级ID',
   `is_show` tinyint(1) NOT NULL DEFAULT '0' comment '是否显示0: 隐藏 1:显示',
   `icon` VARCHAR(100) NOT NULL DEFAULT '' comment '图标',
   `depth` tinyint(1) NOT NULL DEFAULT '1' comment '深度',
@@ -86,7 +86,7 @@ CREATE TABLE `bg_menus` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 COMMENT='权限表[目录表]';
 
 
-CREATE TABLE `sys_log` (
+CREATE TABLE `bg_sys_log` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `type`  int(11) NOT NULL DEFAULT 0 COMMENT '权限更新的类型，1：部门，2：用户，3：权限模块，4：权限，5：角色，6：角色用户关系，7：角色权限关系' ,
 `target_id`  int(11) NOT NULL COMMENT '基于type后指定的对象id，比如用户、权限、角色等表的主键' ,
@@ -139,27 +139,27 @@ CREATE TABLE `bg_permission_operate` (
   key ope_id (`ope_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COMMENT='权限-功能操作关系表';
 
-
--- 7、功能操作表 (operate)
-DROP TABLE IF EXISTS `blog_operate`;
-CREATE TABLE `blog_operate` (
-  `id` int unsigned not null auto_increment,
-  `controller_name` varchar(32) not null default '' comment '控制器名',
-  `method_name` varchar(32) not null default '' comment '方法名',
-  `access_path` varchar(255) not null default '' comment '权限路径',
-  `message` varchar(100) not null default '' comment '备注',
-  `status`  tinyint(1) not null default '1' comment '状态 1-正常;0-删除',
-  `created_at` int unsigned not null DEFAULT '0' comment '添加时间',
-  `updated_at` int unsigned not null DEFAULT '0' comment '修改时间',
-  primary key(`id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COMMENT='功能操作表';
+--
+-- -- 7、功能操作表 (operate)
+-- DROP TABLE IF EXISTS `blog_operate`;
+-- CREATE TABLE `blog_operate` (
+--   `id` int unsigned not null auto_increment,
+--   `controller_name` varchar(32) not null default '' comment '控制器名',
+--   `method_name` varchar(32) not null default '' comment '方法名',
+--   `access_path` varchar(255) not null default '' comment '权限路径',
+--   `message` varchar(100) not null default '' comment '备注',
+--   `status`  tinyint(1) not null default '1' comment '状态 1-正常;0-删除',
+--   `created_at` int unsigned not null DEFAULT '0' comment '添加时间',
+--   `updated_at` int unsigned not null DEFAULT '0' comment '修改时间',
+--   primary key(`id`)
+-- )ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 COMMENT='功能操作表';
 
 
 
 -- 文章评论表
 CREATE TABLE IF NOT EXISTS `bg_comments` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `from_uid` int(10) NOT NULL DEFAULT '0' comment '评论人ID',
+  `from_uid` int(11) NOT NULL DEFAULT '0' comment '评论人ID',
   `type` tinyint(1) unsigened not null default '0' comment '类型,0:文章 1:评论',
   `comtents` text NOT NULL default '' comment '评论内容',
 PRIMARY KEY  (`id`),
@@ -170,10 +170,10 @@ KEY `use_num` (`use_num`)
 -- 文章评论回复表
 CREATE TABLE IF NOT EXISTS `bg_comment_replaies` (
   `id` int(11) unsigned NOT NULL auto_increment,
-  `comment_id` int(10) NOT NULL DEFAULT '0' comment '文章ID',
-  `reply_id` int(10) NOT NULL DEFAULT '0' comment '回复目标ID',
-  `from_uid` int(10) NOT NULL DEFAULT '0' comment '评论人ID',
-  `to_uid` int(10) NOT NULL DEFAULT '0' comment '目标用户ID',
+  `comment_id` int(11) NOT NULL DEFAULT '0' comment '文章ID',
+  `reply_id` int(11) NOT NULL DEFAULT '0' comment '回复目标ID',
+  `from_uid` int(11) NOT NULL DEFAULT '0' comment '评论人ID',
+  `to_uid` int(11) NOT NULL DEFAULT '0' comment '目标用户ID',
   `type` tinyint(1) unsigened not null default '0' comment '类型,0:文章 1:评论',
   `content` text NOT NULL default '' comment '评论内容',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
@@ -181,18 +181,42 @@ PRIMARY KEY  (`id`),
 KEY `use_num` (`use_num`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4;
 
-
--- 文章
-CREATE TABLE `bg_articles`(
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建者id',
+DROP TABLE IF EXISTS `bg_articles`;
+CREATE TABLE `bg_articles` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建者id',
   `title` varchar(255) NOT NULL DEFAULT '' COMMENT '文章标题',
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT '文章图片',
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT '关联文章的url',
   `keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '文章关键字',
-  `like_num` int(10) not null DEFAULT '0' comment '点赞数',
-  `read_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '阅读数',
-  `comment_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `like_num` int(11) NOT NULL DEFAULT '0' COMMENT '点赞数',
+  `read_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '阅读数',
+  `comment_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '文章分类ID',
+  `type_id` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '文章标签 0:原创 1:转载 2:翻译',
+  `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `contents` text COMMENT '文章内容',
+  `is_top` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否置顶 0:否 1:是',
+  `is_comment` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否评论 0:否 1:是',
+  `is_recommend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否推荐 0:否 1:是',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  KEY `id_category_id` (`id`,`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
+
+-- 文章
+CREATE TABLE `bg_articles`(
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建者id',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT '文章标题',
+  `image` varchar(255) NOT NULL DEFAULT '' COMMENT '文章图片',
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '关联文章的url',
+  `keyword` varchar(255) NOT NULL DEFAULT '' COMMENT '文章关键字',
+  `like_num` int(11) not null DEFAULT '0' comment '点赞数',
+  `read_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '阅读数',
+  `comment_num` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
   `category_id` INT(10) unsigned not NULL DEFAULT '0' comment '文章分类ID',
   `tag_id` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '文章标签 0:原创 1:转载 2:翻译',
   `sort` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
@@ -207,11 +231,9 @@ CREATE TABLE `bg_articles`(
   KEY `id_category_id` (`id`,`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='文章表';
 
-ALTER TABLE `blogs`.`bg_articles`
-MODIFY COLUMN `created_at` VARCHAR(255) not NULL DEFAULT '' COMMENT '创建时间' AFTER `is_recommend`;
 -- 文章分类
 CREATE TABLE `bg_article_categories`(
-  `id` int(10) unsigned NOT NULL auto_increment,
+  `id` int(11) unsigned NOT NULL auto_increment,
   `name` VARCHAR(255) NOT NULL DEFAULT '' comment'分类标题',
   `use_num` int(11) NOT NULL default '0' comment '该标签被存储的次数',
   `article_ids` VARCHAR(255) NOT NULL DEFAULT '0' comment '以json格式存放文章的ID',
@@ -220,6 +242,7 @@ CREATE TABLE `bg_article_categories`(
   `deleted_at` int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='文章分类表';
+
 
 DROP TABLE IF EXISTS `bg_article_likes`;
 CREATE TABLE `bg_article_likes`(
@@ -262,6 +285,8 @@ CREATE TABLE `bg_adverts`(
   KEY `attachment_id`(`attachment_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '广告表';
 
+
+
 -- 附件表
 CREATE TABLE IF NOT EXISTS `bg_attachments`(
   `id` int(11) unsigned NOT NULL auto_increment,
@@ -293,12 +318,15 @@ CREATE TABLE `bg_system_counts`(
   KEY `update_at`(`updated_at`)
 )ENGINE=Innodb DEFAULT CHARSET=utf8 auto_increment=1 comment='系统统计表';
 
+insert INTO `bg_system_counts` (`member_num`,`visit_num`) VALUES ('0', '0');
+
+
 -- 每日浏览统计
 DROP TABLE IF EXISTS `bg_day_counts`;
 CREATE TABLE `bg_day_counts`(
   `id` int unsigned not null auto_increment,
   `visit_ip` VARCHAR(20) not null default '' comment '访问ip',
-  `visit_num` int(10) NULL DEFAULT 0 COMMENT '用户访问的次数',
+  `visit_num` int(11) NULL DEFAULT 0 COMMENT '用户访问的次数',
   `is_member` tinyint(1) not null default '0' comment '是否是会员0-不是，1-是',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
@@ -306,13 +334,14 @@ CREATE TABLE `bg_day_counts`(
   KEY `visit_ip`(`visit_ip`)
 )ENGINE=Innodb DEFAULT CHARSET=utf8 auto_increment=1 comment='每日浏览统计';
 
+
 -- 统计用户访问信息
 DROP TABLE IF EXISTS `bg_user_visits`;
 CREATE TABLE `bg_user_visits`(
   `id` int unsigned not null auto_increment,
-  `uid` int(10) NOT NULL DEFAULT '0' COMMENT '访问用户的uid',
+  `uid` int(11) NOT NULL DEFAULT '0' COMMENT '访问用户的uid',
   `visit_ip` VARCHAR(20) NOT NULL DEFAULT '' comment '访问ip',
-  `visit_num` int(10) NOT NULL DEFAULT '0' COMMENT '用户访问的次数',
+  `visit_num` int(11) NOT NULL DEFAULT '0' COMMENT '用户访问的次数',
   `visit_url` VARCHAR(255) NOT NULL DEFAULT '' comment '访问路径',
   `is_member` tinyint(1) NOT NULL DEFAULT '0' comment '是否是会员0-不是，1-是',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP comment '创建时间',

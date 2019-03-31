@@ -30,17 +30,17 @@
             <div class="news_about"><strong>简介</strong>{{isset($article['summary']) ? $article['summary'] : ''}}</div>
             <div class="news_con"><?php echo isset($article) ? $article['contents'] :  '';?></div>
         </div>
-        <div class="share">
-            <p class="diggit">
-                <a href='JavaScript:likeArticle("{{url('article/like')}}", "{{$article['id']}}");' > 很赞哦！ </a>
-                (<b id="diggnum">
-                    <script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>13</b>)
-            </p>
-        </div>
-        <div class="nextinfo">
-            <p>上一篇：<a href="/news/life/2018-03-13/804.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>
-            <p>下一篇：<a href="/news/life/">返回列表</a></p>
-        </div>
+        {{--<div class="share">--}}
+            {{--<p class="diggit">--}}
+                {{--<a href='JavaScript:likeArticle("{{url('article/like')}}", "{{$article['id']}}");' > 很赞哦！ </a>--}}
+                {{--(<b id="diggnum">--}}
+                    {{--<script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>13</b>)--}}
+            {{--</p>--}}
+        {{--</div>--}}
+        {{--<div class="nextinfo">--}}
+            {{--<p>上一篇：<a href="/news/life/2018-03-13/804.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a></p>--}}
+            {{--<p>下一篇：<a href="/news/life/">返回列表</a></p>--}}
+        {{--</div>--}}
 
         {{--<div class="news_pl">--}}
             {{--<h2>文章评论</h2>--}}

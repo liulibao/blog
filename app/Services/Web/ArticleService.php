@@ -17,7 +17,7 @@ class ArticleService
 
     protected $model;
 
-    protected $cache_time = 3600 * 24 * 30;
+    protected $cache_time = 3600 * 24;
 
     public function __construct()
     {
