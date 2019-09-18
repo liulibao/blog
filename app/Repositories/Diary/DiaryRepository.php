@@ -38,4 +38,5 @@ class DiaryRepository extends BaseRepository
         return $result->orderBy('id', 'desc')->paginate();
     }
 
+
 }

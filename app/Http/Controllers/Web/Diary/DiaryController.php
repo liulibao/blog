@@ -28,6 +28,7 @@ class DiaryController extends BaseController
             'deleted_at' => 0
         );
         $list = $this->diaryRepository->findWhere($map)->toArray();
+
         return view('web.diary.index', compact('list'));
     }
 }

@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-//        'api.auth' => \App\Http\Middleware\ApiAuthenticate::class, //验证api
+        'api.auth' => \App\Http\Middleware\ApiAuthenticate::class, //验证api
 //        'api.refresh' => \Tymon\JWTAuth\Http\Middleware\RefreshToken::class,
 //        'api.refresh' => \App\Http\Middleware\RefreshToken::class,
 //        'test' => \App\Http\Middleware\CheckTest::class,

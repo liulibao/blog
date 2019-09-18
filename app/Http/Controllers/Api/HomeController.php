@@ -25,4 +25,10 @@ class HomeController extends Controller
             return ApiResponse::error($exception->getMessage());
         }
     }
+
+    public function home()
+    {
+        $user = auth('api')->user()->mobile;
+        return ApiResponse::success(compact('user'));
+    }
 }

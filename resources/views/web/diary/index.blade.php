@@ -63,7 +63,7 @@
                                         </time>
                                     </div>
                                     <div class="entry-content" style="color:#999999;font-size:14px;">
-                                        <p>{!! $val['contents'] !!}...</p>
+                                        <p style="display: inline-block;width: 90%;">{!! $val['contents'] !!}...</p>
                                     </div>
                                 </div>
                                 <div class="read_more_wrapper">

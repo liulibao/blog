@@ -9,8 +9,8 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Models\User;
 use App\Traits\ApiResponse;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +59,7 @@ class LoginController extends Controller
                 return ApiResponse::error('登陆异常');
             }
 
-            $token = 'bearer' . $token;
+//            $token = 'bearer' . $token;
             return ApiResponse::success(compact('token'));
 
         } catch (\Exception $exception){

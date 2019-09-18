@@ -4,13 +4,10 @@ namespace App\Http\Middleware;
 
 use App\Traits\ApiResponse;
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class ApiAuthenticate extends BaseMiddleware
 {
@@ -21,12 +18,18 @@ class ApiAuthenticate extends BaseMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        Log::info('进来了');
+        if (!$token = $request->header('authorization')) {
+            return ApiResponse::error("token不存在，非法请求！",403);
+        }
+
+        if(!Str::startsWith($token, 'Bearer ')) {
+            return ApiResponse::error("token格式错误，非法请求！",403);
+        }
+
         // 验证是否登录
         if (Auth::guard('api')->guest()) {
-
             if ($request->ajax() || $request->wantsJson()) {
                 return ApiResponse::error("请先登录",403);
             } else {

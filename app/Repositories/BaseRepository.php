@@ -272,7 +272,7 @@ abstract class BaseRepository
             }
         }
 
-        return $model->get($columns);
+        return $model->orderBy('id', 'desc')->get($columns);
     }
 
 
